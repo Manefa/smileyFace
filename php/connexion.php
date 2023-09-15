@@ -36,14 +36,14 @@ session_start();
         $servername = "localhost";
         $usernameDB = "root";
         $passwordDB = "root";
-        $dbname = "vehicule";
+        $dbname = "bdsmileyface";
 
         $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
         if ($conn->connect_error) {
             die("Connexion failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT * FROM usagers WHERE user='$email' AND password='$password'";
+        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
         echo $sql;
 
         $result = $conn->query($sql);
@@ -52,7 +52,7 @@ session_start();
             $row = $result->fetch_assoc();
             echo "<h1>Connecté</h1>";
             $_SESSION['connexion'] = true;
-            header("Location: index.php");
+            header("Location: ../index.php");
         } else {
             echo "<h1>Nom d'usager ou mot de passe invalide</h1>";
         }
@@ -67,7 +67,7 @@ session_start();
                     <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                         <div class="col-md-6">
-                            <label for="validationCustom01" class="form-label">Nom d'utilisateur</label>
+                            <label for="validationCustom01" class="form-label">Email</label>
                             <input type="text" class="form-control" id="validationCustom01" name="email" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre adresse courriel.
@@ -97,7 +97,7 @@ session_start();
             }
                 ?>
 
-                <script src="validation.js"></script>
+                <script src="../js/validation.js"></script>
                 </div>
             </div>
         </div>
