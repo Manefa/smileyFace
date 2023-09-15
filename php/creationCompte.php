@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if($_SESSION['connexion'] == false) {
+    header("Location: connexion.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +102,7 @@
                             <button class="btn btn-primary" type="submit">Créer</button>
                         </div>
                     </form>
-
+                    <span><?php echo $champsErreur; ?></span>
                 <?php
             }
 
