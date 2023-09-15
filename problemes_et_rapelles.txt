@@ -1,0 +1,21 @@
+-> 2 BD manquantes
+SatisfactionEmploye
+Usagers
+
+-> Modifier Satisfaction pour SatisfactionEtudiants
+
+-> Index.php = liste d'évènement (Nécessite connexion)
+
+->Première page de base sans session = connexion.php
+
+
+Commandes de bases
+-----------
+# Modifier
+# Ajouter
+# Supprimer
+# Créer_compte (Seulement disponible si connecter pour sécurité)
+
+### Afficher -> Renvoie sur une autre page qui affiche les statistiques
+statistiques: employe et etudiants séparé dans la page (ou dans 2 pages différentes)
+-> SatisfactionEmploye et -> SatisfactionEtudiants

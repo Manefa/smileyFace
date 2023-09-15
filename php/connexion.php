@@ -3,7 +3,7 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,19 +16,19 @@ session_start();
 
 <body>
     <?php
-        $champsErreur = "";
-        $user = $password = "";
-        $erreur = false;
+    $champsErreur = "";
+    $email = $password = "";
+    $erreur = false;
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "POST";
 
-        if (empty($_POST['user']) || empty($_POST['password'])) {
+        if (empty($_POST['email']) || empty($_POST['password'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
         }
 
-        $user = test_input($_POST['user']);
+        $email = test_input($_POST['email']);
         $password = test_input($_POST['password']);
 
         $password = sha1($password, false);
@@ -43,7 +43,7 @@ session_start();
             die("Connexion failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT * FROM usagers WHERE user='$user' AND password='$password'";
+        $sql = "SELECT * FROM usagers WHERE user='$email' AND password='$password'";
         echo $sql;
 
         $result = $conn->query($sql);
@@ -57,26 +57,25 @@ session_start();
             echo "<h1>Nom d'usager ou mot de passe invalide</h1>";
         }
         $conn->close();
-        }
-        if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-            echo "Erreur ou 1ere fois";
+    }
+    if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
+        echo "Erreur ou 1ere fois"; //Debug
     ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12">
-                    <a href="index.php">test</a>
                     <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                         <div class="col-md-6">
                             <label for="validationCustom01" class="form-label">Nom d'utilisateur</label>
-                            <input type="text" class="form-control" id="validationCustom01" name="user" required placeholder="Ex: TimHenson623">
+                            <input type="text" class="form-control" id="validationCustom01" name="email" required>
                             <div class="invalid-feedback">
-                                Veuillez entrer votre nom d'utilisteur.
+                                Veuillez entrer votre adresse courriel.
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="validationCustom02" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" id="validationCustom02" name="password" required placeholder="Ex: password (pas une bonne idée)">
+                            <input type="password" class="form-control" id="validationCustom02" name="password" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre mot de passe.
                             </div>
@@ -86,7 +85,6 @@ session_start();
                             <span style="color:red" ;><?php echo $champsErreur; ?></span><br>
                         </div>
                     </form>
-                    <button class="btn btn-secondary" id="btnCreer"><a href="creation.php" class="liens">Créer un compte</a></button>
                 <?php
             }
 
