@@ -10,13 +10,13 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Connexion</title>
 </head>
 
 <body>
     <?php
-    $champsErreur = "";
+    $champsErreur = $invalide = "";
     $email = $password = "";
     $erreur = false;
 
@@ -54,7 +54,10 @@ session_start();
             $_SESSION['connexion'] = true;
             header("Location: ../index.php");
         } else {
-            echo "<h1>Nom d'usager ou mot de passe invalide</h1>";
+            echo "<h1>Nom d'usager ou mot de passe invalide</h1>"; //Debug
+            $invalide = "Email ou mot de passe invalide.";
+            $erreur = true;
+            header("Location: connexion.php");
         }
         $conn->close();
     }
@@ -68,7 +71,7 @@ session_start();
 
                         <div class="col-md-6">
                             <label for="validationCustom01" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="validationCustom01" name="email" required>
+                            <input type="email" class="form-control" id="validationCustom01" name="email" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre adresse courriel.
                             </div>
@@ -83,6 +86,7 @@ session_start();
                         <div class="col-12">
                             <button class="btn btn-primary" type="submit">Connexion</button>
                             <span style="color:red" ;><?php echo $champsErreur; ?></span><br>
+                            <span style="color:red" ;><?php echo $invalide; ?></span><br>
                         </div>
                     </form>
                 <?php
