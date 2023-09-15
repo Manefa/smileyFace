@@ -17,33 +17,32 @@
     $erreur = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        echo "POST";
+        echo "POST"; //Debug
 
-        if (empty($_POST['user']) || empty($_POST['password']) || empty($_POST['email']) || empty($_POST['ip']) || empty($_POST['machine'])) {
+        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['password']) || empty($_POST['email'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
         }
 
-        $user = test_input($_POST['user']);
-        $password = test_input($_POST['password']);
+        $nom = test_input($_POST['nom']);
+        $prenom = test_input($_POST['prenom']);
         $email = test_input($_POST['email']);
-        $ip = test_input($_POST['ip']);
-        $machine = test_input($_POST['machine']);
+        $password = test_input($_POST['password']);
 
         $password = sha1($password, false);
 
         $servername = "localhost";
         $usernameDB = "root";
         $passwordDB = "root";
-        $dbname = "vehicule";
+        $dbname = "bdsmileyface";
 
         $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
         if ($conn->connect_error) {
             die("Connexion failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO usagers (user, email, password, ip, machine) VALUES ('$user', '$email', '$password','$ip', '$machine')";
-        echo $sql;
+        $sql = "";
+        echo $sql; //Debug
 
         if (mysqli_query($conn, $sql)) {
             echo "Compte créé!";
@@ -54,7 +53,7 @@
         $conn->close();
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-        echo "Erreur ou 1ere fois";
+        echo "Erreur ou 1ere fois"; //Debug
     ?>
 
         <div class="container-fluid">
@@ -62,66 +61,38 @@
                 <div class="col">
                     <form class="row g-3 needs-validation" novalidate>
                         <div class="col-md-4">
-                            <label for="validationCustom01" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-                            <div class="valid-feedback">
-                                Looks good!
+                            <label for="validationCustom01" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="validationCustom01" name="nom" required>
+                            <div class="invalid-feedback">
+                                Veuillez entrer votre nom.
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="validationCustom02" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-                            <div class="valid-feedback">
-                                Looks good!
+                            <label for="validationCustom02" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="validationCustom02" name="prenom" required>
+                            <div class="invalid-feedback">
+                                Veuillez entrer votre prénom.
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="validationCustomUsername" class="form-label">Username</label>
+                            <label for="validationCustomUsername" class="form-label">Email</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <input type="email" class="form-control" id="validationCustom03 aria-describedby=" inputGroupPrepend" name="email" required>
                                 <div class="invalid-feedback">
-                                    Please choose a username.
+                                    Veuillez entrer votre adresse courriel.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="validationCustom03" class="form-label">City</label>
-                            <input type="text" class="form-control" id="validationCustom03" required>
+                        <div class="col-md-4">
+                            <label for="validationCustom03" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="validationCustom04" name="password" required>
                             <div class="invalid-feedback">
-                                Please provide a valid city.
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="validationCustom04" class="form-label">State</label>
-                            <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="validationCustom05" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="validationCustom05" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid zip.
+                                Veuillez entrer votre mot de passe.
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                <label class="form-check-label" for="invalidCheck">
-                                    Agree to terms and conditions
-                                </label>
-                                <div class="invalid-feedback">
-                                    You must agree before submitting.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" type="submit">Submit form</button>
+                            <button class="btn btn-primary" type="submit">Créer</button>
                         </div>
                     </form>
 
@@ -140,7 +111,7 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-        <script src="js/validation.js"></script>
+        <script src="../js/validation.js"></script>
 </body>
 
 </html>
