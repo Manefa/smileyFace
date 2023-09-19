@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 12 Septembre 2023 à 20:44
+-- Généré le :  Mar 19 Septembre 2023 à 12:32
 -- Version du serveur :  5.7.11
--- Version de PHP :  7.0.3
+-- Version de PHP :  5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,42 +23,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `employeesatisfaction`
+--
+
+CREATE TABLE `employeesatisfaction` (
+  `idEm` int(11) NOT NULL,
+  `satisfactionlevelEm` int(11) NOT NULL,
+  `idEv` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `event`
 --
 
 CREATE TABLE `event` (
-  `idEvent` int(32) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `date` date NOT NULL,
-  `lieu` varchar(255) NOT NULL,
-  `departement` varchar(255) NOT NULL,
-  `idUsers` int(32) NOT NULL
+  `idEv` int(11) NOT NULL,
+  `nameEv` varchar(255) NOT NULL,
+  `dateEv` date NOT NULL,
+  `departementEv` varchar(255) NOT NULL,
+  `locationEv` varchar(255) CHARACTER SET ucs2 NOT NULL,
+  `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `satisfaction`
+-- Structure de la table `studentsatisfaction`
 --
 
-CREATE TABLE `satisfaction` (
-  `idSatisfaction` int(32) NOT NULL,
-  `niveauSatisfaction` int(32) NOT NULL,
-  `idEvent` int(32) NOT NULL
+CREATE TABLE `studentsatisfaction` (
+  `idEt` int(11) NOT NULL,
+  `satisfactionlevelEt` int(11) NOT NULL,
+  `idEv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure de la table `user`
 --
 
-CREATE TABLE `users` (
-  `idUsers` int(32) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+CREATE TABLE `user` (
+  `idUser` int(11) NOT NULL,
+  `lastname` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `firstname` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -66,42 +78,78 @@ CREATE TABLE `users` (
 --
 
 --
+-- Index pour la table `employeesatisfaction`
+--
+ALTER TABLE `employeesatisfaction`
+  ADD PRIMARY KEY (`idEm`),
+  ADD KEY `idEv` (`idEv`);
+
+--
 -- Index pour la table `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (`idEvent`);
+  ADD PRIMARY KEY (`idEv`),
+  ADD KEY `idUser` (`idUser`);
 
 --
--- Index pour la table `satisfaction`
+-- Index pour la table `studentsatisfaction`
 --
-ALTER TABLE `satisfaction`
-  ADD PRIMARY KEY (`idSatisfaction`);
+ALTER TABLE `studentsatisfaction`
+  ADD PRIMARY KEY (`idEt`),
+  ADD KEY `idEv` (`idEv`);
 
 --
--- Index pour la table `users`
+-- Index pour la table `user`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`idUsers`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
 --
 
 --
+-- AUTO_INCREMENT pour la table `employeesatisfaction`
+--
+ALTER TABLE `employeesatisfaction`
+  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `idEvent` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `satisfaction`
+-- AUTO_INCREMENT pour la table `studentsatisfaction`
 --
-ALTER TABLE `satisfaction`
-  MODIFY `idSatisfaction` int(32) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `studentsatisfaction`
+  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT pour la table `user`
 --
-ALTER TABLE `users`
-  MODIFY `idUsers` int(32) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `employeesatisfaction`
+--
+ALTER TABLE `employeesatisfaction`
+  ADD CONSTRAINT `fk_employeesatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`);
+
+--
+-- Contraintes pour la table `event`
+--
+ALTER TABLE `event`
+  ADD CONSTRAINT `fk_event_user` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`);
+
+--
+-- Contraintes pour la table `studentsatisfaction`
+--
+ALTER TABLE `studentsatisfaction`
+  ADD CONSTRAINT `fk_studentsatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
