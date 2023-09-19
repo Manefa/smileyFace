@@ -17,6 +17,8 @@
                 <h1>Index.php</h1>
                 <a href="php/creationCompte.php">Créer un compte</a> <br>
                 <a href="php/deconnexion.php">Déconnexion</a>
+                <div>-----------------------------------------</div>
+                <a href="php/ajouter.php">Ajouter un évènement</a>
             </div>
         </div>
     </div>

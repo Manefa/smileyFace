@@ -50,8 +50,9 @@ session_start();
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            echo "<h1>Connecté</h1>";
+            echo "<h1>Connecté</h1> ";
             $_SESSION['connexion'] = true;
+            $_SESSION['idUser'] = $row['idUser'];
             header("Location: ../index.php");
         } else {
             echo "<h1>Nom d'usager ou mot de passe invalide</h1>"; //Debug
