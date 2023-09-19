@@ -43,7 +43,7 @@ session_start();
             die("Connexion failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+        $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
         echo $sql;
 
         $result = $conn->query($sql);
@@ -57,7 +57,7 @@ session_start();
             echo "<h1>Nom d'usager ou mot de passe invalide</h1>"; //Debug
             $invalide = "Email ou mot de passe invalide.";
             $erreur = true;
-            header("Location: connexion.php");
+            //header("Location: connexion.php");
         }
         $conn->close();
     }
@@ -66,7 +66,7 @@ session_start();
     ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col">
                     <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                         <div class="col-md-6">

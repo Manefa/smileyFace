@@ -1,8 +1,10 @@
-<?php 
+<?php
 session_start();
+
 if($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,19 +22,19 @@ if($_SESSION['connexion'] == false) {
 <body>
     <?php
     $champsErreur = "";
-    $nom = $prenom = $email = $password = "";
+    $firstname = $lastname = $email = $password = "";
     $erreur = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "POST"; //Debug
 
-        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['password']) || empty($_POST['email'])) {
+        if (empty($_POST['lastname']) || empty($_POST['firstname']) || empty($_POST['password']) || empty($_POST['email'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
         }
 
-        $nom = test_input($_POST['nom']);
-        $prenom = test_input($_POST['prenom']);
+        $lastname = test_input($_POST['lastname']);
+        $firstname = test_input($_POST['firstname']);
         $email = test_input($_POST['email']);
         $password = test_input($_POST['password']);
 
@@ -48,15 +50,15 @@ if($_SESSION['connexion'] == false) {
             die("Connexion failed: " . $conn->connect_error);
         }
 
-        $sql = "";
+        $sql = "INSERT INTO user(idUser, lastname, firstname, email, password) VALUES(null,'$lastname','$firstname','$email','$password')";
         echo $sql; //Debug
 
         if (mysqli_query($conn, $sql)) {
-            echo "Compte créé!";
+            echo "Compte créé.";
+            header("Location: ../index.php");
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        header("Location: index.php");
         $conn->close();
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
@@ -66,17 +68,17 @@ if($_SESSION['connexion'] == false) {
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <form class="row g-3 needs-validation" novalidate>
+                    <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="col-md-4">
                             <label for="validationCustom01" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="validationCustom01" name="nom" required>
+                            <input type="text" class="form-control" id="validationCustom01" name="lastname" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre nom.
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="validationCustom02" class="form-label">Prénom</label>
-                            <input type="text" class="form-control" id="validationCustom02" name="prenom" required>
+                            <input type="text" class="form-control" id="validationCustom02" name="firstname" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre prénom.
                             </div>

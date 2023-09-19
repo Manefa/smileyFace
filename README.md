@@ -39,3 +39,6 @@ Un NIP est demander avant chacunes de ces actions
 
  Afficher -> Renvoie sur une autre page qui affiche les statistiques -->
  Statistiques: employe et etudiants séparé dans la page (ou dans 2 pages différentes)
+
+---
+# Remise du projet : 29 septembre
