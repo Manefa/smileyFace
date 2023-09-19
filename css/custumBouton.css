@@ -1,0 +1,21 @@
+.btn-new {
+    color: #fff;
+    background-color: #092D74;
+    border-color: #092D74;
+    height: 90px;
+    width: 100%;
+    border-radius: 8px;
+  } 
+  
+  .btn-new:hover, .btn-new:active {
+    color: #fff;
+    background-color: #000f56;
+    border-color: #000f56;
+  }
+  
+  .btn-new.focus, .btn-new:focus {
+    color: #fff;
+    background-color: #000f56;
+    border-color: #000f56;
+    box-shadow: 0 0 0 0.2rem rgb(9 45 116 / 50%);
+  }
