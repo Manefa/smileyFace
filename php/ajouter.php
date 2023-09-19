@@ -79,7 +79,7 @@ if ($_SESSION['connexion'] == false) {
                         </div>
                         <div class="col-md-6 date-input">
                             <label for="validationCustom02" class="form-label">Date de l'évènement (Format = AAAA-MM-JJ)</label>
-                            <input type="text" class="form-control" id="validationCustom02" name="dateEv" required>
+                            <input type="date" class="form-control" id="validationCustom02" name="dateEv" required>
                             <div class="invalid-feedback">
                                 Veuillez entrer la date de l'évènement
                             </div>
@@ -104,6 +104,7 @@ if ($_SESSION['connexion'] == false) {
                             <span style="color:red" ;><?php echo $champsErreur; ?></span><br>
                         </div>
                     </form>
+                    <a href="../index.php">Annulé</a>
                 </div>
             </div>
         </div>

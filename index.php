@@ -19,6 +19,47 @@
                 <a href="php/deconnexion.php">Déconnexion</a>
                 <div>-----------------------------------------</div>
                 <a href="php/ajouter.php">Ajouter un évènement</a>
+                <div>-----------------------------------------</div>
+                <table class="table" id="table1">
+                    <thead>
+                        <tr>
+                            <th scope="col">IdEv</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Département</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Suppression/Modification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "root";
+                        $db = "bdsmileyface";
+
+                        $conn = new mysqli($servername, $username, $password, $db);
+
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        $conn->query('SET NAMES utf8');
+                        $sql = "SELECT * FROM event";
+
+                        $result = $conn->query($sql);
+                            
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $id = $row["idEv"];
+                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a href='php/supprimer.php?id=". $id . "'>Supprimer </a>" .  "<a href='php/modifier.php?id=" . $id . "'>Modifier</a>" . "</td> " . "</tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

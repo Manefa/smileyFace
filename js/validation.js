@@ -4,9 +4,6 @@
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll(".needs-validation");
 
-  // Regular expression for date validation
-  const dateRegex = "/^(d{4})(/|-)(d{1,2})(/|-)(d{1,2})$/";
-
   // Loop over them and prevent submission
   Array.from(forms).forEach((form) => {
     form.addEventListener(
@@ -17,7 +14,7 @@
           event.stopPropagation();
         }
 
-        
+
 
         form.classList.add("was-validated");
       },
