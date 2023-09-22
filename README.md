@@ -6,39 +6,23 @@
 
 **Tables**:
 
-Users(idUser, nom, prenom, email, password)
+employeesatisfaction(*idEm*, nom, satisfactionLevelEm, #idEv)
 
-Event(idEvent, nom, date, lieu, departement)
+event(*idEv*, nameEv, dateEv, departementEv, locationEv, #idUser)
 
-Satisfaction(idSatisfaction, niveauSatisfaction)
+studentSatisfaction(*idEt*, satisfactionlevelEt, #idEv)
 
--> SatisfactionEmploye
--> SatisfactionEtudiant
+user(*idUser*, lastname, firstname, email, password)
 
 ---
-### Problèmes
--> 1 BD manquantes
-SatisfactionEmploye
 
--> Modifier Satisfaction pour SatisfactionEtudiants
+### À faire...
 
-### Rapelles
+Sécuriser: Création compte, Ajout, Modifier.
 
--> Index.php = liste d'évènement (Nécessite connexion)
+Système à intégrer: NIP avant toutes les pages. (nip.php)
 
-->Première page de base sans session = connexion.php
-
-Commandes de bases
-
- Modifier
- Ajouter
- Supprimer
- Créer_compte (Seulement disponible si connecter pour sécurité)
-
-Un NIP est demander avant chacunes de ces actions
-
- Afficher -> Renvoie sur une autre page qui affiche les statistiques -->
- Statistiques: employe et etudiants séparé dans la page (ou dans 2 pages différentes)
+Compléter: Pages choisir.php, voter.php et afficher.php
 
 ---
 # Remise du projet : 29 septembre

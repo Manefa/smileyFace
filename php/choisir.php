@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if($_SESSION['connexion'] == false) {
+if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
@@ -24,11 +24,31 @@ if($_SESSION['connexion'] == false) {
         <div class="row">
             <div class="col text-center">
                 <?php
-                echo "<a href='voter.php?'>Employeur</a>";
-                echo "<a href='voter.php?>Etudiant</a>";
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                } elseif (isset($_POST['id'])) {
+                    $id = $_POST['id'];
+                } else {
+                    echo "Erreur";
+                }
+                //choix 0 = employeurs
+                //choix 1 = etudiant
                 ?>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><?php echo "<a href='voter.php?id=$id&choix=0'>Employeur</a>"; ?></h4>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><?php echo "<a href='voter.php?id=$id&choix=1'>Etudiant</a>"; ?></h4>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </body>
+
 </html>
