@@ -6,7 +6,7 @@ if($_SESSION['connexion'] == false) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -44,7 +44,7 @@ if($_SESSION['connexion'] == false) {
         if($conn->query($sql) == TRUE) {
             echo "Record deleted successfully";
         }
-        header("Location: ../index.php");
+        //header("Location: ../index.php");
         $conn->close();
     ?>
 </body>
