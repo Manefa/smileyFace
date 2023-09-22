@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if($_SESSION['connexion'] == false) {
+    header("Location: connexion.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +37,10 @@
                             <th scope="col">Date</th>
                             <th scope="col">Département</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Suppression/Modification</th>
+                            <th scope="col">Suppression</th>
+                            <th scope="col">Modification</th>
+                            <th scope="col">Votes</th>
+                            <th scope="col">Afficher</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +63,7 @@
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $id = $row["idEv"];
-                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=". $id . "'>Supprimer</a>" .  "<a class='liens' href='php/modifier.php?id=" . $id . "'>Modifier</a>" . "</td> " . "</tr>";
+                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=". $id . "'>Supprimer</a>" .  "</td> " . "<td>" . "<a class='liens' href='php/modifier.php?id=" . $id . "'>Modifier</a>" . "</td>" . "<td>" . "<a class='liens' href='php/choisir.php?id=" . $id . "'>Voter</a>" .  "</td>" . "<td>" . "<a class='liens' href='php/afficher.php?id=" . $id . "'>Afficher</a>" . "</td>" . "</tr>";
                             }
                         } else {
                             echo "0 results";

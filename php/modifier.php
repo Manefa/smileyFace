@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-if($_SESSION['connexion'] == false) {
+if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 ?>
@@ -58,39 +58,39 @@ if($_SESSION['connexion'] == false) {
         }
         echo "<b>Connected successfully</b>";
         $conn->query('SET NAMES utf8');
-        $sql = "UPDATE event SET marque='$marque', modele='$modele', prix=$prix, url='$url' WHERE id=$id";
+        $sql = "UPDATE event SET nameEv='$nameEv', dateEv='$dateEv', departementEv='$departementEv', locationEv='$locationEv' WHERE idEv=$id";
 
         if ($conn->query($sql) == TRUE) {
             echo "Record updated successfully";
+            header("Location: ../index.php");
         } else {
             echo "Error updatting record" . $conn->error;
         }
-        header("Location: ../index.php");
         $conn->close();
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
         echo "Erreur ou 1ere fois";
-        $sqlsauv = "SELECT * FROM voiture WHERE id=$id";
+        $sqlsauv = "SELECT * FROM event WHERE idEv=$id";
         $servername = "localhost";
         $username = "root";
         $password = "root";
-        $db = "vehicule";
-    
+        $db = "bdsmileyface";
+
         $conn = new mysqli($servername, $username, $password, $db);
-    
+
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-    
+
         $result = $conn->query($sqlsauv);
-    
+
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $id = $row["id"];
-            $marque = $row["marque"];
-            $modele = $row["modele"];
-            $prix = $row["prix"];
-            $url = $row["url"];
+            $nameEv = $row["nameEv"];
+            $dateEv = $row["dateEv"];
+            $departementEv = $row["departementEv"];
+            $locationEv = $row["locationEv"];
+            echo $locationEv;
         } else {
             echo "0 results";
         }
@@ -100,40 +100,42 @@ if($_SESSION['connexion'] == false) {
             <div class="row text-center">
                 <div class="col-xl-12">
                     <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <input type="hidden" name="id" value="<?php echo  $id  ?>">
+                    <input type="hidden" name="id" value="<?php echo  $id  ?>">
                         <div class="col-md-6">
-                            <label for="validationCustom01" class="form-label">Marque</label>
-                            <input type="text" class="form-control" id="validationCustom01" value="<?php echo $marque ?>" name="marque" required>
+                            <label for="validationCustom01" class="form-label">Nom de l'évènement</label>
+                            <input type="text" class="form-control" id="validationCustom01" name="nameEv" value="<?php echo $nameEv ?>" required>
                             <div class="invalid-feedback">
-                                Veuillez entrer une marque de voiture.
+                                Veuillez entrer le nom de l'évènement.
+                            </div>
+                        </div>
+                        <div class="col-md-6 date-input">
+                            <label for="validationCustom02" class="form-label">Date de l'évènement (Format = AAAA-MM-JJ)</label>
+                            <input type="date" class="form-control" id="validationCustom02" name="dateEv" value="<?php echo $dateEv ?>" required>
+                            <div class="invalid-feedback">
+                                Veuillez entrer la date de l'évènement
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Département de l'évènement</label>
+                            <input type="text" class="form-control" id="validationCustom03" name="departementEv" value="<?php echo $departementEv ?>" required>
+                            <div class="invalid-feedback">
+                                Veuillez entrer le département de l'évènement.
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="validationCustom02" class="form-label">Modèle</label>
-                            <input type="text" class="form-control" id="validationCustom02" name="modele" value="<?php echo $modele ?>" required>
+                            <label for="validationCustom04" class="form-label">Location de l'évènement</label>
+                            <input type="text" class="form-control" id="validationCustom04" name="locationEv" value="<?php echo $locationEv ?>" required>
                             <div class="invalid-feedback">
-                                Veuillez entrer un modèle de voiture qui correspond à la marque.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="validationCustom03" class="form-label">Prix</label>
-                            <input type="number" class="form-control" id="validationCustom03" name="prix" value="<?php echo $prix ?>" required>
-                            <div class="invalid-feedback">
-                                Veuillez entrer le prix à l'affichage de la voiture.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="validationCustom04" class="form-label">URL</label>
-                            <input type="text" class="form-control" id="validationCustom04" name="url" value="<?php echo $url ?>" required>
-                            <div class="invalid-feedback">
-                                Veuillez entrer un URL qui pointe vers l'image de cette voiture.
+                                Veuillez entrer la location dans laquelle l'évènement va prendre place.
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary" type="submit">Confirmer</button>
+                            <button class="btn btn-primary" type="submit">Modifier l'évènement</button>
                             <span style="color:red" ;><?php echo $champsErreur; ?></span><br>
                         </div>
                     </form>
+                    <a href="../index.php">Annulé</a>
                 </div>
             </div>
         </div>
@@ -150,7 +152,7 @@ if($_SESSION['connexion'] == false) {
     }
 
     ?>
-    <script src="validation.js"></script>
+    <script src="../js/validation.js"></script>
 </body>
 
 </html>
