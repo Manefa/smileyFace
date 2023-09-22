@@ -9,14 +9,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custumBouton.css">
     <link rel="stylesheet" href="../css/title-css.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row d-flex justify-content-between">
             <div class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center">
                 <img src="../assets/logo.svg" width="70" height="70" alt="logo">
-                <h1 class="ms-5 fw-bold ">Cegep Tr</h1>
+                <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
+            </div>
+
+
+            <div class="col-md-3 mt-4 ms-4 ">
+                <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
+                    <img src="../assets/exit.svg" width="50" height="50" alt="sortir img">
+                    <h1 class="ms-2 me-4 text-black">Sortir</h1>
+                </a>
             </div>
 
         </div>
