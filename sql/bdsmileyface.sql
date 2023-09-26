@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 19 Septembre 2023 à 12:32
+-- Généré le :  Mar 26 Septembre 2023 à 19:19
 -- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Version de PHP :  7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -43,7 +43,7 @@ CREATE TABLE `event` (
   `nameEv` varchar(255) NOT NULL,
   `dateEv` date NOT NULL,
   `departementEv` varchar(255) NOT NULL,
-  `locationEv` varchar(255) CHARACTER SET ucs2 NOT NULL,
+  `locationEv` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -67,10 +67,10 @@ CREATE TABLE `studentsatisfaction` (
 
 CREATE TABLE `user` (
   `idUser` int(11) NOT NULL,
-  `lastname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `firstname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 NOT NULL
+  `lastname` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -136,7 +136,7 @@ ALTER TABLE `user`
 -- Contraintes pour la table `employeesatisfaction`
 --
 ALTER TABLE `employeesatisfaction`
-  ADD CONSTRAINT `fk_employeesatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`);
+  ADD CONSTRAINT `fk_employeesatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `event`
@@ -148,7 +148,7 @@ ALTER TABLE `event`
 -- Contraintes pour la table `studentsatisfaction`
 --
 ALTER TABLE `studentsatisfaction`
-  ADD CONSTRAINT `fk_studentsatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`);
+  ADD CONSTRAINT `fk_studentsatisfaction_event` FOREIGN KEY (`idEv`) REFERENCES `event` (`idEv`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
