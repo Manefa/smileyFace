@@ -58,7 +58,7 @@
         <div class="row mt-5 d-flex justify-content-center align-items-center">
             <div class="col-md-4 ">
                 <div href="#" class="btn btn-new d-flex justify-content-center align-items-center">
-                    <h3><a class="me-0" id="linkText" style="color: white; text-decoration: none; " href="pages/evaluation.php">Evaluer !</a></h3>
+                    <h3><a class="me-0" id="linkText" style="color: white; text-decoration: none; " href="home.php">Evaluer !</a></h3>
                 </div>
             </div>
 

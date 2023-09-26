@@ -25,7 +25,7 @@
                 <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
 
                     <div class="bg-secondary bg-opacity-50" style="border-radius: 8px;">
-                        <h1 class="text-dark mx-2 my-2">MY</h1>
+                        <h3 class="text-dark mx-3 my-3">MY</h3>
                     </div>
                 </a>
             </div>
@@ -33,16 +33,49 @@
         </div>
 
         <div class="row">
-            <h1 style="padding-left: 0px;" class="mb-3 mt-3">Evenement A venir</h1>
+            <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenement a venir</h1>
         </div>
 
-        <div class="row d-flex justify-content-between ms-4 me-4 mt-5">
+
+        <div class="row d-flex justify-content-start ms-1 me-4 mt-2">
+
+            <div class="card mx-2 my-2" style="width: 22rem;">
+
+                <div class="card-body  d-flex flex-column ">
+                    <h5 class="card-title">Reunion de coordination</h5>
+                    <div class=" mb-5 d-flex">
+                        <p class="card-text">Informatique</p>
+                        <p class="card-text ms-1 me-1">|</p>
+                        <p class="card-text">Gox</p>
+                    </div>
+
+                    <div class="col-md-12 mt-5  d-flex justify-content-end ">
+                        <button type="button" class="btn btn-warning">
+                            <a href="ajouter.php"><img src="../assets/Edit 3.svg" alt=""></a>
+
+                        </button>
+                        <button type="button" class="btn btn-danger ms-2">
+                            <a href="connexion.php">
+                                <img src="../assets/Delete 3.svg" alt="">
+                            </a>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
 
 
+        </div>
 
-            <div class="card" style="width: 18rem;">
+        <div class="row">
+            <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenement passes</h1>
+        </div>
 
-                <div class="card-body   d-flex flex-column ">
+        <div class="row d-flex justify-content-start ms-1 me-4 mt-2">
+
+            <div class="card mx-2 my-2" style="width: 22rem;">
+
+                <div class="card-body  d-flex flex-column ">
                     <h5 class="card-title">Reunion de coordination</h5>
                     <div class=" mb-5 d-flex">
                         <p class="card-text">Informatique</p>
@@ -62,23 +95,7 @@
                 </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
 
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
         </div>
     </div>
 

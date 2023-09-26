@@ -1,0 +1,11 @@
+.custom-tag {
+    display: inline-block; /* Pour que la largeur s'adapte au contenu */
+    margin: 4px; /* Espacement autour du tag */
+    border-radius: 4px; /* Coins arrondis */
+    padding: 4px 8px; /* Espacement interne du tag */
+    max-width: 80%; /* Ajustez cette valeur en fonction de vos besoins */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    overflow: hidden; /* Masque le texte débordant */
+    text-overflow: ellipsis;
+  }
+  
