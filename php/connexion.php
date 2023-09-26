@@ -1,4 +1,3 @@
-<!-- Copié -> a changer.-->
 <?php
 session_start();
 ?>

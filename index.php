@@ -63,7 +63,7 @@ if($_SESSION['connexion'] == false) {
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $id = $row["idEv"];
-                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=". $id . "&redirection=". "supprimer"."'>Supprimer</a>" .  "</td> " . "<td>" . "<a class='liens' href='php/nip.php?id=" . $id . "&redirection=". "modifier"."'>Modifier</a>" . "</td>" . "<td>" . "<a class='liens' href='php/choisir.php?id=" . $id . "'>Voter</a>" .  "</td>" . "<td>" . "<a class='liens' href='php/afficher.php?id=" . $id . "'>Afficher</a>" . "</td>" . "</tr>";
+                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=". $id . "'>Supprimer</a>" .  "</td> " . "<td>" . "<a class='liens' href='php/modifier.php?id=" . $id . "'>Modifier</a>" . "</td>" . "<td>" . "<a class='liens' href='php/choisir.php?id=" . $id . "'>Voter</a>" .  "</td>" . "<td>" . "<a class='liens' href='php/afficher.php?id=" . $id . "'>Afficher</a>" . "</td>" . "</tr>";
                             }
                         } else {
                             echo "0 results";
