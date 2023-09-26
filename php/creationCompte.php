@@ -49,7 +49,7 @@ if($_SESSION['connexion'] == false) {
         if ($conn->connect_error) {
             die("Connexion failed: " . $conn->connect_error);
         }
-
+        $conn->query('SET NAMES utf8');
         $sql = "INSERT INTO user(idUser, lastname, firstname, email, password) VALUES(null,'$lastname','$firstname','$email','$password')";
         echo $sql; //Debug
 
