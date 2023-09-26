@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/custumBouton.css">
     <link rel="stylesheet" href="../css/title-css.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Home</title>
 </head>
 
@@ -21,13 +22,23 @@
             </div>
 
 
-            <div class="col-md-2 mt-4 me-4 d-flex justify-content-end">
-                <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
+            <div class=" col-md-2 mt-4 me-4 d-flex justify-content-end">
 
-                    <div class="bg-secondary bg-opacity-50" style="border-radius: 8px;">
-                        <h3 class="text-dark mx-3 my-3">MY</h3>
+                <a href="ajouter.php" class="d-flex flex-row align-items-center justify-content-end me-2" style="text-decoration: none;">
+
+                    <div class="bg-success bg-opacity-80" style="border-radius: 8px;">
+                        <img src="../assets/Add.svg" class="mx-2 my-2" width="50" height="50" alt="logo">
                     </div>
                 </a>
+
+                <a href="user.php" class="d-flex flex-row align-items-center justify-content-end" style="text-decoration: none;">
+
+                    <div class="bg-secondary  bg-opacity-50 w-100" style="border-radius: 8px;">
+                        <h3 class="text-dark mx-3 my-3">GG</h3>
+                    </div>
+                </a>
+
+
             </div>
 
         </div>
@@ -50,6 +61,12 @@
                     </div>
 
                     <div class="col-md-12 mt-5  d-flex justify-content-end ">
+                        <button type="button" class="btn btn-danger me-2">
+                            <a href="connexion.php">
+                                <img src="../assets/Delete 3.svg" alt="">
+                            </a>
+                        </button>
+
                         <button type="button" class="btn btn-warning">
                             <a href="ajouter.php"><img src="../assets/Edit 3.svg" alt=""></a>
 
@@ -59,6 +76,8 @@
                                 <img src="../assets/Delete 3.svg" alt="">
                             </a>
                         </button>
+
+
                     </div>
 
                 </div>
@@ -94,9 +113,8 @@
 
                 </div>
             </div>
-
-
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
