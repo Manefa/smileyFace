@@ -23,6 +23,7 @@ if ($_SESSION['connexion'] == false) {
     <?php
 
     $nameEv = $dateEv = $departementEv = $locationEv = "";
+    $time = $minute = $period = "";
     $idUser = $_SESSION['idUser'];
 
     $champsErreur = "";
@@ -75,6 +76,7 @@ if ($_SESSION['connexion'] == false) {
         $password = "root";
         $db = "smileface";
 
+
         $conn = new mysqli($servername, $username, $password, $db);
 
         if ($conn->connect_error) {
@@ -83,22 +85,65 @@ if ($_SESSION['connexion'] == false) {
 
         $conn->query('SET NAMES utf8');
 
-        $sql = "INSERT INTO event(idEv, nameEv, dateEv, locationEv, idUser) VALUES (null, '$nameEv', '$dateEv', '$locationEv', '$idUser')";
+        date_default_timezone_set('America/New_York');
+        $combinedDT = date('Y-m-d H:i:s', strtotime("$dateEv $time.':'.$minute"));
 
+        $sql = "INSERT INTO event(idEv, nameEv, dateEv, locationEv, idUser) VALUES (null, '$nameEv', '$combinedDT', '$locationEv', '$idUser')";
+
+        // Exécutez la requête
+        if ($conn->query($sql) === true) {
+            echo "evenement insérée avec succès.";
+        } else {
+            echo "Erreur lors de l'insertion du l'evenement : " . $conn->error;
+        }
+
+        $selectedDepartements = json_decode($_POST["selectedDepartements"], true);
+      
         // Boucle pour insérer chaque departement en base de données
         foreach ($selectedDepartements as $category) {
+            echo($category);
+
+            $idEv = 0;
+            $idDpt = 0;
+
+            $sql = "SELECT idEv FROM event ORDER BY idEv DESC LIMIT 1";
+
+            $sqlIdDpt = "SELECT id FROM departement WHERE `Name` = '$category'";
+
+            $result = $conn->query($sql);
+
+            $resultIdDpt = $conn->query($sqlIdDpt);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+
+                    $idEv = $row['idEv'];
+                }
+            } else {
+                //echo "0 results";
+            }
+
+            if ($resultIdDpt->num_rows > 0) {
+                while ($row = $resultIdDpt->fetch_assoc()) {
+
+                    $idDpt = $row['id'];
+                }
+            } else {
+                //echo "0 results";
+            }
+
             // Échappez les valeurs pour éviter les injections SQL (utilisez la méthode adéquate en fonction de votre bibliothèque de base de données)
-            $idEv = $mysqli->real_escape_string($category['idEv']);
-            $idDpt = $mysqli->real_escape_string($category['idDpt']);
+            //$idEv = $mysqli->real_escape_string($category['idEv']);
+            //$idDpt = $mysqli->real_escape_string($category['idDpt']);
 
             // Requête SQL pour l'insertion
-            $sql = "INSERT INTO liason (id, idEv, idDpt) VALUES (NULL, '$idEv', '$idDpt')";
+            $sqlInsertDept = "INSERT INTO liason (id, idEv, idDpt) VALUES (NULL, '$idEv', '$idDpt')";
 
             // Exécutez la requête
-            if ($mysqli->query($sql) === true) {
+            if ($conn->query($sqlInsertDept) === true) {
                 echo "departement insérée avec succès.";
             } else {
-                echo "Erreur lors de l'insertion de la departement : " . $mysqli->error;
+                echo "Erreur lors de l'insertion du departement : " . $conn->error;
             }
         }
 
@@ -290,6 +335,8 @@ if ($_SESSION['connexion'] == false) {
                         updateSelectedDepartements();
                     }
                 });
+
+                console.log(JSON.stringify(selectedDepartements));
 
                 $("#selectedDepartementsInput").val(JSON.stringify(selectedDepartements));
             }
