@@ -1,4 +1,8 @@
 <?php
+session_start();
+if ($_SESSION['connexion'] == false) {
+    header("Location: pages/connexion.php");
+}
 // ... (votre code PHP de session_start() et de connexion à la base de données ici) ...
 
 $servername = "localhost";
@@ -22,6 +26,7 @@ $evenements_passes = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $evenement = [
+            'idEv' => $row['idEv'],
             'nom' => $row['nameEv'],
             'date' => $row['dateEv'],
             'location' => $row['locationEv']
@@ -92,49 +97,44 @@ $conn->close();
             <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenements à venir</h1>
         </div>
 
-        <div class="row ms-1 me-4 mt-2">
-            
+        <div class="row  ms-1 me-4 mt-2">
+            <?php if (empty($evenements_a_venir)) : ?>
 
-                <?php if (empty($evenements_a_venir)) : ?>
-                    
-                    <div class="col-md-12 text-center">
-                        <img src="chemin/vers/votre/svg.svg" alt="Aucun événement à venir">
-                        <p>Aucun événement à venir pour le moment.</p>
-                    </div>
-                <?php else : ?>
-                    
-                    <?php foreach ($evenements_a_venir as $evenement) : ?>
-                        <div class="card mx-2 my-2" style="width: 22rem;">
-                            
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title"><?= $evenement['nom'] ?></h5>
-                                <div class="mb-5 d-flex">
-                                    <p class="card-text">informatique</p>
-                                    <p class="card-text ms-1 me-1">|</p>
-                                    <p class="card-text"><?= $evenement['location'] ?></p>
-                                </div>
-                                <div class="col-md-12 mt-5 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-danger me-2">
-                                        <a href="connexion.php">
-                                            <img src="assets/Delete 3.svg" alt="">
-                                        </a>
-                                    </button>
-                                    <button type="button" class="btn btn-warning">
-                                        <a href="ajouter.php"><img src="assets/Edit 3.svg" alt=""></a>
-                                    </button>
-                                    <button type="button" class="btn btn-danger ms-2">
-                                        <a href="connexion.php">
-                                            <img src="assets/Delete 3.svg" alt="">
-                                        </a>
-                                    </button>
-                                </div>
+                <div class="col-md-12 text-center">
+                    <img src="chemin/vers/votre/svg.svg" alt="Aucun événement passé">
+                    <p>Aucun événement a venir pour le moment.</p>
+                </div>
+            <?php else : ?>
+
+                <?php foreach ($evenements_a_venir as $evenement) : ?>
+                    <div class="card mx-2 my-2" style="width: 22rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?= $evenement['nom'] ?></h5>
+                            <div class="mb-5 d-flex">
+                                <p class="card-text">informatique</p>
+                                <p class="card-text ms-1 me-1">|</p>
+                                <p class="card-text"><?= $evenement['location'] ?></p>
                             </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                        </div>
-           
+                            <div class="col-md-12 mt-5 d-flex justify-content-end">
+                            <a href="pages/modifier.php?id=<?php echo $evenement["idEv"]; ?>">
+                                    <button type="button" class="btn btn-warning">
+                                        <img src="assets/Edit 3.svg" alt="">
+                                    </button>
+                                </a>
+                                <a href="php/supprimer.php?id=<?php echo $evenement["idEv"]; ?>">
+                                    <button type="button" class="btn btn-danger ms-2">
+                                        <img src="assets/Delete 3.svg" alt="">
 
+                                    </button>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
+
 
         <div class="row">
             <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenements passés</h1>
@@ -142,13 +142,13 @@ $conn->close();
 
         <div class="row  ms-1 me-4 mt-2">
             <?php if (empty($evenements_passes)) : ?>
-                
+
                 <div class="col-md-12 text-center">
                     <img src="chemin/vers/votre/svg.svg" alt="Aucun événement passé">
                     <p>Aucun événement passé pour le moment.</p>
                 </div>
             <?php else : ?>
-                
+
                 <?php foreach ($evenements_passes as $evenement) : ?>
                     <div class="card mx-2 my-2" style="width: 22rem;">
                         <div class="card-body d-flex flex-column">
@@ -159,12 +159,18 @@ $conn->close();
                                 <p class="card-text"><?= $evenement['location'] ?></p>
                             </div>
                             <div class="col-md-12 mt-5 d-flex justify-content-end">
-                                <button type="button" class="btn btn-warning">
-                                    <img src="assets/Edit 3.svg" alt="">
-                                </button>
-                                <button type="button" class="btn btn-danger ms-2">
-                                    <img src="assets/Delete 3.svg" alt="">
-                                </button>
+                                <a href="pages/modifier.php?id=<?php echo $evenement["idEv"]; ?>">
+                                    <button type="button" class="btn btn-warning">
+                                        <img src="assets/Edit 3.svg" alt="">
+                                    </button>
+                                </a>
+
+                                <a href="pages/supprimer.php?id=<?php echo $evenement["idEv"]; ?>">
+                                    <button type="button" class="btn btn-danger ms-2">
+                                        <img src="assets/Delete 3.svg" alt="">
+
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

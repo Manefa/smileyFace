@@ -16,13 +16,14 @@ if ($_SESSION['connexion'] == false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style_add_form.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <title>Ajouter</title>
+    <title>Modifier</title>
 </head>
 
 <body>
     <?php
 
     $idUser = $_SESSION['idUser'];
+    $idEv = $_GET['id'];
     $nameEv = "";
     $dateEv = "";
     $departementEv = "";
@@ -30,7 +31,15 @@ if ($_SESSION['connexion'] == false) {
     $time = "";
     $minute =  "";
     $period = "";
-    
+
+    $oldNameEv = "";
+    $oldDateEv = "";
+    $oldDepartementEv = "";
+    $oldLocationEv = "";
+    $oldTime = "";
+    $oldMinute =  "";
+    $oldPeriod = "";
+
     $champsErreur = "";
     $erreur = false;
     $tuples = array();
@@ -47,9 +56,19 @@ if ($_SESSION['connexion'] == false) {
     $sql = "SELECT * FROM departement";
     $result = $mysqli->query($sql);
 
+    // Requête SQL pour récupérer tous les départements
+
+    $sqlEvent = "SELECT * FROM `event` WHERE `idEv` = $idEv";
+    $resultEvent = $mysqli->query($sqlEvent);
+
     // Vérifier si la requête a réussi
     if ($result === false) {
         die("Erreur lors de la récupération des départements : " . $mysqli->error);
+    }
+
+    // Vérifier si la requête a réussi
+    if ($resultEvent === false) {
+        die("Erreur lors de la récupération de l'evenements : " . $mysqli->error);
     }
 
     while ($row = $result->fetch_assoc()) {
@@ -60,6 +79,33 @@ if ($_SESSION['connexion'] == false) {
         );
 
         $tuples[] = $tuple;
+    }
+
+    while ($row = $resultEvent->fetch_assoc()) {
+
+        $oldNameEv = $row['nameEv'];
+        $oldDateEv = $row['dateEv'];
+        $oldLocationEv = $row['locationEv'];
+        // Chaîne de temps
+        $timeString = $row['timeEv'];
+
+        // Divisez la chaîne en trois parties en utilisant l'espace comme délimiteur
+        $timeParts = explode(' ', $timeString);
+
+       
+            $time = $timeParts[0]; // Heures et minutes (12.50)
+            $ampm = $timeParts[1]; // AM/PM (PM)
+
+            // Divisez à nouveau la partie "heures et minutes" en heures et minutes
+            list($hours, $minutes) = explode('.', $time);
+
+            echo "Heures: " . $hours . "<br>";
+            echo "Minutes: " . $minutes . "<br>";
+            echo "AM/PM: " . $ampm;
+       
+        $oldTime = $hours;
+        $oldMinute =  $minutes;
+        $oldPeriod = $ampm;
     }
 
     // Fermez la connexion à la base de données
@@ -77,7 +123,7 @@ if ($_SESSION['connexion'] == false) {
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
         $period =  test_input($_POST["eventAMPM"]);
-        $timeEv = $time.":".$minute." ".$period;
+        $timeEv = $time . ":" . $minute . " " . $period;
         $servername = "localhost";
         $username = "root";
         $password = "root";
@@ -143,10 +189,10 @@ if ($_SESSION['connexion'] == false) {
             // Exécutez la requête
             if ($conn->query($sqlInsertDept) === true) {
                 //echo "departement insérée avec succès.";
-               
+
             } else {
                 //echo "Erreur lors de l'insertion du departement : " . $conn->error;
-                
+
             }
         }
 
@@ -179,7 +225,7 @@ if ($_SESSION['connexion'] == false) {
                 </div>
             </div>
             <div class="row">
-                <h1 style="padding-left: 0px;" class="text-center mt-5">Ajouter un evenement</h1>
+                <h1 style="padding-left: 0px;" class="text-center mt-5">Modifier l'evenement xxxxx</h1>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -191,11 +237,11 @@ if ($_SESSION['connexion'] == false) {
                                         <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
                                                 <span class="form-label">Nom</span>
-                                                <input class="form-control" name="eventName" type="text" placeholder="Entrer le nom de l'evenement">
+                                                <input class="form-control" name="eventName" type="text" value="<?php echo $oldNameEv; ?>" placeholder="Entrer le nom de l'evenement">
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Lieu</span>
-                                                <input class="form-control" name="location" type="text" placeholder="Entrer le lieu de l'evenement">
+                                                <input class="form-control" name="location" type="text" value="<?php echo $oldLocationEv; ?>" placeholder="Entrer le lieu de l'evenement">
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Sélectionner le(s) département(s) concerné(s) :</span>
@@ -223,7 +269,7 @@ if ($_SESSION['connexion'] == false) {
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <span class="form-label">Date</span>
-                                                        <input class="form-control" name="eventDate" type="date" required>
+                                                        <input class="form-control" name="eventDate" value="<?php echo $oldDateEv; ?>" type="date" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7">
@@ -231,19 +277,19 @@ if ($_SESSION['connexion'] == false) {
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <span class="form-label">Heure</span>
-                                                                <select class="form-control" name="eventHour">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                    <option>4</option>
-                                                                    <option>5</option>
-                                                                    <option>6</option>
-                                                                    <option>7</option>
-                                                                    <option>8</option>
-                                                                    <option>9</option>
-                                                                    <option>10</option>
-                                                                    <option>11</option>
-                                                                    <option>12</option>
+                                                                <select class="form-control" name="eventHour" >
+                                                                    <option value="1" <?php if ($oldTime == "1") echo "selected"; ?>>1</option>
+                                                                    <option value="2" <?php if ($oldTime == "2") echo "selected"; ?>>2</option>
+                                                                    <option value="3" <?php if ($oldTime == "3") echo "selected"; ?>>3</option>
+                                                                    <option value="4" <?php if ($oldTime == "4") echo "selected"; ?>>4</option>
+                                                                    <option value="5" <?php if ($oldTime == "5") echo "selected"; ?>>5</option>
+                                                                    <option value="6" <?php if ($oldTime == "6") echo "selected"; ?>>6</option>
+                                                                    <option value="7" <?php if ($oldTime == "7") echo "selected"; ?>>7</option>
+                                                                    <option value="8" <?php if ($oldTime == "8") echo "selected"; ?>>8</option>
+                                                                    <option value="9" <?php if ($oldTime == "9") echo "selected"; ?>>9</option>
+                                                                    <option value="10" <?php if ($oldTime == "10") echo "selected"; ?>>10</option>
+                                                                    <option value="11" <?php if ($oldTime == "11") echo "selected"; ?>>11</option>
+                                                                    <option value="11" <?php if ($oldTime == "11") echo "selected"; ?>>12</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -251,17 +297,17 @@ if ($_SESSION['connexion'] == false) {
                                                             <div class="form-group">
                                                                 <span class="form-label">Minute</span>
                                                                 <select class="form-control" name="eventMinute">
-                                                                    <option>05</option>
-                                                                    <option>10</option>
-                                                                    <option>15</option>
-                                                                    <option>20</option>
-                                                                    <option>25</option>
-                                                                    <option>30</option>
-                                                                    <option>35</option>
-                                                                    <option>40</option>
-                                                                    <option>45</option>
-                                                                    <option>50</option>
-                                                                    <option>55</option>
+                                                                    <option value="05" <?php if ($oldMinute == "05") echo "selected"; ?>>05</option>
+                                                                    <option value="10" <?php if ($oldMinute == "10") echo "selected"; ?>>10</option>
+                                                                    <option value="15" <?php if ($oldMinute == "15") echo "selected"; ?>>15</option>
+                                                                    <option value="20" <?php if ($oldMinute == "20") echo "selected"; ?>>20</option>
+                                                                    <option value="25" <?php if ($oldMinute == "25") echo "selected"; ?>>25</option>
+                                                                    <option value="30" <?php if ($oldMinute == "30") echo "selected"; ?>>30</option>
+                                                                    <option value="35" <?php if ($oldMinute == "35") echo "selected"; ?>>35</option>
+                                                                    <option value="40" <?php if ($oldMinute == "40") echo "selected"; ?>>40</option>
+                                                                    <option value="45" <?php if ($oldMinute == "45") echo "selected"; ?>>45</option>
+                                                                    <option value="50" <?php if ($oldMinute == "50") echo "selected"; ?>>50</option>
+                                                                    <option value="55" <?php if ($oldMinute == "55") echo "selected"; ?>>55</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -269,8 +315,8 @@ if ($_SESSION['connexion'] == false) {
                                                             <div class="form-group">
                                                                 <span class="form-label">AM/PM</span>
                                                                 <select class="form-control" name="eventAMPM">
-                                                                    <option>AM</option>
-                                                                    <option>PM</option>
+                                                                    <option value="AM" <?php if ($oldPeriod == "AM") echo "selected"; ?>>AM</option>
+                                                                    <option value="PM" <?php if ($oldPeriod == "PM") echo "selected"; ?>>PM</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -278,7 +324,7 @@ if ($_SESSION['connexion'] == false) {
                                                 </div>
                                             </div>
                                             <div class="form-btn">
-                                                <button class="submit-btn" type="submit">Ajouter</button>
+                                                <button class="submit-btn" type="submit">Modifier</button>
                                             </div>
                                         </form>
                                     </div>
@@ -287,7 +333,7 @@ if ($_SESSION['connexion'] == false) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 text-center d-flex align-items-center justify-content-center mb-5">
+                <div class="col-md-6 text-center d-flex align-items-center justify-content-center mb-5">
                     <img class="img-fluid" height="80%" width="80%" class="img-fluid" src="../assets/Add files-cuate.svg" alt="etudiant">
                 </div>
             </div>
