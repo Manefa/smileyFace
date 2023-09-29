@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['connexion'] == false) {
-    header("Location: php/connexion.php");
+    header("Location: connexion.php");
 }
 ?>
 
@@ -42,33 +42,39 @@ if ($_SESSION['connexion'] == false) {
         if (empty($_POST['nameEv']) || empty($_POST['dateEv']) || empty($_POST['departementEv']) || empty($_POST['locationEv'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
-        }
-        $nameEv = test_input($_POST["nameEv"]);
-        $dateEv = test_input($_POST["dateEv"]);
-        $departementEv = test_input($_POST["departementEv"]);
-        $locationEv = test_input($_POST["locationEv"]);
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $db = "bdsmileyface";
-
-        $conn = new mysqli($servername, $username, $password, $db);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        echo "<b>Connected successfully</b>";
-        $conn->query('SET NAMES utf8');
-        $sql = "UPDATE event SET nameEv='$nameEv', dateEv='$dateEv', departementEv='$departementEv', locationEv='$locationEv' WHERE idEv=$id";
-
-        if ($conn->query($sql) == TRUE) {
-            echo "Record updated successfully";
-            header("Location: ../index.php");
         } else {
-            echo "Error updatting record" . $conn->error;
+            $nameEv = test_input($_POST["nameEv"]);
+            $dateEv = test_input($_POST["dateEv"]);
+            $departementEv = test_input($_POST["departementEv"]);
+            $locationEv = test_input($_POST["locationEv"]);
+
+            if (DateTime::createFromFormat("Y-m-d", $dateEv) != true) {
+                $dateErreur = "Veuillez entrer une date valide";
+                $erreur = true;
+            } else {
+                $servername = "localhost";
+                $username = "root";
+                $password = "root";
+                $db = "bdsmileyface";
+
+                $conn = new mysqli($servername, $username, $password, $db);
+
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                echo "<b>Connected successfully</b>";
+                $conn->query('SET NAMES utf8');
+                $sql = "UPDATE event SET nameEv='$nameEv', dateEv='$dateEv', departementEv='$departementEv', locationEv='$locationEv' WHERE idEv=$id";
+
+                if ($conn->query($sql) == TRUE) {
+                    echo "Record updated successfully";
+                    header("Location: ../index.php");
+                } else {
+                    echo "Error updatting record" . $conn->error;
+                }
+                $conn->close();
+            }
         }
-        $conn->close();
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
         echo "Erreur ou 1ere fois";
@@ -92,7 +98,6 @@ if ($_SESSION['connexion'] == false) {
             $dateEv = $row["dateEv"];
             $departementEv = $row["departementEv"];
             $locationEv = $row["locationEv"];
-            echo $locationEv;
         } else {
             echo "0 results";
         }
@@ -102,7 +107,7 @@ if ($_SESSION['connexion'] == false) {
             <div class="row text-center">
                 <div class="col-xl-12">
                     <form class="row g-3 needs-validation" novalidate action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <input type="hidden" name="id" value="<?php echo  $id  ?>">
+                        <input type="hidden" name="id" value="<?php echo  $id  ?>">
                         <div class="col-md-6">
                             <label for="validationCustom01" class="form-label">Nom de l'évènement</label>
                             <input type="text" class="form-control" id="validationCustom01" name="nameEv" value="<?php echo $nameEv ?>" required>
@@ -154,6 +159,7 @@ if ($_SESSION['connexion'] == false) {
     }
 
     ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="../js/validation.js"></script>
 </body>
 
