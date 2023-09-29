@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if($_SESSION['connexion'] == false) {
+if ($_SESSION['connexion'] == false) {
     header("Location: php/connexion.php");
 }
 
@@ -25,13 +25,16 @@ if($_SESSION['connexion'] == false) {
         <div class="row">
             <div class="col">
                 <h1>Index.php</h1>
-                <div>-----------------------------------------</div>
-                <a class='liens' href="php/creationCompte.php"><img src="svg/addUser.svg" alt="Créer un compte"></a> <br>
-                <div>-----------------------------------------</div>
+                
+                <a class='liens' href="php/creationCompte.php"><img src="svg/addUser.svg" alt="Créer un compte"></a>
+                <h4>Création de compte</h4>
+
                 <a class='liens' href="php/deconnexion.php"><img src="svg/logOut.svg" alt="Déconnexion"></a>
-                <div>-----------------------------------------</div>
+                <h4>Déconnexion</h4>
+
                 <a class='liens' href="php/ajouter.php"><img src="svg/addEvent.svg" alt="Ajouter un évènement"></a>
-                <div>-----------------------------------------</div>
+                <h4>Ajout d'évènement</h4>
+
                 <table class="table" id="table1">
                     <thead>
                         <tr>
@@ -62,11 +65,11 @@ if($_SESSION['connexion'] == false) {
                         $sql = "SELECT * FROM event";
 
                         $result = $conn->query($sql);
-                            
+
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $id = $row["idEv"];
-                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=". $id . "'><img src='svg/deleteEvent.svg' alt='Supprimer'/></a>" .  "</td> " . "<td>" . "<a class='liens' href='php/modifier.php?id=" . $id . "'><img src='svg/editEvent.svg' alt='Modifier'/></a>" . "</td>" . "<td>" . "<a class='liens' href='php/choisir.php?id=" . $id . "'><img src='svg/vote.svg' alt='Voter'/></a>" .  "</td>" . "<td>" . "<a class='liens' href='php/afficher.php?id=" . $id . "'><img src='svg/showVote.svg' alt='Afficher'/></a>" . "</td>" . "</tr>";
+                                echo "<tr>" . " <th scope = 'row'> " . $row["idEv"] . "</th>" . "<td>" . $row["nameEv"] . "</td>" . "<td>" . $row["dateEv"] . "</td>" . "<td>" . $row["departementEv"] . "</td>" . "<td>" . $row["locationEv"] . "</td>" . "<td>" . "<a class='liens' href='php/supprimer.php?id=" . $id . "'><img src='svg/deleteEvent.svg' alt='Supprimer'/></a>" .  "</td> " . "<td>" . "<a class='liens' href='php/modifier.php?id=" . $id . "'><img src='svg/editEvent.svg' alt='Modifier'/></a>" . "</td>" . "<td>" . "<a class='liens' href='php/choisir.php?id=" . $id . "'><img src='svg/vote.svg' alt='Voter'/></a>" .  "</td>" . "<td>" . "<a class='liens' href='php/afficher.php?id=" . $id . "'><img src='svg/showVote.svg' alt='Afficher'/></a>" . "</td>" . "</tr>";
                             }
                         } else {
                             echo "0 results";

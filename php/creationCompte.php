@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if($_SESSION['connexion'] == false) {
-    header("Location: connexion.php");
+if ($_SESSION['connexion'] == false) {
+    header("Location: php/connexion.php");
 }
 
 ?>
@@ -16,6 +16,7 @@ if($_SESSION['connexion'] == false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/logo.svg">
     <title>Création de compte</title>
 </head>
 
@@ -31,35 +32,35 @@ if($_SESSION['connexion'] == false) {
         if (empty($_POST['lastname']) || empty($_POST['firstname']) || empty($_POST['password']) || empty($_POST['email'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
-        }
-
-        $lastname = test_input($_POST['lastname']);
-        $firstname = test_input($_POST['firstname']);
-        $email = test_input($_POST['email']);
-        $password = test_input($_POST['password']);
-
-        $password = sha1($password, false);
-
-        $servername = "localhost";
-        $usernameDB = "root";
-        $passwordDB = "root";
-        $dbname = "bdsmileyface";
-
-        $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
-        if ($conn->connect_error) {
-            die("Connexion failed: " . $conn->connect_error);
-        }
-        $conn->query('SET NAMES utf8');
-        $sql = "INSERT INTO user(idUser, lastname, firstname, email, password) VALUES(null,'$lastname','$firstname','$email','$password')";
-        echo $sql; //Debug
-
-        if (mysqli_query($conn, $sql)) {
-            echo "Compte créé.";
-            header("Location: ../index.php");
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $lastname = test_input($_POST['lastname']);
+            $firstname = test_input($_POST['firstname']);
+            $email = test_input($_POST['email']);
+            $password = test_input($_POST['password']);
+
+            $password = sha1($password, false);
+
+            $servername = "localhost";
+            $usernameDB = "root";
+            $passwordDB = "root";
+            $dbname = "bdsmileyface";
+
+            $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
+            if ($conn->connect_error) {
+                die("Connexion failed: " . $conn->connect_error);
+            }
+            $conn->query('SET NAMES utf8');
+            $sql = "INSERT INTO user(idUser, lastname, firstname, email, password) VALUES(null,'$lastname','$firstname','$email','$password')";
+            echo $sql; //Debug
+
+            if (mysqli_query($conn, $sql)) {
+                echo "Compte créé.";
+                header("Location: ../index.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
+            $conn->close();
         }
-        $conn->close();
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
         echo "Erreur ou 1ere fois"; //Debug
