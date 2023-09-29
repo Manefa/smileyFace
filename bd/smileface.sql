@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 29 Septembre 2023 à 01:54
+-- Généré le :  Ven 29 Septembre 2023 à 15:29
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.18
 
@@ -73,9 +73,12 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `locationEv`, `idUser`) VALUES
 (1, 'Danse', '2023-09-26', 'SA2090', 2),
 (2, 'Music', '2023-09-29', 'SA3090', 2),
-(3, 'fsd', '2023-09-28', 'fsd', 2),
-(4, 'fsd', '2023-09-28', 'fsd', 2),
-(5, 'fsd', '2023-09-28', 'fsd', 2);
+(19, 'fdsf', '2023-10-02', 'fsd', 2),
+(20, 'fsd', '2023-10-06', 'fsd', 2),
+(21, 'fsd', '2023-10-06', 'fsd', 2),
+(22, 'fsd', '2023-10-06', 'fsd', 2),
+(23, 'fsd', '2023-10-06', 'fsd', 2),
+(24, 'test', '1969-12-31', 'test', 2);
 
 -- --------------------------------------------------------
 
@@ -87,7 +90,7 @@ CREATE TABLE `liason` (
   `id` int(11) NOT NULL,
   `idEv` int(11) NOT NULL,
   `idDpt` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `liason`
@@ -95,7 +98,13 @@ CREATE TABLE `liason` (
 
 INSERT INTO `liason` (`id`, `idEv`, `idDpt`) VALUES
 (1, 2, 2),
-(2, 1, 1);
+(2, 2, 1),
+(3, 2, 1),
+(4, 19, 2),
+(5, 20, 1),
+(6, 20, 2),
+(7, 21, 2),
+(8, 24, 2);
 
 -- --------------------------------------------------------
 
@@ -159,8 +168,8 @@ ALTER TABLE `event`
 --
 ALTER TABLE `liason`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idEv` (`idEv`),
-  ADD UNIQUE KEY `idDpt` (`idDpt`);
+  ADD KEY `idEvent` (`idEv`),
+  ADD KEY `idDept` (`idDpt`);
 
 --
 -- Index pour la table `studentsatisfaction`
@@ -193,12 +202,12 @@ ALTER TABLE `employeesatisfaction`
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT pour la table `liason`
 --
 ALTER TABLE `liason`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `studentsatisfaction`
 --
