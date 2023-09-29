@@ -24,7 +24,6 @@ if ($result->num_rows > 0) {
         $evenement = [
             'nom' => $row['nameEv'],
             'date' => $row['dateEv'],
-            'departement' => $row['departementEv'],
             'location' => $row['locationEv']
         ];
 
@@ -108,7 +107,7 @@ $conn->close();
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                             <div class="mb-5 d-flex">
-                                <p class="card-text"><?= $evenement['departement'] ?></p>
+                                <p class="card-text">informatique</p>
                                 <p class="card-text ms-1 me-1">|</p>
                                 <p class="card-text"><?= $evenement['location'] ?></p>
                             </div>
@@ -150,7 +149,7 @@ $conn->close();
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                                         <div class="mb-5 d-flex">
-                                            <p class="card-text"><?= $evenement['departement'] ?></p>
+                                            <p class="card-text">informatique</p>
                                             <p class="card-text ms-1 me-1">|</p>
                                             <p class="card-text"><?= $evenement['location'] ?></p>
                                         </div>
