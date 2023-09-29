@@ -39,36 +39,38 @@ if ($_SESSION['connexion'] == false) {
         if (empty($_POST['nameEv']) || empty($_POST['dateEv']) || empty($_POST['departementEv']) || empty($_POST['locationEv'])) {
             $champsErreur = "Veuillez remplir tout les champs";
             $erreur = true;
-        } else if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $dateEv)) {
-            $dateErreur = "Veuillez entrer une date valide";
-            $erreur = true;
         } else {
             $nameEv = test_input($_POST["nameEv"]);
             $dateEv = test_input($_POST["dateEv"]);
             $departementEv = test_input($_POST["departementEv"]);
             $locationEv = test_input($_POST["locationEv"]);
 
-            $servername = "localhost";
-            $username = "root";
-            $password = "root";
-            $db = "bdsmileyface";
-
-            $conn = new mysqli($servername, $username, $password, $db);
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            echo "<b>Connected successfully</b>";
-            $conn->query('SET NAMES utf8');
-            $sql = "INSERT INTO event(idEv, nameEv, dateEv, departementEv, locationEv, idUser) VALUES (null, '$nameEv', '$dateEv', '$departementEv', '$locationEv', '$idUser')";
-
-            if (mysqli_query($conn, $sql)) {
-                echo "Enregistrement réussi";
-                header("Location: ../index.php");
+            if (DateTime::createFromFormat("Y-m-d", $dateEv) != true) {
+                $dateErreur = "Veuillez entrer une date valide";
+                $erreur = true;
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                $servername = "localhost";
+                $username = "root";
+                $password = "root";
+                $db = "bdsmileyface";
+
+                $conn = new mysqli($servername, $username, $password, $db);
+
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                echo "<b>Connected successfully</b>";
+                $conn->query('SET NAMES utf8');
+                $sql = "INSERT INTO event(idEv, nameEv, dateEv, departementEv, locationEv, idUser) VALUES (null, '$nameEv', '$dateEv', '$departementEv', '$locationEv', '$idUser')";
+
+                if (mysqli_query($conn, $sql)) {
+                    echo "Enregistrement réussi";
+                    header("Location: ../index.php");
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
+                mysqli_close($conn);
             }
-            mysqli_close($conn);
         }
     }
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
@@ -110,9 +112,8 @@ if ($_SESSION['connexion'] == false) {
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary" type="submit">Créer l'évènement</button>
-                            <h4 style="color:red" ;><?php echo $champsErreur; ?></h4><br>
-                            <h4 style="color:red" ;><?php echo $dateErreur; ?></h4><br>
-                            <div><?php echo $dateEv ?></div>
+                            <h4 style="color:red" ;><?php echo $champsErreur; ?></h4>
+                            <h4 style="color:red" ;><?php echo $dateErreur; ?></h4>
                         </div>
                     </form>
                     <a href="../index.php">Annulé</a>
