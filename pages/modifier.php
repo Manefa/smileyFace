@@ -22,6 +22,7 @@ if ($_SESSION['connexion'] == false) {
 <body>
     <?php
 
+    $resultDpt = "";
     $idUser = $_SESSION['idUser'];
     $idEv = $_GET['id'];
     $nameEv = "";
@@ -43,6 +44,8 @@ if ($_SESSION['connexion'] == false) {
     $champsErreur = "";
     $erreur = false;
     $tuples = array();
+    $idDptLierEv = array();
+    $nomsDepartementLier = array();
 
     // Connexion à la base de données
     $mysqli = new mysqli("localhost", "root", "root", "smileface");
@@ -51,6 +54,36 @@ if ($_SESSION['connexion'] == false) {
     if ($mysqli->connect_error) {
         die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
     }
+
+    var_dump($idEv);
+
+    // Requête SQL pour récupérer tous les départements lier a un evenement dans la table liason
+    $sqlDpt = "SELECT * FROM `liason` WHERE `idEv` = '$idEv'";
+    $resultDpt = $mysqli->query($sqlDpt);
+
+    while ($row = $resultDpt->fetch_assoc()) {
+        $idDptLierEv[] = $row['idDpt'];
+    }
+
+    foreach ($idDptLierEv as $dptId) {
+        // Requête SQL pour récupérer le nom de l'événement en fonction de l'ID
+        $sqlNomDpt = "SELECT Name FROM `departement` WHERE `id` = $dptId";
+        $resultNomDpt = $mysqli->query($sqlNomDpt);
+
+        // Vérifier si la requête a réussi
+        if ($resultNomDpt === false) {
+            die("Erreur lors de la récupération du nom du departement : " . $mysqli->error);
+        }
+
+        // recuperation du nom du departement
+        if ($row = $resultNomDpt->fetch_assoc()) {
+            $nomsDepartementLier[$dptId] = $row['Name']; // Stocke du nom dans le tableau 
+        }
+    }
+
+    // Convertir les données des départements sélectionnés en JSON
+    $selectedDepartmentsJson = json_encode($nomsDepartementLier);
+
 
     // Requête SQL pour récupérer tous les départements
     $sql = "SELECT * FROM departement";
@@ -68,7 +101,11 @@ if ($_SESSION['connexion'] == false) {
 
     // Vérifier si la requête a réussi
     if ($resultEvent === false) {
-        die("Erreur lors de la récupération de l'evenements : " . $mysqli->error);
+        die("Erreur lors de la récupération de l'evenement : " . $mysqli->error);
+    }
+
+    if ($resultDpt === false) {
+        die("Erreur lors de la récupération des partements lier a l'evenement : " . $mysqli->error);
     }
 
     while ($row = $result->fetch_assoc()) {
@@ -86,26 +123,13 @@ if ($_SESSION['connexion'] == false) {
         $oldNameEv = $row['nameEv'];
         $oldDateEv = $row['dateEv'];
         $oldLocationEv = $row['locationEv'];
-        // Chaîne de temps
-        $timeString = $row['timeEv'];
+        $splitTime = str_split($row['timeEv'], 3);
 
-        // Divisez la chaîne en trois parties en utilisant l'espace comme délimiteur
-        $timeParts = explode(' ', $timeString);
+        var_dump($splitTime);
 
-       
-            $time = $timeParts[0]; // Heures et minutes (12.50)
-            $ampm = $timeParts[1]; // AM/PM (PM)
-
-            // Divisez à nouveau la partie "heures et minutes" en heures et minutes
-            list($hours, $minutes) = explode('.', $time);
-
-            echo "Heures: " . $hours . "<br>";
-            echo "Minutes: " . $minutes . "<br>";
-            echo "AM/PM: " . $ampm;
-       
-        $oldTime = $hours;
-        $oldMinute =  $minutes;
-        $oldPeriod = $ampm;
+        $oldTime = trim($splitTime[0], ":");
+        $oldMinute =  trim($splitTime[1], " ");
+        $oldPeriod = $splitTime[2];
     }
 
     // Fermez la connexion à la base de données
@@ -261,6 +285,14 @@ if ($_SESSION['connexion'] == false) {
                                             <!-- Affichage des departements sélectionnées -->
                                             <div class="form-group">
                                                 <div class="selected-departements">
+                                                    <?php
+
+                                                    if ($nomsDepartementLier > 0) {
+                                                        foreach ($nomsDepartementLier as $value) {
+                                                            echo ("<div style='background-color: #082D74; border: none; border-radius: 8px;' class='btn btn-success m-1'> $value <button type='button' class='btn btn-danger btn-sm ms-1' > <i class='bi bi-trash'></i> </button></div>");
+                                                        }
+                                                    }
+                                                    ?>
                                                     <!-- Les departements sélectionnées seront affichées ici -->
                                                 </div>
                                                 <input type="hidden" id="selectedDepartementsInput" name="selectedDepartements" value="">
@@ -277,7 +309,7 @@ if ($_SESSION['connexion'] == false) {
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <span class="form-label">Heure</span>
-                                                                <select class="form-control" name="eventHour" >
+                                                                <select class="form-control" name="eventHour">
                                                                     <option value="1" <?php if ($oldTime == "1") echo "selected"; ?>>1</option>
                                                                     <option value="2" <?php if ($oldTime == "2") echo "selected"; ?>>2</option>
                                                                     <option value="3" <?php if ($oldTime == "3") echo "selected"; ?>>3</option>
@@ -289,7 +321,7 @@ if ($_SESSION['connexion'] == false) {
                                                                     <option value="9" <?php if ($oldTime == "9") echo "selected"; ?>>9</option>
                                                                     <option value="10" <?php if ($oldTime == "10") echo "selected"; ?>>10</option>
                                                                     <option value="11" <?php if ($oldTime == "11") echo "selected"; ?>>11</option>
-                                                                    <option value="11" <?php if ($oldTime == "11") echo "selected"; ?>>12</option>
+                                                                    <option value="12" <?php if ($oldTime == "12") echo "selected"; ?>>12</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -400,6 +432,22 @@ if ($_SESSION['connexion'] == false) {
                         alert("Cette departement est déjà sélectionnée.");
                     }
                 }
+            });
+
+            // Préremplir la liste des départements sélectionnés
+            const selectedDepartments = <?php echo $selectedDepartmentsJson; ?>; // Utilisez les données JSON que vous avez générées en PHP
+
+            selectedDepartments.forEach(function(departement) {
+                // Créez un élément de département sélectionné et ajoutez-le à l'affichage des départements sélectionnés
+                const categoryItem = `
+        <div style="background-color: #082D74; border: none; border-radius: 8px;" class="btn btn-success m-1">
+            ${departement}
+            <button type="button" class="btn btn-danger btn-sm ms-1" data-category="${departement}">
+                <i class="bi bi-trash"></i>
+            </button>
+        </div>
+    `;
+                $(".selected-departements").append(categoryItem);
             });
         });
     </script>
