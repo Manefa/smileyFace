@@ -15,10 +15,29 @@ $conn = new mysqli($servername, $username, $password, $db);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+$idUser = $_SESSION['idUser'];
+$firstname = "";
+$lastname = "";
+$pseudo = "";
+
 $conn->query('SET NAMES utf8');
 $sql = "SELECT * FROM event";
-
 $result = $conn->query($sql);
+
+$sqlUser = "SELECT * FROM `user` WHERE `idUser` = $idUser";
+$resultUser = $conn->query($sqlUser);
+
+if ($resultUser->num_rows > 0) {
+    while ($row = $resultUser->fetch_assoc()) {
+        $lastname = $row['lastname'];
+        $firstname = $row['firstname'];
+    }
+} else {
+    //echo "0 results";
+}
+
+$pseudo = strtoupper(substr($firstname, 0, 1)) . strtoupper(substr($lastname, 0, 1));
 
 $evenements_a_venir = [];
 $evenements_passes = [];
@@ -67,8 +86,8 @@ $conn->close();
 
             <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
                 <a href="pages/user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
-                    <div class="bg-secondary bg-opacity-50 w-100" style="border-radius: 8px; min-height: 10px;">
-                        <h5 class="text-dark mx-3 my-3">GG</h5>
+                    <div class=" w-100" style="border-radius: 8px; min-height: 10px;  background-color:#082D74;">
+                        <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>
                     </div>
                 </a>
 
