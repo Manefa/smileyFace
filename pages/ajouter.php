@@ -29,8 +29,7 @@ if ($_SESSION['connexion'] == false) {
     $locationEv = "";
     $time = "";
     $minute =  "";
-    $period = "";
-    
+
     $champsErreur = "";
     $erreur = false;
     $tuples = array();
@@ -76,8 +75,7 @@ if ($_SESSION['connexion'] == false) {
         $locationEv = test_input($_POST["location"]);
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
-        $period =  test_input($_POST["eventAMPM"]);
-        $timeEv = $time.":".$minute." ".$period;
+        $timeEv = $time . ":" . $minute;
         $servername = "localhost";
         $username = "root";
         $password = "root";
@@ -143,10 +141,10 @@ if ($_SESSION['connexion'] == false) {
             // Exécutez la requête
             if ($conn->query($sqlInsertDept) === true) {
                 //echo "departement insérée avec succès.";
-               
+
             } else {
                 //echo "Erreur lors de l'insertion du departement : " . $conn->error;
-                
+
             }
         }
 
@@ -166,14 +164,14 @@ if ($_SESSION['connexion'] == false) {
     ?>
         <div class="container-fluid">
             <div class="row d-flex justify-content-between ">
-                <a href="home.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
-                    <img src="../assets/logo.svg" width="68" height="67" alt="logo">
+                <a href="home.php" class="col-md-4 col-sm-5 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
+                    <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
                 </a>
-                <div class="col-md-2 mt-4 me-4 d-flex justify-content-end">
-                    <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
-                        <div class="bg-secondary bg-opacity-50" style="border-radius: 8px;">
-                            <h3 class="text-dark mx-3 my-3">MY</h3>
+                <div class="col-md-2 col-sm-4 mt-4 me-4 d-flex justify-content-end">
+                    <a href="pages/user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
+                        <div class="bg-secondary bg-opacity-50 w-100" style="border-radius: 8px; min-height: 10px;">
+                            <h5 class="text-dark mx-3 my-3">GG</h5>
                         </div>
                     </a>
                 </div>
@@ -182,7 +180,7 @@ if ($_SESSION['connexion'] == false) {
                 <h1 style="padding-left: 0px;" class="text-center mt-5">Ajouter un evenement</h1>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div id="booking" class="section">
                         <div class="section-center">
                             <div class="container">
@@ -219,7 +217,7 @@ if ($_SESSION['connexion'] == false) {
                                                 </div>
                                                 <input type="hidden" id="selectedDepartementsInput" name="selectedDepartements" value="">
                                             </div>
-                                            <div class="row">
+                                            <div class="row d-flex justify-content-between">
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <span class="form-label">Date</span>
@@ -244,6 +242,17 @@ if ($_SESSION['connexion'] == false) {
                                                                     <option>10</option>
                                                                     <option>11</option>
                                                                     <option>12</option>
+                                                                    <option>13</option>
+                                                                    <option>14</option>
+                                                                    <option>15</option>
+                                                                    <option>16</option>
+                                                                    <option>17</option>
+                                                                    <option>18</option>
+                                                                    <option>19</option>
+                                                                    <option>20</option>
+                                                                    <option>21</option>
+                                                                    <option>22</option>
+                                                                    <option>23</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -251,6 +260,7 @@ if ($_SESSION['connexion'] == false) {
                                                             <div class="form-group">
                                                                 <span class="form-label">Minute</span>
                                                                 <select class="form-control" name="eventMinute">
+                                                                    <option>00</option>
                                                                     <option>05</option>
                                                                     <option>10</option>
                                                                     <option>15</option>
@@ -262,15 +272,6 @@ if ($_SESSION['connexion'] == false) {
                                                                     <option>45</option>
                                                                     <option>50</option>
                                                                     <option>55</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <span class="form-label">AM/PM</span>
-                                                                <select class="form-control" name="eventAMPM">
-                                                                    <option>AM</option>
-                                                                    <option>PM</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -287,9 +288,7 @@ if ($_SESSION['connexion'] == false) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 text-center d-flex align-items-center justify-content-center mb-5">
-                    <img class="img-fluid" height="80%" width="80%" class="img-fluid" src="../assets/Add files-cuate.svg" alt="etudiant">
-                </div>
+
             </div>
         </div>
     <?php

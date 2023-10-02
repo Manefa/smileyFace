@@ -1,3 +1,19 @@
+<?php
+session_start();
+if ($_SESSION['connexion'] == false) {
+    header("Location: connexion.php");
+}
+
+if (isset($_GET['profil'])) {
+    $idProfil = $_GET['profil'];
+    var_dump($idProfil);
+}
+
+if (isset($_GET['eventId'])) {
+    $eventId = $_GET['eventId'];
+    var_dump($eventId);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +26,24 @@
     <link rel="stylesheet" href="../css/custumBouton.css">
     <link rel="stylesheet" href="../css/title-css.css">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Classe pour indiquer la sélection d'une image */
+        .selected-image {
+            opacity: 0.8;
+            border-radius: 50%;
+            position: relative;
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+
+        .clickable {
+            cursor: pointer;
+            transition: opacity 0.3s ease-in-out;
+            /* Ajoutez une transition pour l'opacité */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -40,32 +74,45 @@
 
         <div class="row mt-5 d-flex align-items-center justify-content-center">
             <div class="col-md-4 text-center d-flex justify-content-end">
-                <img class="img-fluid" height="60%" width="60%" src="../assets/face_amazed.svg" alt="etudiant">
-
+                <img class="img-fluid clickable" height="60%" width="60%" src="../assets/face_amazed.svg" alt="amazed" onclick="selectImage(this)">
             </div>
             <div class="col-md-4 text-center">
-                <img class="img-fluid" height="60%" width="60%" class="img-fluid" src="../assets/face_neutral.svg" alt="etudiant">
-
+                <img class="img-fluid clickable" height="60%" width="60%" src="../assets/face_neutral.svg" alt="neutral" onclick="selectImage(this)">
             </div>
-
             <div class="col-md-4 text-center d-flex justify-content-start">
-                <img class="img-fluid" height="60%" width="60%" class="img-fluid" src="../assets/face_angry.svg" alt="etudiant">
-
+                <img class="img-fluid clickable" height="60%" width="60%" src="../assets/face_angry.svg" alt="angry" onclick="selectImage(this)">
             </div>
 
-        </div>
-
-        <div class="row mt-5 d-flex justify-content-center align-items-center">
-            <div class="col-md-4 ">
-                <div href="#" class="btn btn-new d-flex justify-content-center align-items-center">
-                    <h3><a class="me-0" id="linkText" style="color: white; text-decoration: none; " href="home.php">Evaluer !</a></h3>
-                </div>
-            </div>
 
         </div>
-
 
     </div>
+
+
+    <script>
+        // Variables pour stocker la sélection (0 pour aucune sélection, 1 pour la première image, 2 pour la deuxième image, 3 pour la troisième image)
+        let selectedImage = 0;
+        let vote = 0;
+
+        // Fonction pour gérer la sélection d'image
+        function selectImage(image) {
+            const imageType = image.getAttribute('alt');
+
+            // Mettre à jour la variable selectedProfil en fonction de selectedImage
+            if (imageType === "amazed") {
+                vote = 1;
+            } else if (imageType === "neutral") {
+                vote = 2;
+            } else if (imageType === "angry") {
+                vote = 3;
+            }
+
+            console.log(vote);
+            console.log(<?php echo (trim($idProfil));  ?>);
+            console.log(<?php echo (trim($eventId)); ?>);
+            window.location.href = `../php/voter.php?profil= <?php echo (trim($idProfil));  ?>&eventId= <?php echo (trim($eventId)); ?>&vote=${vote}`;
+        }
+    </script>
 
 
 

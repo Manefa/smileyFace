@@ -59,116 +59,107 @@ $conn->close();
 
 <body>
     <div class="container-fluid">
-        <div class="row d-flex justify-content-between">
-            <div class="row d-flex justify-content-between ">
-                <div class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center">
-                    <img src=" assets/logo.svg" width="68" height="67" alt="logo">
-                    <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
-                </div>
+        <div class="row justify-content-between g-0">
+            <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+                <img src="assets/logo.svg" width="55" height="55" alt="logo">
+                <h1 class="ms-4 fw-bold">Cegep 3R</h1>
+            </div>
 
+            <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
+                <a href="pages/user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
+                    <div class="bg-secondary bg-opacity-50 w-100" style="border-radius: 8px; min-height: 10px;">
+                        <h5 class="text-dark mx-3 my-3">GG</h5>
+                    </div>
+                </a>
 
-                <div class=" col-md-2 mt-4 me-4 d-flex justify-content-end">
+                <a href="pages/ajouter.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
+                    <div class="bg-success bg-opacity-70 w-100 p-3 rounded">
+                        <i class="bi bi-plus-lg text-light" style="font-size: 1rem;"></i>
+                    </div>
+                </a>
 
-                    <a href="pages/user.php" class="d-flex flex-row align-items-center justify-content-end me-2" style="text-decoration: none;">
-                        <div class="bg-secondary bg-opacity-50 w-100" style="border-radius: 8px; min-height: 10px;">
-                            <h5 class="text-dark mx-3 my-3">GG</h5>
-                        </div>
-                    </a>
-
-                    <a href="pages/ajouter.php" class="d-flex flex-row align-items-center justify-content-end me-2" style="text-decoration: none;">
-                        <div class="bg-success bg-opacity-70 w-100 p-3 rounded">
-                            <i class="bi bi-plus-lg text-light" style="font-size: 1rem;"></i>
-                        </div>
-                    </a>
-
-                    <a href="php/deconnexion.php" class="d-flex flex-row align-items-center justify-content-end" style="text-decoration: none;">
-                        <div class="bg-danger bg-opacity-70 w-100 p-3 rounded">
-                            <i class="bi bi-box-arrow-right text-light"></i>
-                        </div>
-                    </a>
-
-
-                </div>
-
+                <a href="php/deconnexion.php" class="d-flex flex-row align-items-center justify-content-end text-decoration-none">
+                    <div class="bg-danger bg-opacity-70 w-100 p-3 rounded">
+                        <i class="bi bi-box-arrow-right text-light"></i>
+                    </div>
+                </a>
             </div>
         </div>
 
-        <div class="row">
-            <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenements à venir</h1>
+        <div class="row g-0">
+            <h1 class="ms-4 mt-5">Evenements à venir</h1>
         </div>
 
-        <div class="row  ms-1 me-4 mt-2">
+        <div class="row d-flex justify-content-between ms-1 me-4 mt-2 g-0 bg-danger">
             <?php if (empty($evenements_a_venir)) : ?>
-
                 <div class="col-md-12 text-center">
-                    <img src="chemin/vers/votre/svg.svg" alt="Aucun événement passé">
-                    <p>Aucun événement a venir pour le moment.</p>
+                    <img src="chemin/vers/votre/svg.svg" alt="Aucun événement à venir">
+                    <p>Aucun événement à venir pour le moment.</p>
                 </div>
             <?php else : ?>
-
                 <?php foreach ($evenements_a_venir as $evenement) : ?>
-                    <div class="card mx-2 my-2" style="width: 22rem;">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title"><?= $evenement['nom'] ?></h5>
-                            <div class="mb-5 d-flex">
-                                <p class="card-text">informatique</p>
-                                <p class="card-text ms-1 me-1">|</p>
-                                <p class="card-text"><?= $evenement['location'] ?></p>
-                            </div>
-                            <div class="col-md-12 mt-5 d-flex justify-content-end">
-                            <a href="pages/modifier.php?id=<?php echo $evenement["idEv"]; ?>">
-                                    <button type="button" class="btn btn-warning">
-                                        <img src="assets/Edit 3.svg" alt="">
-                                    </button>
-                                </a>
-                                <a href="php/supprimer.php?id=<?php echo $evenement["idEv"]; ?>">
-                                    <button type="button" class="btn btn-danger ms-2">
-                                        <img src="assets/Delete 3.svg" alt="">
-
-                                    </button>
-                                </a>
-
+                    <a href="pages/evenement.php" class="bg-success" style="text-decoration: none; color: black; ">
+                        <div class="card mx-2 my-2" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= $evenement['nom'] ?></h5>
+                                <div class="mb-5 d-flex">
+                                    <p class="card-text">Informatique</p>
+                                    <p class="card-text ms-1 me-1">|</p>
+                                    <p class="card-text"><?= $evenement['location'] ?></p>
+                                </div>
+                                <div class="col-md-12 mt-5 d-flex justify-content-end">
+                                    <a href="pages/choisir.php?id=<?= $evenement['idEv']; ?>">
+                                        <button type="button" class="btn btn-primary">
+                                            <img src="assets/Edit 3.svg" alt="Modifier">
+                                        </button>
+                                    </a>
+                                    <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
+                                        <button type="button" class="btn btn-warning ms-2">
+                                            <img src="assets/Edit 3.svg" alt="Modifier">
+                                        </button>
+                                    </a>
+                                    <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
+                                        <button type="button" class="btn btn-danger ms-2">
+                                            <img src="assets/Delete 3.svg" alt="Supprimer">
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
 
-
-        <div class="row">
-            <h1 style="padding-left: 0px;" class="ms-4 mt-5">Evenements passés</h1>
+        <div class="row g-0">
+            <h1 class="ms-4 mt-5">Evenements passés</h1>
         </div>
 
-        <div class="row  ms-1 me-4 mt-2">
+        <div class="row d-flex justify-content-between ms-1 me-4 mt-2 g-0">
             <?php if (empty($evenements_passes)) : ?>
-
                 <div class="col-md-12 text-center">
                     <img src="chemin/vers/votre/svg.svg" alt="Aucun événement passé">
                     <p>Aucun événement passé pour le moment.</p>
                 </div>
             <?php else : ?>
-
                 <?php foreach ($evenements_passes as $evenement) : ?>
-                    <div class="card mx-2 my-2" style="width: 22rem;">
+                    <div class="card mx-2 my-2" style="width: 18rem;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                             <div class="mb-5 d-flex">
-                                <p class="card-text">informatique</p>
+                                <p class="card-text">Informatique</p>
                                 <p class="card-text ms-1 me-1">|</p>
                                 <p class="card-text"><?= $evenement['location'] ?></p>
                             </div>
                             <div class="col-md-12 mt-5 d-flex justify-content-end">
-                                <a href="pages/modifier.php?id=<?php echo $evenement["idEv"]; ?>">
+                                <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
                                     <button type="button" class="btn btn-warning">
-                                        <img src="assets/Edit 3.svg" alt="">
+                                        <img src="assets/Edit 3.svg" alt="Modifier">
                                     </button>
                                 </a>
-
-                                <a href="pages/supprimer.php?id=<?php echo $evenement["idEv"]; ?>">
+                                <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
                                     <button type="button" class="btn btn-danger ms-2">
-                                        <img src="assets/Delete 3.svg" alt="">
-
+                                        <img src="assets/Delete 3.svg" alt="Supprimer">
                                     </button>
                                 </a>
                             </div>
