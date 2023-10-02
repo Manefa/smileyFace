@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 29 Septembre 2023 à 15:29
+-- Généré le :  Lun 02 Octobre 2023 à 01:44
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.18
 
@@ -52,6 +52,24 @@ CREATE TABLE `employeesatisfaction` (
   `idEv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `employeesatisfaction`
+--
+
+INSERT INTO `employeesatisfaction` (`idEm`, `satisfactionlevelEm`, `idEv`) VALUES
+(1, 2, 31),
+(2, 1, 31),
+(3, 1, 31),
+(4, 2, 31),
+(5, 3, 31),
+(6, 3, 31),
+(7, 1, 31),
+(8, 1, 31),
+(9, 2, 31),
+(10, 3, 31),
+(11, 3, 31),
+(12, 1, 31);
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +80,7 @@ CREATE TABLE `event` (
   `idEv` int(11) NOT NULL,
   `nameEv` varchar(255) NOT NULL,
   `dateEv` date NOT NULL,
+  `timeEv` varchar(255) NOT NULL,
   `locationEv` varchar(255) CHARACTER SET ucs2 NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -70,15 +89,13 @@ CREATE TABLE `event` (
 -- Contenu de la table `event`
 --
 
-INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `locationEv`, `idUser`) VALUES
-(1, 'Danse', '2023-09-26', 'SA2090', 2),
-(2, 'Music', '2023-09-29', 'SA3090', 2),
-(19, 'fdsf', '2023-10-02', 'fsd', 2),
-(20, 'fsd', '2023-10-06', 'fsd', 2),
-(21, 'fsd', '2023-10-06', 'fsd', 2),
-(22, 'fsd', '2023-10-06', 'fsd', 2),
-(23, 'fsd', '2023-10-06', 'fsd', 2),
-(24, 'test', '1969-12-31', 'test', 2);
+INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `idUser`) VALUES
+(30, 'Danse', '2023-08-17', '12:30 AM', 'SA2090', 2),
+(31, 'test2', '2023-10-04', '12:05 AM', 'fdsfds', 2),
+(32, 'test', '2023-11-11', '12:45 AM', 'dsad', 2),
+(33, 'dsads', '2023-11-11', '1:05 AM', 'dsad', 2),
+(34, 'fdsf', '2023-09-14', '4:50 AM', 'dsfds', 2),
+(35, 'fdsf', '2023-09-14', '1:05 AM', 'dsfds', 2);
 
 -- --------------------------------------------------------
 
@@ -97,14 +114,14 @@ CREATE TABLE `liason` (
 --
 
 INSERT INTO `liason` (`id`, `idEv`, `idDpt`) VALUES
-(1, 2, 2),
-(2, 2, 1),
-(3, 2, 1),
-(4, 19, 2),
-(5, 20, 1),
-(6, 20, 2),
-(7, 21, 2),
-(8, 24, 2);
+(19, 30, 2),
+(20, 30, 1),
+(21, 30, 1),
+(26, 31, 2),
+(27, 31, 1),
+(28, 32, 1),
+(29, 32, 2),
+(30, 33, 1);
 
 -- --------------------------------------------------------
 
@@ -117,6 +134,18 @@ CREATE TABLE `studentsatisfaction` (
   `satisfactionlevelEt` int(11) NOT NULL,
   `idEv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `studentsatisfaction`
+--
+
+INSERT INTO `studentsatisfaction` (`idEt`, `satisfactionlevelEt`, `idEv`) VALUES
+(1, 2, 31),
+(2, 2, 31),
+(3, 3, 31),
+(4, 1, 31),
+(5, 1, 31),
+(6, 1, 31);
 
 -- --------------------------------------------------------
 
@@ -197,22 +226,22 @@ ALTER TABLE `departement`
 -- AUTO_INCREMENT pour la table `employeesatisfaction`
 --
 ALTER TABLE `employeesatisfaction`
-  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT pour la table `liason`
 --
 ALTER TABLE `liason`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `studentsatisfaction`
 --
 ALTER TABLE `studentsatisfaction`
-  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
