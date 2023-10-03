@@ -4,7 +4,7 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
-
+require 'conf/configLocal.php';
 
 //Page de processus des votes (transparent)
 
@@ -30,12 +30,8 @@ if (isset($_GET['satisfaction'])) {
     echo "Erreur";
 }
 echo $satisfaction;
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$db = "bdsmileyface";
 
-$conn = new mysqli($servername, $username, $password, $db);
+$conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
 
 if ($conn->connect_error) {

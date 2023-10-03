@@ -4,7 +4,7 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
-
+require 'conf/configLocal.php';
 ?>
 
 <!DOCTYPE html>
@@ -39,11 +39,6 @@ if ($_SESSION['connexion'] == false) {
             $password = test_input($_POST['password']);
 
             $password = sha1($password, false);
-
-            $servername = "localhost";
-            $usernameDB = "root";
-            $passwordDB = "root";
-            $dbname = "bdsmileyface";
 
             $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
             if ($conn->connect_error) {

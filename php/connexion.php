@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'conf/configLocal.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +32,6 @@ session_start();
         $password = test_input($_POST['password']);
 
         $password = sha1($password, false);
-
-        $servername = "localhost";
-        $usernameDB = "root";
-        $passwordDB = "root";
-        $dbname = "bdsmileyface";
 
         $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
         if ($conn->connect_error) {

@@ -3,6 +3,7 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
+require 'conf/configLocal.php';
 ?>
 
 <!DOCTYPE html>
@@ -27,12 +28,8 @@ if ($_SESSION['connexion'] == false) {
     } else {
         echo "Erreur";
     }
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
-    $db = "bdsmileyface";
 
-    $conn = new mysqli($servername, $username, $password, $db);
+    $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
