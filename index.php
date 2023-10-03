@@ -117,7 +117,7 @@ $conn->close();
                 </div>
             <?php else : ?>
                 <?php foreach ($evenements_a_venir as $evenement) : ?>
-                    <a href="pages/evenement.php" class="bg-success" style="text-decoration: none; color: black; ">
+                    <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="bg-success" style="text-decoration: none; color: black; ">
                         <div class="card mx-2 my-2" style="width: 18rem;">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title"><?= $evenement['nom'] ?></h5>

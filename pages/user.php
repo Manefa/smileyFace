@@ -101,7 +101,7 @@ if ($_SESSION['connexion'] == false) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $fullname ?></h5>
                             <p class="card-text"><?php echo $poste ?></p>
-                            <a href="../pages/modifierUser.php" class="btn btn-warning mt-2">Modifier mon profil</a>
+                            <a href="../pages/modifierUser.php?id=<?php echo $idUser?>" class="btn btn-warning mt-2">Modifier mon profil</a>
                             <a href="../pages/ajouterUser.php" class="btn btn-info mt-2">Ajouter un autre utilisateur</a>
                             <a href="#" class="btn btn-success mt-2">Ajouter un département</a>
                             <a href="#" class="btn btn-primary mt-2">Créer un événement</a>
