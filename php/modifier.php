@@ -3,7 +3,7 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
-require 'conf/configLocal.php';
+require 'conf/configServeur.php';
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conf/configLocal.php';
+require 'conf/configServeur.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
