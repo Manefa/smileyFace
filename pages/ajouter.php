@@ -190,7 +190,19 @@ if ($_SESSION['connexion'] == false) {
 
             // Exécutez la requête
             if ($conn->query($sql) === true) {
-                echo "evenement insérée avec succès.";
+                echo "<script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const showSuccessButton = document.getElementById('locationSuccess');
+                  showSuccessButton.addEventListener('click', () => {
+                    let Settings = {
+                        duration:  3000,
+                        showProgress: true,
+                        toastLocation: 'top'
+                    };
+                    Toast.success('Success! This is a success message.', Settings);
+                  });
+                });
+                </script>";
             } else {
                 echo "Erreur lors de l'insertion du l'evenement : " . $conn->error;
             }
@@ -246,7 +258,7 @@ if ($_SESSION['connexion'] == false) {
             }
 
             if (mysqli_query($conn, $sql)) {
-                //header("Location: ../index.php");
+                header("Location: ../index.php");
                 exit();
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -262,8 +274,8 @@ if ($_SESSION['connexion'] == false) {
 
     ?>
         <div class="container-fluid">
+            
             <div class="row justify-content-between g-0">
-
 
                 <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
                     <a href="../index.php" class="d-flex" style="text-decoration: none; color:black;">
@@ -476,6 +488,7 @@ if ($_SESSION['connexion'] == false) {
             });
         });
     </script>
+    <script src="../js/sh_toaster.js"></script>
 </body>
 
 </html>
