@@ -27,6 +27,8 @@ if ($_SESSION['connexion'] == false) {
     $dateEv = "";
     $departementEv = "";
     $locationEv = "";
+    $employeurEv = "";
+    $descriptionEv = "";
     $time = "";
     $minute =  "";
 
@@ -75,6 +77,8 @@ if ($_SESSION['connexion'] == false) {
         $locationEv = test_input($_POST["location"]);
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
+        $employeurEv = test_input($_POST["employeur"]);
+        $descriptionEv = test_input($_POST["description"]);
         $timeEv = $time . ":" . $minute;
         $servername = "localhost";
         $username = "root";
@@ -91,7 +95,7 @@ if ($_SESSION['connexion'] == false) {
 
         date_default_timezone_set('America/New_York');
 
-        $sql = "INSERT INTO event(idEv, nameEv, dateEv, timeEv, locationEv, idUser) VALUES (null, '$nameEv', '$dateEv', '$timeEv', '$locationEv', '$idUser')";
+        $sql = "INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `employeurEv`, `descriptionEv`, `idUser`) VALUES (NULL, '$nameEv', '$dateEv', '$timeEv', '$locationEv', '$employeurEv', '$descriptionEv', '$idUser')";
 
         // Exécutez la requête
         if ($conn->query($sql) === true) {
@@ -149,7 +153,7 @@ if ($_SESSION['connexion'] == false) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            header("Location: ../index.php");
+            //header("Location: ../index.php");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -194,6 +198,14 @@ if ($_SESSION['connexion'] == false) {
                                             <div class="form-group">
                                                 <span class="form-label">Lieu</span>
                                                 <input class="form-control" name="location" type="text" placeholder="Entrer le lieu de l'evenement">
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="form-label">Entreprise</span>
+                                                <input class="form-control" name="employeur" type="text" placeholder="Entrer le lieu de l'evenement">
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="form-label">Description</span>
+                                                <input class="form-control" name="description" type="text" placeholder="Entrer le lieu de l'evenement">
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Sélectionner le(s) département(s) concerné(s) :</span>

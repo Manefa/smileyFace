@@ -135,13 +135,12 @@ if ($_SESSION['connexion'] == false) {
             $oldNameEv = $row['nameEv'];
             $oldDateEv = $row['dateEv'];
             $oldLocationEv = $row['locationEv'];
-            $splitTime = str_split($row['timeEv'], 3);
+            $splitTime = explode(":",$row['timeEv'], 3);
 
             var_dump($splitTime);
 
-            $oldTime = trim($splitTime[0], ":");
-            $oldMinute =  trim($splitTime[1], " ");
-            $oldPeriod = $splitTime[2];
+            $oldTime = trim($splitTime[0]);
+            $oldMinute =  trim($splitTime[1]);
         }
 
         // Fermez la connexion à la base de données
@@ -523,7 +522,7 @@ if ($_SESSION['connexion'] == false) {
 
             selectedDepartements = selectedDepartements.concat(preselectedDepartments);
 
-            // Fonction pour mettre à jour l'affichage des départements sélectionnés
+            // fonction qui met a jour l'affichae des departements selectionnees
             function updateSelectedDepartements() {
                 $(".selected-departements").empty();
                 selectedDepartements.forEach(function(category) {
