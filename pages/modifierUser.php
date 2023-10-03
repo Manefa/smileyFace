@@ -180,30 +180,48 @@ if ($_SESSION['connexion'] == false) {
                             <div class="container">
                                 <div class="row">
                                     <div class="booking-form">
-                                        <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                        <form class="needs-validation" novalidate id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
                                                 <span class="form-label">Image</span>
-                                                <input class="form-control" name="image" value="<?php echo $oldImage ?>" type="text" placeholder="Entrer le lien de l'image">
+                                                <input class="form-control" name="image" value="<?php echo $oldImage ?>" type="text" placeholder="Entrer le lien de l'image" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer l'image.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Nom</span>
-                                                <input class="form-control" name="nom" type="text" value="<?php echo $oldNom ?>" placeholder="Entrer le nom">
+                                                <input class="form-control" name="nom" type="text" value="<?php echo $oldNom ?>" placeholder="Entrer le nom" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le nom.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Prenom</span>
-                                                <input class="form-control" name="prenom" type="text" value="<?php echo $oldPrenom ?>" placeholder="Entrer le prenom">
+                                                <input class="form-control" name="prenom" type="text" value="<?php echo $oldPrenom ?>" placeholder="Entrer le prenom" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le prénom.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Poste</span>
-                                                <input class="form-control" name="poste" type="text" value="<?php echo $oldPoste ?>" placeholder="Entrer le poste">
+                                                <input class="form-control" name="poste" type="text" value="<?php echo $oldPoste ?>" placeholder="Entrer le poste" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le poste.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Email</span>
-                                                <input class="form-control" name="email" type="email" value="<?php echo $oldEmail ?>" placeholder="Entrer l'email">
+                                                <input class="form-control" name="email" type="email" value="<?php echo $oldEmail ?>" placeholder="Entrer l'email" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer l'email.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">PIN</span>
-                                                <input class="form-control" name="pin" type="text" value="<?php echo $oldPin ?>" placeholder="Entrer le code PIN">
+                                                <input class="form-control" name="pin" type="text" value="<?php echo $oldPin ?>" placeholder="Entrer le code PIN" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le code PIN.
+                                                </div>
                                             </div>
                                             <div class="form-btn">
                                                 <button class="submit-btn" type="submit">Appliquer les modifications</button>
@@ -232,6 +250,7 @@ if ($_SESSION['connexion'] == false) {
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/validation.js"></script>
 </body>
 
 </html>

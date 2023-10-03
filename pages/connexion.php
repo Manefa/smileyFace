@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $invalide = "Email ou mot de passe invalide.";
         $erreur = true;
-       var_dump($result);
+        var_dump($result);
     }
     $conn->close();
 }
@@ -80,14 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="container">
                         <div class="row">
                             <div class="booking-form">
-                                <form method="POST">
+                                <form class="needs-validation" novalidate method="POST">
                                     <div class="form-group">
                                         <span class="form-label">Email</span>
-                                        <input class="form-control" type="text" name="email" placeholder="Entrer votre email">
+                                        <input class="form-control" type="text" name="email" placeholder="Entrer votre email" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez entrer l'email.
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <span class="form-label">Mot de passe</span>
-                                        <input class="form-control" type="password" name="password" placeholder="Entrer votre mot de passe">
+                                        <input class="form-control" type="password" name="password" placeholder="Entrer votre mot de passe" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez entrer le mot de passe.
+                                        </div>
                                     </div>
 
                                     <div class="form-btn">
@@ -112,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
+    <script src="../js/validation.js"></script>
 </body>
 
 </html>

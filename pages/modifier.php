@@ -135,7 +135,7 @@ if ($_SESSION['connexion'] == false) {
             $oldNameEv = $row['nameEv'];
             $oldDateEv = $row['dateEv'];
             $oldLocationEv = $row['locationEv'];
-            $splitTime = explode(":",$row['timeEv'], 3);
+            $splitTime = explode(":", $row['timeEv'], 3);
 
             var_dump($splitTime);
 
@@ -373,7 +373,7 @@ if ($_SESSION['connexion'] == false) {
                             <div class="container">
                                 <div class="row">
                                     <div class="booking-form">
-                                        <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                        <form class="needs-validation" novalidate id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="mb-3">
                                                 <input type="hidden" class="form-control" id="id" aria-describedby="imageHelp" name="idPost" value="<?php echo $oldIdEv; ?>">
 
@@ -381,11 +381,17 @@ if ($_SESSION['connexion'] == false) {
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Nom</span>
-                                                <input class="form-control" name="eventName" type="text" value="<?php echo $oldNameEv; ?>" placeholder="Entrer le nom de l'evenement">
+                                                <input class="form-control" name="eventName" type="text" value="<?php echo $oldNameEv; ?>" placeholder="Entrer le nom de l'evenement" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le nom.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Lieu</span>
-                                                <input class="form-control" name="location" type="text" value="<?php echo $oldLocationEv; ?>" placeholder="Entrer le lieu de l'evenement">
+                                                <input class="form-control" name="location" type="text" value="<?php echo $oldLocationEv; ?>" placeholder="Entrer le lieu de l'evenement" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le lieu.
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Sélectionner le(s) département(s) concerné(s) :</span>
@@ -422,6 +428,9 @@ if ($_SESSION['connexion'] == false) {
                                                     <div class="form-group">
                                                         <span class="form-label">Date</span>
                                                         <input class="form-control" name="eventDate" value="<?php echo $oldDateEv; ?>" type="date" required>
+                                                        <div class="invalid-feedback">
+                                                            Veuillez entrer la date.
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7">
@@ -507,6 +516,7 @@ if ($_SESSION['connexion'] == false) {
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="../js/validation.js"></script>
     <script>
         $(document).ready(function() {
             // Tableau pour stocker les départements sélectionnés

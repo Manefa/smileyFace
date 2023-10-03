@@ -293,25 +293,37 @@ if ($_SESSION['connexion'] == false) {
                             <div class="container">
                                 <div class="row">
                                     <div class="booking-form">
-                                        <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                        <form class="needs-validation" novalidate id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
                                                 <span class="form-label">Nom</span>
-                                                <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement">
+                                                <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le nom.
+                                                </div>
                                                 <span style="color:red" ;><?php echo $nameEvrr; ?></span>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Lieu</span>
-                                                <input class="form-control" name="location" type="text" value="<?php echo $locationEv; ?>" placeholder="Entrer le lieu de l'evenement">
+                                                <input class="form-control" name="location" type="text" value="<?php echo $locationEv; ?>" placeholder="Entrer le lieu de l'evenement" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le lieu.
+                                                </div>
                                                 <span style="color:red" ;><?php echo $locationEvrr; ?></span>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Entreprise</span>
-                                                <input class="form-control" name="employeur" value="<?php echo $employeurEv; ?>" type="text" placeholder="Entrer le nom de l'entreprise">
+                                                <input class="form-control" name="employeur" value="<?php echo $employeurEv; ?>" type="text" placeholder="Entrer le nom de l'entreprise" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer le nom de l'entreprise.
+                                                </div>
                                                 <span style="color:red" ;><?php echo $employeurEvrr; ?></span>
                                             </div>
                                             <div class="form-group">
                                                 <span class="form-label">Description</span>
-                                                <input class="form-control" name="description" value="<?php echo $descriptionEv; ?>" type="text" placeholder="Entrer la description">
+                                                <input class="form-control" name="description" value="<?php echo $descriptionEv; ?>" type="text" placeholder="Entrer la description" required>
+                                                <div class="invalid-feedback">
+                                                    Veuillez entrer la description.
+                                                </div>
                                                 <span style="color:red" ;><?php echo $descriptionEvrr; ?></span>
                                             </div>
                                             <div class="form-group">
@@ -341,6 +353,9 @@ if ($_SESSION['connexion'] == false) {
                                                     <div class="form-group">
                                                         <span class="form-label">Date</span>
                                                         <input class="form-control" value="<?php echo $dateEv; ?>" name="eventDate" type="date" required>
+                                                        <div class="invalid-feedback">
+                                                            Veuillez entrer la date.
+                                                        </div>
                                                         <span style="color:red" ;><?php echo $dateEvrr; ?></span>
                                                     </div>
                                                 </div>
@@ -425,6 +440,7 @@ if ($_SESSION['connexion'] == false) {
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="../js/validation.js"></script>
     <script>
         $(document).ready(function() {
             // Tableau pour stocker les departements sélectionnées
