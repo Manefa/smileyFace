@@ -43,8 +43,11 @@ if ($_SESSION['connexion'] == false) {
 
     if ($conn->query($sql) == TRUE) {
         echo "Record deleted successfully";
+        header("Location: ../index.php");
+    }else{
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
-    header("Location: ../index.php");
+    
     $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
