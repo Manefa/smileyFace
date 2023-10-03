@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 29 Septembre 2023 à 21:56
+-- Généré le :  Mar 03 Octobre 2023 à 02:49
 -- Version du serveur :  5.7.11
--- Version de PHP :  7.0.3
+-- Version de PHP :  5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,6 +52,24 @@ CREATE TABLE `employeesatisfaction` (
   `idEv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `employeesatisfaction`
+--
+
+INSERT INTO `employeesatisfaction` (`idEm`, `satisfactionlevelEm`, `idEv`) VALUES
+(1, 2, 31),
+(2, 1, 31),
+(3, 1, 31),
+(4, 2, 31),
+(5, 3, 31),
+(6, 3, 31),
+(7, 1, 31),
+(8, 1, 31),
+(9, 2, 31),
+(10, 3, 31),
+(11, 3, 31),
+(12, 1, 31);
+
 -- --------------------------------------------------------
 
 --
@@ -64,6 +82,8 @@ CREATE TABLE `event` (
   `dateEv` date NOT NULL,
   `timeEv` varchar(255) NOT NULL,
   `locationEv` varchar(255) CHARACTER SET ucs2 NOT NULL,
+  `employeurEv` varchar(255) NOT NULL,
+  `descriptionEv` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -71,12 +91,9 @@ CREATE TABLE `event` (
 -- Contenu de la table `event`
 --
 
-INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `idUser`) VALUES
-(1, 'Danse', '2023-09-26', '', 'SA2090', 2),
-(20, 'fsd', '2023-10-06', '', 'fsd', 2),
-(24, 'test', '1969-12-31', '', 'test', 2),
-(29, 'Danse', '2023-09-30', '12:45 PM', 'SA2090', 2),
-(30, 'zzzzzz', '2023-11-11', '12:05 AM', 'zzzzzz', 2);
+INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `employeurEv`, `descriptionEv`, `idUser`) VALUES
+(30, 'Danse', '2023-10-19', '12:30 ', 'SA2090', 'GOX', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2),
+(31, 'test2', '2023-10-04', '12:05 AM', 'fdsfds', 'Revenu Canada', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2);
 
 -- --------------------------------------------------------
 
@@ -95,12 +112,11 @@ CREATE TABLE `liason` (
 --
 
 INSERT INTO `liason` (`id`, `idEv`, `idDpt`) VALUES
-(5, 20, 1),
-(6, 20, 2),
-(8, 24, 2),
-(17, 29, 1),
-(18, 29, 2),
-(19, 30, 2);
+(19, 30, 2),
+(20, 30, 1),
+(21, 30, 1),
+(26, 31, 2),
+(27, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -114,6 +130,18 @@ CREATE TABLE `studentsatisfaction` (
   `idEv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `studentsatisfaction`
+--
+
+INSERT INTO `studentsatisfaction` (`idEt`, `satisfactionlevelEt`, `idEv`) VALUES
+(1, 2, 31),
+(2, 2, 31),
+(3, 3, 31),
+(4, 1, 31),
+(5, 1, 31),
+(6, 1, 31);
+
 -- --------------------------------------------------------
 
 --
@@ -122,18 +150,21 @@ CREATE TABLE `studentsatisfaction` (
 
 CREATE TABLE `user` (
   `idUser` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `lastname` varchar(255) CHARACTER SET latin1 NOT NULL,
   `firstname` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `poste` varchar(255) NOT NULL,
   `email` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 NOT NULL
+  `password` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `pin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`idUser`, `lastname`, `firstname`, `email`, `password`) VALUES
-(2, 'manefa', 'yousouf', 'manefae8@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220');
+INSERT INTO `user` (`idUser`, `image`, `lastname`, `firstname`, `poste`, `email`, `password`, `pin`) VALUES
+(2, 'https://skuat.s3.eu-west-1.amazonaws.com/pictures/000719129/lg/pjvnqjdsgx1rbtejhl6r25niz4qzzt3vyibmqx1sltgudnabrbebv7tqnssl.jpg', 'manefa', 'le goat', 'Coordonateur', 'manefae8@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220 d', 1234);
 
 --
 -- Index pour les tables exportées
@@ -193,27 +224,27 @@ ALTER TABLE `departement`
 -- AUTO_INCREMENT pour la table `employeesatisfaction`
 --
 ALTER TABLE `employeesatisfaction`
-  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT pour la table `liason`
 --
 ALTER TABLE `liason`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `studentsatisfaction`
 --
 ALTER TABLE `studentsatisfaction`
-  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Contraintes pour les tables exportées
 --
