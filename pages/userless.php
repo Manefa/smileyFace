@@ -22,6 +22,7 @@ if ($_SESSION['connexion'] == false) {
 
         <?php
 
+        $idUser =$_GET["id"];
         $servername = "localhost";
         $username = "root";
         $password = "root";
@@ -34,7 +35,6 @@ if ($_SESSION['connexion'] == false) {
         }
 
 
-        $idUser = $_SESSION['idUser'];
         $firstname = "";
         $lastname = "";
         $pseudo = "";
@@ -123,66 +123,6 @@ if ($_SESSION['connexion'] == false) {
                         ?>
                     </ul>
                 </div>
-
-                <div class="col-md-4">
-                    <h2>Liste d'autres utilisateurs</h2>
-                    <div class="row">
-                        <?php
-
-                         // Récupérez la liste des autres utilisateurs (à l'exception de l'utilisateur actuel)
-                         $servername = "localhost";
-                         $username = "root";
-                         $password = "root";
-                         $db = "smileface";
- 
-                         $conn = new mysqli($servername, $username, $password, $db);
- 
-                         if ($conn->connect_error) {
-                             die("Connection failed: " . $conn->connect_error);
-                         }
-
-                         
-                        // Récupérez la liste des autres utilisateurs (à l'exception de l'utilisateur actuel)
-                        $sqlUsers = "SELECT * FROM `user` WHERE `idUser` != $idUser";
-                        $resultUsers = $conn->query($sqlUsers);
-
-                        if ($resultUsers->num_rows > 0) {
-                            while ($row = $resultUsers->fetch_assoc()) {
-                                $otherUserId = $row['idUser'];
-                                $otherFirstname = $row['firstname'];
-                                $otherLastname = $row['lastname'];
-                                $otherImage = $row['image'];
-                                $otherPoste = $row['poste'];
-
-                                // Construisez la carte Bootstrap pour chaque utilisateur
-                                echo '<div class="col-md-6 mb-4">
-                        <div class="card">
-                            <img src="' . $otherImage . '" class="card-img-top" alt="Photo de profil">
-                            <div class="card-body ">
-                                <h5 class="card-title">' . ucfirst($otherFirstname) . ' ' . ucfirst($otherLastname) . '</h5>
-                                <p class="card-text">' . $otherPoste . '</p>
-                                <a href="userless.php?id='.$otherUserId .'" class="btn btn-primary" >
-                                    <i class="fas fa-eye"></i> Afficher
-                                </a>
-                                <a href="modifierUser.php?id=' . $otherUserId . '" class="btn btn-warning mt-1">
-                                    <i class="fas fa-edit"></i> Modifier
-                                </a>
-                                <a href="../php/supprimerUser.php?id='. $otherUserId. '"class="btn btn-danger mt-1">
-                                    <i class="fas fa-trash"></i> Supprimer
-                                </a>
-                            </div>
-                        </div>
-                    </div>';
-                            }
-                        } else {
-                            echo 'Aucun autre utilisateur trouvé.';
-                        }
-                        $conn->close();
-                        ?>
-                    </div>
-                </div>
-
-
 
             </div>
         </div>

@@ -113,6 +113,7 @@ if ($_SESSION['connexion'] == false) {
                 $champsErreur = "Veuillez remplir tout les champs";
                 $erreur = true;
             } else {
+                $idPost = test_input($_POST['id']);
                 $image = test_input($_POST['image']);
                 $nom = test_input($_POST['nom']);
                 $prenom = test_input($_POST['prenom']);
@@ -130,7 +131,7 @@ if ($_SESSION['connexion'] == false) {
                     die("Connexion failed: " . $conn2->connect_error);
                 }
                 $conn2->query('SET NAMES utf8');
-                $sql = "UPDATE `user` SET `image` = '$image', `lastname` = '$nom', `firstname` = '$prenom', `poste` = '$poste', `email` = '$email', `pin` = '$pin' WHERE `user`.`idUser` = $idUser";
+                $sql = "UPDATE `user` SET `image` = '$image', `lastname` = '$nom', `firstname` = '$prenom', `poste` = '$poste', `email` = '$email', `pin` = '$pin' WHERE `user`.`idUser` = $idPost";
                 echo $sql; // Debug
 
                 if (mysqli_query($conn2, $sql)) {
@@ -181,6 +182,11 @@ if ($_SESSION['connexion'] == false) {
                                 <div class="row">
                                     <div class="booking-form">
                                         <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                            <div class="mb-3">
+                                                <input type="hidden" class="form-control" id="id" aria-describedby="imageHelp" name="id" value="<?php echo $id; ?>">
+
+                                                <br>
+                                            </div>
                                             <div class="form-group">
                                                 <span class="form-label">Image</span>
                                                 <input class="form-control" name="image" value="<?php echo $oldImage ?>" type="text" placeholder="Entrer le lien de l'image">

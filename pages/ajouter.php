@@ -190,19 +190,7 @@ if ($_SESSION['connexion'] == false) {
 
             // Exécutez la requête
             if ($conn->query($sql) === true) {
-                echo "<script>
-                document.addEventListener('DOMContentLoaded', () => {
-                  const showSuccessButton = document.getElementById('locationSuccess');
-                  showSuccessButton.addEventListener('click', () => {
-                    let Settings = {
-                        duration:  3000,
-                        showProgress: true,
-                        toastLocation: 'top'
-                    };
-                    Toast.success('Success! This is a success message.', Settings);
-                  });
-                });
-                </script>";
+                echo "evenement inserer avec success";
             } else {
                 echo "Erreur lors de l'insertion du l'evenement : " . $conn->error;
             }
@@ -258,6 +246,16 @@ if ($_SESSION['connexion'] == false) {
             }
 
             if (mysqli_query($conn, $sql)) {
+                echo '<script>
+        Toast.success("Événement ajouté avec succès!", {
+            duration: 2000,
+            showProgress: true,
+            toastLocation: "top"
+        });
+        setTimeout(function() {
+            window.location.href = "../index.php"; // Redirige vers la page d\'accueil après 2 secondes
+        }, 2000);
+    </script>';
                 header("Location: ../index.php");
                 exit();
             } else {
@@ -274,7 +272,7 @@ if ($_SESSION['connexion'] == false) {
 
     ?>
         <div class="container-fluid">
-            
+
             <div class="row justify-content-between g-0">
 
                 <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
@@ -437,6 +435,7 @@ if ($_SESSION['connexion'] == false) {
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="../js/sh_toaster.js"></script>
     <script>
         $(document).ready(function() {
             // Tableau pour stocker les departements sélectionnées
@@ -488,7 +487,7 @@ if ($_SESSION['connexion'] == false) {
             });
         });
     </script>
-    <script src="../js/sh_toaster.js"></script>
+
 </body>
 
 </html>

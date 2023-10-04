@@ -73,13 +73,13 @@ if ($_SESSION['connexion'] == false) {
     }
 
     // Fonction pour récupérer le nombre de votes pour chaque catégorie (aimer, neutre, détester)
-    function getVoteCounts($table)
+    function getVoteCounts($table, $idEv)
     {
         $sql = "SELECT 
                 SUM(CASE WHEN satisfactionlevelEm = 1 THEN 1 ELSE 0 END) AS aimer,
                 SUM(CASE WHEN satisfactionlevelEm = 2 THEN 1 ELSE 0 END) AS neutre,
                 SUM(CASE WHEN satisfactionlevelEm = 3 THEN 1 ELSE 0 END) AS detester
-            FROM $table";
+            FROM $table WHERE idEv = $idEv";
 
         $result = mysqli_query($GLOBALS['conn'], $sql);
 
@@ -90,13 +90,13 @@ if ($_SESSION['connexion'] == false) {
         return mysqli_fetch_assoc($result);
     }
 
-    function getVoteCountsEt($table)
+    function getVoteCountsEt($table, $idEv)
     {
         $sql = "SELECT 
                 SUM(CASE WHEN satisfactionlevelEt = 1 THEN 1 ELSE 0 END) AS aimer,
                 SUM(CASE WHEN satisfactionlevelEt = 2 THEN 1 ELSE 0 END) AS neutre,
                 SUM(CASE WHEN satisfactionlevelEt = 3 THEN 1 ELSE 0 END) AS detester
-            FROM $table";
+            FROM $table WHERE idEv = $idEv";
 
         $result = mysqli_query($GLOBALS['conn'], $sql);
 
@@ -108,8 +108,8 @@ if ($_SESSION['connexion'] == false) {
     }
 
     // Récupération des votes pour la table employeesatisfaction
-    $employeeSatisfactionCounts = getVoteCounts('employeesatisfaction');
-    $studentSatisfactionCounts = getVoteCountsEt('studentsatisfaction');
+    $employeeSatisfactionCounts = getVoteCounts('employeesatisfaction', $idEv);
+    $studentSatisfactionCounts = getVoteCountsEt('studentsatisfaction', $idEv);
 
     $employeeSatisfactionJSON = json_encode($employeeSatisfactionCounts);
     $studentSatisfactionJSON = json_encode($studentSatisfactionCounts);
@@ -188,6 +188,7 @@ if ($_SESSION['connexion'] == false) {
                 ?>
 
             </div>
+            <?php if(count($employeeSatisfactionCounts) > 0){ ?>
             <div class="col-md-4">
                 <!-- Graphique des statistiques -->
                 <canvas id="statsChart">
@@ -195,6 +196,16 @@ if ($_SESSION['connexion'] == false) {
                 </canvas>
 
             </div>
+            <?php }else{
+                echo "
+                <div class='col-md-4'>
+
+                <h1>Pas de statistiques disponnibles</h1>
+
+            </div>
+                ";
+            }
+                ?>
             <div class="col-md-4">
                 <!-- Graphique des statistiques -->
                 <canvas id="statshartSecond" aria-label="Hello ARIA World" role="img">
