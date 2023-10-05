@@ -12,6 +12,7 @@ if ($_SESSION['connexion'] == false) {
     <title>Profil de l'utilisateur</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <!-- Inclure ici vos propres fichiers CSS et JavaScript pour personnalisation -->
 </head>
@@ -22,7 +23,7 @@ if ($_SESSION['connexion'] == false) {
 
         <?php
 
-        $idUser =$_GET["id"];
+        $idUser = $_GET["id"];
         $servername = "localhost";
         $username = "root";
         $password = "root";
@@ -82,10 +83,10 @@ if ($_SESSION['connexion'] == false) {
 
         ?>
         <div class="row justify-content-between g-0">
-            <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+            <a href="../index.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                 <img src="../assets/logo.svg" width="55" height="55" alt="logo">
-                <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-            </div>
+                <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
+            </a>
 
             <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
                 <a href="#" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
@@ -95,6 +96,7 @@ if ($_SESSION['connexion'] == false) {
                 </a>
             </div>
         </div>
+        
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-4">
@@ -103,11 +105,8 @@ if ($_SESSION['connexion'] == false) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $fullname ?></h5>
                             <p class="card-text"><?php echo $poste ?></p>
-                            <a href="../pages/modifierUser.php?id=<?php echo $idUser ?>" class="btn btn-warning mt-2">Modifier mon profil</a>
-                            <a href="../pages/ajouterUser.php" class="btn btn-info mt-2">Ajouter un autre utilisateur</a>
-                            <a href="#" class="btn btn-success mt-2">Ajouter un département</a>
-                            <a href="#" class="btn btn-primary mt-2">Créer un événement</a>
-                            <a href="#" class="btn btn-danger mt-2">Supprimer un département</a>
+                            <a href="../pages/modifierUser.php?id=<?php echo $idUser ?>" class="btn btn-warning mt-2"><i style="color: white" class="bi bi-pencil-square"></i></a>
+                            <a href="../pages/supprimerUser.php?id=<?php echo $idUser ?>" class="btn btn-danger mt-2"><i style="color: white" class="bi bi-trash"></i></a>
 
                         </div>
                     </div>

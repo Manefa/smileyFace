@@ -12,6 +12,7 @@ if ($_SESSION['connexion'] == false) {
     <title>Profil de l'utilisateur</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <!-- Inclure ici vos propres fichiers CSS et JavaScript pour personnalisation -->
 </head>
@@ -104,10 +105,8 @@ if ($_SESSION['connexion'] == false) {
                             <h5 class="card-title"><?php echo $fullname ?></h5>
                             <p class="card-text"><?php echo $poste ?></p>
                             <a href="../pages/modifierUser.php?id=<?php echo $idUser ?>" class="btn btn-warning mt-2">Modifier mon profil</a>
-                            <a href="../pages/ajouterUser.php" class="btn btn-info mt-2">Ajouter un autre utilisateur</a>
-                            <a href="#" class="btn btn-success mt-2">Ajouter un département</a>
-                            <a href="#" class="btn btn-primary mt-2">Créer un événement</a>
-                            <a href="#" class="btn btn-danger mt-2">Supprimer un département</a>
+                            <a href="../pages/ajouterUser.php" class="btn btn-info mt-2">Ajouter un utilisateur</a>
+                            <a href="#" class="btn btn-primary mt-2">Ajouter un événement</a>
 
                         </div>
                     </div>
@@ -162,13 +161,13 @@ if ($_SESSION['connexion'] == false) {
                                 <h5 class="card-title">' . ucfirst($otherFirstname) . ' ' . ucfirst($otherLastname) . '</h5>
                                 <p class="card-text">' . $otherPoste . '</p>
                                 <a href="userless.php?id='.$otherUserId .'" class="btn btn-primary" >
-                                    <i class="fas fa-eye"></i> Afficher
+                                    <i class="bi bi-eye"></i> 
                                 </a>
                                 <a href="modifierUser.php?id=' . $otherUserId . '" class="btn btn-warning mt-1">
-                                    <i class="fas fa-edit"></i> Modifier
+                                <i style="color: white" class="bi bi-pencil-square"></i>
                                 </a>
                                 <a href="../php/supprimerUser.php?id='. $otherUserId. '"class="btn btn-danger mt-1">
-                                    <i class="fas fa-trash"></i> Supprimer
+                                <i class="bi bi-trash"></i> 
                                 </a>
                             </div>
                         </div>

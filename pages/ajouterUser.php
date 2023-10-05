@@ -13,7 +13,7 @@ $erreur = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "POST"; // Debug
 
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email'])) {
+    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin'])) {
         $champsErreur = "Veuillez remplir tout les champs";
         $erreur = true;
     } else {
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
             <div class="row text-center">
-                <h1 class="fw-bold">ajout des informations</h1>
+                <h1 class="fw-bold">Ajouter un utilisateurs</h1>
             </div>
 
             <div class="row">
@@ -140,41 +140,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="section-center">
                             <div class="container">
                                 <div class="row">
-                                    <div class="booking-form">
+                                    <div class="col-md-12 text-center fw-bold">
+                                        <span style="color: red;"><?php echo $champsErreur ?></span>
+                                    </div>
+                                    <div class="booking-form mt-3">
                                         <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
-                                                <span class="form-label">Image</span>
+                                                <Label class="form-label">Image</Label>
                                                 <input class="form-control" name="image" type="text" placeholder="Entrer le lien de l'image">
+                                                <div class="invalid-feedback">
+                                                    Please choose a username.
+                                                </div>
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Nom</span>
-                                                <input class="form-control" name="nom" type="text" placeholder="Entrer le nom">
+                                                <Label class="form-label" for="validationCustom01">Nom</Label>
+                                                <input class="form-control" name="nom" id="validationCustom01" type="text" placeholder="Entrer le nom">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Prenom</span>
+                                                <Label class="form-label">Prenom</Label>
                                                 <input class="form-control" name="prenom" type="text" placeholder="Entrer le prenom">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Poste</span>
+                                                <Label class="form-label">Poste</Label>
                                                 <input class="form-control" name="poste" type="text" placeholder="Entrer le poste">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Email</span>
+                                                <Label class="form-label">Email</Label>
                                                 <input class="form-control" name="email" type="email" placeholder="Entrer l'email">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Mot de passe</span>
+                                                <Label class="form-label">Mot de passe</Label>
                                                 <input class="form-control" name="motdepasse" type="password" placeholder="Entrer le mot de passe">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">PIN</span>
+                                                <Label class="form-label">PIN</Label>
                                                 <input class="form-control" name="pin" type="text" placeholder="Entrer le code PIN">
                                             </div>
+
                                             <div class="form-btn">
                                                 <button class="submit-btn" type="submit">Ajouter l'utilisateur</button>
                                             </div>
                                         </form>
+
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -196,7 +206,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 ?>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/validation.js"></script>
+
 </body>
 
 </html>

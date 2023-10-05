@@ -306,7 +306,7 @@ if ($_SESSION['connexion'] == false) {
                                         <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
                                                 <span class="form-label">Nom</span>
-                                                <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement">
+                                                <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement" required>
                                                 <span style="color:red" ;><?php echo $nameEvrr; ?></span>
                                             </div>
                                             <div class="form-group">

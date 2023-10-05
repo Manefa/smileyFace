@@ -173,7 +173,6 @@ if ($_SESSION['connexion'] == false) {
         $locationEv = test_input($_POST["location"]);
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
-        $period =  test_input($_POST["eventAMPM"]);
         $timeEv = $time . ":" . $minute . " " . $period;
         $servername = "localhost";
         $username = "root";
@@ -336,7 +335,7 @@ if ($_SESSION['connexion'] == false) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            //header("Location: ../index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -351,7 +350,7 @@ if ($_SESSION['connexion'] == false) {
     ?>
         <div class="container-fluid">
             <div class="row d-flex justify-content-between ">
-                <a href="home.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
+                <a href="../index.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                     <img src="../assets/logo.svg" width="68" height="67" alt="logo">
                     <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
                 </a>
