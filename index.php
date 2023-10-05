@@ -109,43 +109,52 @@ $conn->close();
             <h1 class="ms-4 mt-5">Evenements à venir</h1>
         </div>
 
-        <div class="row d-flex justify-content-between ms-1 me-4 mt-2 g-0 bg-danger">
+        <div class="row d-flex justify-content-start ms-1 me-4 mt-2 g-0">
             <?php if (empty($evenements_a_venir)) : ?>
-                <div class="col-md-12 text-center">
-                    <img src="chemin/vers/votre/svg.svg" alt="Aucun événement à venir">
-                    <p>Aucun événement à venir pour le moment.</p>
+
+                <div class="col-md-12 text-center d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-md-4 ">
+                        <img src="assets/Empty-cuate.svg" class="img-fluid" alt="Aucun événement à venir">
+                        <h2>Aucun événement à venir pour le moment.</h2>
+                    </div>
+
                 </div>
+
+
             <?php else : ?>
                 <?php foreach ($evenements_a_venir as $evenement) : ?>
-                    <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="bg-success" style="text-decoration: none; color: black; ">
-                        <div class="card mx-2 my-2" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title"><?= $evenement['nom'] ?></h5>
-                                <div class="mb-5 d-flex">
-                                    <p class="card-text">Informatique</p>
-                                    <p class="card-text ms-1 me-1">|</p>
-                                    <p class="card-text"><?= $evenement['location'] ?></p>
-                                </div>
-                                <div class="col-md-12 mt-5 d-flex justify-content-end">
-                                    <a href="pages/choisir.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-primary">
-                                            <img src="assets/Edit 3.svg" alt="Modifier">
-                                        </button>
-                                    </a>
-                                    <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-warning ms-2">
-                                            <img src="assets/Edit 3.svg" alt="Modifier">
-                                        </button>
-                                    </a>
-                                    <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-danger ms-2">
-                                            <img src="assets/Delete 3.svg" alt="Supprimer">
-                                        </button>
-                                    </a>
+                    <div class="col-md-4 ">
+                        <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="" style="text-decoration: none; color: black; ">
+                            <div class="card mx-2 my-2" style="width: 18rem;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title"><?= $evenement['nom'] ?></h5>
+                                    <div class="mb-5 d-flex">
+                                        <p class="card-text">Informatique</p>
+                                        <p class="card-text ms-1 me-1">|</p>
+                                        <p class="card-text"><?= $evenement['location'] ?></p>
+                                    </div>
+                                    <div class="col-md-12 mt-5 d-flex justify-content-end">
+                                        <a href="pages/choisir.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-primary">
+                                                <i style="color: white" class="bi bi-box-seam"></i>
+                                            </button>
+                                        </a>
+                                        <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-warning ms-2">
+                                                <i style="color: white" class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </a>
+                                        <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-danger ms-2">
+                                                <i style="color: white" class="bi bi-trash"></i>
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -156,9 +165,12 @@ $conn->close();
 
         <div class="row d-flex justify-content-between ms-1 me-4 mt-2 g-0">
             <?php if (empty($evenements_passes)) : ?>
-                <div class="col-md-12 text-center">
-                    <img src="chemin/vers/votre/svg.svg" alt="Aucun événement passé">
-                    <p>Aucun événement passé pour le moment.</p>
+                <div class="col-md-12 text-center d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-md-4 ">
+                        <img src="assets/Empty-cuate.svg" alt="Aucun événement passé">
+                        <h2>Aucun événement passé pour le moment.</h2>
+                    </div>
+
                 </div>
             <?php else : ?>
                 <?php foreach ($evenements_passes as $evenement) : ?>

@@ -11,7 +11,7 @@ $erreur = false;
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "POST"; // Debug
+    //echo "POST"; // Debug
 
     if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin'])) {
         $champsErreur = "Veuillez remplir tout les champs";
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid">
         <?php
         if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-            echo "Erreur ou 1ere fois"; // Debug
+            //echo "Erreur ou 1ere fois"; // Debug
 
 
 
@@ -117,12 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         ?>
             <div class="row justify-content-between g-0">
-                <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+                <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                     <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-                </div>
+                </a>
 
-                <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
+                <div class="col-md-3 col-sm-4 mt-4 d-flex justify-content-end">
                     <a href="#" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
                         <div class=" w-100" style="border-radius: 8px; min-height: 10px; background-color:#082D74;">
                             <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>

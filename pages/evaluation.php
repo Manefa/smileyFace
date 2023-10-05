@@ -6,12 +6,12 @@ if ($_SESSION['connexion'] == false) {
 
 if (isset($_GET['profil'])) {
     $idProfil = $_GET['profil'];
-    var_dump($idProfil);
+    //var_dump($idProfil);
 }
 
 if (isset($_GET['eventId'])) {
     $eventId = $_GET['eventId'];
-    var_dump($eventId);
+    //var_dump($eventId);
 }
 ?>
 <!DOCTYPE html>
@@ -73,7 +73,6 @@ if (isset($_GET['eventId'])) {
         </div>
 
         <div class="row mt-5 d-flex align-items-center justify-content-center">
-            <p id="messageMerci" style="display: none;">Merci d'avoir voté!</p>
 
             <div class="col-md-4 text-center d-flex justify-content-end">
                 <img class="img-fluid clickable" height="60%" width="60%" src="../assets/face_amazed.svg" alt="amazed" onclick="selectImage(this)">
@@ -107,22 +106,6 @@ if (isset($_GET['eventId'])) {
             } else if (imageType === "angry") {
                 vote = 3;
             }
-
-            // Désactiver les images et afficher le message de remerciement
-            document.querySelectorAll(".clickable").forEach(function(img) {
-                img.style.pointerEvents = "none"; // Désactiver les clics sur les images
-            });
-
-            document.getElementById("messageMerci").style.display = "block"; // Afficher le message de remerciement
-
-            // Après 5 secondes, réactiver les images
-            setTimeout(function() {
-                document.querySelectorAll(".clickable").forEach(function(img) {
-                    img.style.pointerEvents = "auto"; // Réactiver les clics sur les images
-                });
-
-                document.getElementById("messageMerci").style.display = "none"; // Cacher le message de remerciement
-            }, 250000); // 5000 millisecondes (5 secondes)
 
             // Envoyer les données de vote au serveur
             console.log(vote);

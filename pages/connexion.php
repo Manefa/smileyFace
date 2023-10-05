@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $invalide = "Email ou mot de passe invalide.";
         $erreur = true;
-       var_dump($result);
+       //var_dump($result);
     }
     $conn->close();
 }

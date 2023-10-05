@@ -47,7 +47,7 @@ if (mysqli_query($conn, $sql)) {
     echo '<script>
           setTimeout(function(){
               window.location.href = "../pages/evaluation.php?eventId=' . $eventId . '&profil=' . $profil . '";
-          }, 3000); // Redirection après 3 secondes (3000 millisecondes)
+          }, 2000); // Redirection après 3 secondes (3000 millisecondes)
       </script>';
 
     //header("Location: ../pages/evaluation.php?eventId=$eventId&profil=$profil");
@@ -69,12 +69,12 @@ mysqli_close($conn); ?>
 
 <body>
     <div class="container-fluid">
-        <div class="row d-flex">
+        <div class="row d-flex justify-content-center">
             <div class="col-md-5">
-                <img src="../assets/Feedback-cuate (1).svg" class="img-fluid" alt="" srcset="">
+                <img src="../assets/Feedback-cuate.svg" class="img-fluid" alt="" srcset="">
             </div>
 
-            <h1>Merci d'avoir voter</h1>
+            <h1 class="text-center">Merci d'avoir voter</h1>
         </div>
     </div>
 

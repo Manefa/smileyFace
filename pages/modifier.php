@@ -47,7 +47,7 @@ if ($_SESSION['connexion'] == false) {
             die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
         }
 
-        var_dump($idEvGet);
+        //var_dump($idEvGet);
 
         // Requête SQL pour récupérer tous les départements lier a un evenement dans la table liason
         $sqlDpt = "SELECT * FROM `liason` WHERE `idEv` = '$idEvGet'";
@@ -137,7 +137,7 @@ if ($_SESSION['connexion'] == false) {
             $oldLocationEv = $row['locationEv'];
             $splitTime = explode(":",$row['timeEv'], 3);
 
-            var_dump($splitTime);
+            //var_dump($splitTime);
 
             $oldTime = trim($splitTime[0]);
             $oldMinute =  trim($splitTime[1]);
@@ -161,7 +161,7 @@ if ($_SESSION['connexion'] == false) {
     $erreur = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        echo "POST";
+        //echo "POST";
         if (empty($_POST['eventName']) || empty($_POST['location']) || empty($_POST['departments']) || empty($_POST['eventDate'])) {
             $champsErreur = "Veuillez remplir tous les champs";
             $erreur = true;
@@ -189,7 +189,7 @@ if ($_SESSION['connexion'] == false) {
 
         date_default_timezone_set('America/New_York');
 
-        var_dump($idPost);
+        //var_dump($idPost);
 
         $sql = "UPDATE `event` SET `nameEv` = '$nameEv', `dateEv` = '$dateEv', `timeEv` = '$timeEv', `locationEv` = '$locationEv' WHERE `event`.`idEv` = '$idPost'";
 
@@ -226,8 +226,8 @@ if ($_SESSION['connexion'] == false) {
             $selectedDepartments = array();
         }
 
-        var_dump($selectedDepartments);
-        var_dump($existingDepartments);
+        //var_dump($selectedDepartments);
+        //var_dump($existingDepartments);
 
         if ($selectedDepartments != null && $existingDepartments != null) {
 
@@ -345,15 +345,16 @@ if ($_SESSION['connexion'] == false) {
     }
 
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-        echo "Erreur ou 1ere fois";
+        //echo "Erreur ou 1ere fois";
 
     ?>
         <div class="container-fluid">
             <div class="row d-flex justify-content-between ">
-                <a href="../index.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
-                    <img src="../assets/logo.svg" width="68" height="67" alt="logo">
+                <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
+                    <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
                 </a>
+
                 <div class="col-md-2 mt-4 me-4 d-flex justify-content-end">
                     <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
                         <div class="bg-secondary bg-opacity-50" style="border-radius: 8px;">
@@ -363,7 +364,7 @@ if ($_SESSION['connexion'] == false) {
                 </div>
             </div>
             <div class="row">
-                <h1 style="padding-left: 0px;" class="text-center mt-5">Modifier l'evenement xxxxx</h1>
+                <h1 style="padding-left: 0px;" class="text-center mt-5">Modifier l'evenement</h1>
             </div>
             <div class="row">
                 <div class="col-md-6">
