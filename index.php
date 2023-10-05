@@ -117,35 +117,39 @@ $conn->close();
                 </div>
             <?php else : ?>
                 <?php foreach ($evenements_a_venir as $evenement) : ?>
-                    <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="bg-success" style="text-decoration: none; color: black; ">
-                        <div class="card mx-2 my-2" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title"><?= $evenement['nom'] ?></h5>
-                                <div class="mb-5 d-flex">
-                                    <p class="card-text">Informatique</p>
-                                    <p class="card-text ms-1 me-1">|</p>
-                                    <p class="card-text"><?= $evenement['location'] ?></p>
-                                </div>
-                                <div class="col-md-12 mt-5 d-flex justify-content-end">
-                                    <a href="pages/choisir.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-primary">
-                                            <img src="assets/Edit 3.svg" alt="Modifier">
-                                        </button>
-                                    </a>
-                                    <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-warning ms-2">
-                                            <img src="assets/Edit 3.svg" alt="Modifier">
-                                        </button>
-                                    </a>
-                                    <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
-                                        <button type="button" class="btn btn-danger ms-2">
-                                            <img src="assets/Delete 3.svg" alt="Supprimer">
-                                        </button>
-                                    </a>
+                    <!-- modifier la grandeur -->
+                    <div class="container-fluid align-center col-md-4">
+                        <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="bg-success" style="text-decoration: none; color: black; ">
+                            <div class="card mx-2 my-2" style="width: 18rem;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title"><?= $evenement['nom'] ?></h5>
+                                    <div class="mb-5 d-flex">
+                                        <p class="card-text">Informatique</p>
+                                        <p class="card-text ms-1 me-1">|</p>
+                                        <p class="card-text"><?= $evenement['location'] ?></p>
+                                    </div>
+                                    <div class="mt-5 d-flex justify-content-end">
+                                        <a href="pages/choisir.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-primary">
+                                                <img src="assets/Edit 3.svg" alt="Modifier">
+                                            </button>
+                                        </a>
+                                        <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-warning ms-2">
+                                                <img src="assets/Edit 3.svg" alt="Modifier">
+                                            </button>
+                                        </a>
+                                        <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
+                                            <button type="button" class="btn btn-danger ms-2">
+                                                <img src="assets/Delete 3.svg" alt="Supprimer">
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
