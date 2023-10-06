@@ -136,7 +136,7 @@ require("../php/localserver.php");
                 $sql = "UPDATE `user` SET `image` = '$image', `lastname` = '$nom', `firstname` = '$prenom', `poste` = '$poste', `email` = '$email', `pin` = '$pin' WHERE `user`.`idUser` = $idPost";
                 echo $sql; // Debug
 
-                if (mysqli_query($conn2, $sql)) {
+                if (mysqli_query($conn, $sql)) {
                     header("Location: user.php");
                 } else {
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

@@ -203,7 +203,6 @@ require("../php/localserver.php");
         }
 
 
-
         $existingDepartments = array();
         $selectedDepartments = array();
 
