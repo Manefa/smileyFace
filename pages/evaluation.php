@@ -27,7 +27,7 @@ if (isset($_GET['eventId'])) {
     <link rel="stylesheet" href="../css/title-css.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* Classe pour indiquer la sélection d'une image */
+        
         .selected-image {
             opacity: 0.8;
             border-radius: 50%;
@@ -40,7 +40,7 @@ if (isset($_GET['eventId'])) {
         .clickable {
             cursor: pointer;
             transition: opacity 0.3s ease-in-out;
-            /* Ajoutez une transition pour l'opacité */
+           
         }
     </style>
 
@@ -56,7 +56,7 @@ if (isset($_GET['eventId'])) {
 
 
             <div class="col-md-3 mt-4 ms-4 ">
-                <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
+                <a href="../index.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
                     <img src="../assets/exit.svg" width="50" height="50" alt="sortir img">
                     <h1 class="ms-2 me-4 text-black">Sortir</h1>
                 </a>
@@ -65,11 +65,10 @@ if (isset($_GET['eventId'])) {
         </div>
 
 
-        <div class="row mt-5 d-flex align-items-center justify-content-center">
+        <div class="row d-flex mt-5 align-items-center justify-content-center">
             <div class="col-md-4 text-center">
                 <h1 class="fw-bold" id="textIntro">Avez vous apprecier l’evenement </h1>
             </div>
-
         </div>
 
         <div class="row mt-5 d-flex align-items-center justify-content-center">

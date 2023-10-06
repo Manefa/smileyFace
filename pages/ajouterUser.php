@@ -6,6 +6,7 @@ if ($_SESSION['connexion'] == false) {
 }
 
 $champsErreur = "";
+$pinErr = "";
 $firstname = $lastname = $email = $password = "";
 $erreur = false;
 
@@ -13,7 +14,10 @@ $erreur = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //echo "POST"; // Debug
 
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin'])) {
+    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin']) || (count($_POST['pin'])  < 6)) {
+        if(isset($_POST['pin']) &&  count($_POST['pin'])  < 6){
+            $pinErr = "le pin doit avoir au minimun 6 chiffres";
+        }
         $champsErreur = "Veuillez remplir tout les champs";
         $erreur = true;
     } else {
@@ -41,14 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $sql; // Debug
 
         if (mysqli_query($conn, $sql)) {
-            echo '<div class="alert alert-primary" role="alert">
-              Compte créé avec succès.
-          </div>';
-            echo '<script>
-              setTimeout(function(){
-                  window.location.href = "user.php";
-              }, 3000); // Redirection après 3 secondes (3000 millisecondes)
-          </script>';
+            header("Location: user.php");
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -176,6 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <Label class="form-label">PIN</Label>
                                                 <input class="form-control" name="pin" type="text" placeholder="Entrer le code PIN">
                                             </div>
+                                            <span style="color: red;"><?php echo $pinErr ?></span>
 
                                             <div class="form-btn">
                                                 <button class="submit-btn" type="submit">Ajouter l'utilisateur</button>

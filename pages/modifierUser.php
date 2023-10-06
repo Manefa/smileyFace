@@ -146,7 +146,7 @@ if ($_SESSION['connexion'] == false) {
         $conn->close();
 
         if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-            echo "Erreur ou 1ere fois";
+            //echo "Erreur ou 1ere fois";
 
         ?>
             <div class="row justify-content-between g-0">

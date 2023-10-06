@@ -25,12 +25,12 @@ if (isset($_GET['id'])) {
     <title>Index</title>
 
     <style>
-        /* Classe pour indiquer la sélection d'une image */
+        
         .selected-image {
             border: 2px solid green;
-            /* Par exemple, utilisez un cadre vert pour montrer la sélection */
+            
             opacity: 0.8;
-            /* Réduire légèrement l'opacité de l'image sélectionnée */
+            
         }
 
         .clickable {
@@ -55,14 +55,14 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row mt-4 d-flex align-items-center justify-content-center">
                 <div class="col-md-5 text-center">
-                    <!-- Ajoutez un lien autour de l'image et du texte -->
+                    
                     <a href="javascript:void(0);" style="color: black; text-decoration: none;" class="clickable" onclick="selectImage('etudiant')">
                         <img class="img-fluid" height="60%" width="60%" src="../assets/boy on graduation-cuate.svg" alt="etudiant">
                         <h1 class="fw-bold">Etudiant</h1>
                     </a>
                 </div>
                 <div class="col-md-5 text-center">
-                    <!-- Ajoutez un lien autour de l'image et du texte -->
+                    
                     <a href="javascript:void(0);" style="color: black; text-decoration: none;" class="clickable" onclick="selectImage('employeur')">
                         <img class="img-fluid" height="60%" width="60%" class="img-fluid" src="../assets/Business deal-cuate.svg" alt="employeur">
                         <h1 class="fw-bold">Employeur</h1>

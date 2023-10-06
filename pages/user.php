@@ -16,7 +16,6 @@ if ($_SESSION['connexion'] == false) {
     <link rel="stylesheet" href="../css/otp.csss">
     <link rel="stylesheet" href="../css/style_add_form.css">
 
-    <!-- Inclure ici vos propres fichiers CSS et JavaScript pour personnalisation -->
 </head>
 
 <body>
@@ -60,6 +59,7 @@ if ($_SESSION['connexion'] == false) {
             $firttime = false;
             $pintest = substr($_POST["pin"], 0, 6);
         }
+
 
 
         if ($pintest == $pinCode) {
@@ -172,7 +172,7 @@ if ($_SESSION['connexion'] == false) {
                         <div class="row">
                             <?php
 
-                            // Récupérez la liste des autres utilisateurs (à l'exception de l'utilisateur actuel)
+                            
                             $servername = "localhost";
                             $username = "root";
                             $password = "root";
@@ -185,7 +185,7 @@ if ($_SESSION['connexion'] == false) {
                             }
 
 
-                            // Récupérez la liste des autres utilisateurs (à l'exception de l'utilisateur actuel)
+                     
                             $sqlUsers = "SELECT * FROM `user` WHERE `idUser` != $idUser";
                             $resultUsers = $conn->query($sqlUsers);
 
@@ -310,7 +310,6 @@ if ($_SESSION['connexion'] == false) {
                         }
                     }
 
-                    // Mettez à jour l'élément HTML avec l'état actuel de l'OTP
 
                     const otpValue = Array.from(inputs).map(input => input.value).join('');
 

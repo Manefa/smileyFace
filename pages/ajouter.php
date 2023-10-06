@@ -526,10 +526,10 @@ if ($_SESSION['connexion'] == false) {
     <script src="../js/sh_toaster.js"></script>
     <script>
         $(document).ready(function() {
-            // Tableau pour stocker les departements sélectionnées
+            
             let selectedDepartements = [];
 
-            // Fonction pour mettre à jour l'affichage des departements sélectionnées
+            
             function updateSelectedDepartements() {
                 $(".selected-departements").empty();
                 selectedDepartements.forEach(function(category) {
@@ -544,7 +544,7 @@ if ($_SESSION['connexion'] == false) {
                     $(".selected-departements").append(categoryItem);
                 });
 
-                // Lorsqu'on clique sur l'icône de suppression
+                
                 $(".selected-departements .btn-danger").click(function() {
                     const categoryToRemove = $(this).data("category");
                     const index = selectedDepartements.indexOf(categoryToRemove);
@@ -559,15 +559,15 @@ if ($_SESSION['connexion'] == false) {
                 $("#selectedDepartementsInput").val(JSON.stringify(selectedDepartements));
             }
 
-            // Lorsqu'une departement est sélectionnée dans la liste déroulante
+            
             $("#categorySelect").change(function() {
                 const selectedCategory = $(this).val();
                 if (selectedCategory.trim() !== "") {
-                    // Vérifier si la departement n'est pas déjà dans la liste
+                    
                     if (!selectedDepartements.includes(selectedCategory)) {
                         selectedDepartements.push(selectedCategory);
                         updateSelectedDepartements();
-                        $(this).val(""); // Réinitialise la liste déroulante
+                        $(this).val(""); 
                     } else {
                         alert("Cette departement est déjà sélectionnée.");
                     }
@@ -601,7 +601,6 @@ if ($_SESSION['connexion'] == false) {
                             }
                         }
 
-                        // Mettez à jour l'élément HTML avec l'état actuel de l'OTP
 
                         const otpValue = Array.from(inputs).map(input => input.value).join('');
 

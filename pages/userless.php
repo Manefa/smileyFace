@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['connexion'] == false) {
-    header("Location: pages/connexion.php");
+    header("Location: connexion.php");
 } ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +14,6 @@ if ($_SESSION['connexion'] == false) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <!-- Inclure ici vos propres fichiers CSS et JavaScript pour personnalisation -->
 </head>
 
 <body>
@@ -128,7 +127,6 @@ if ($_SESSION['connexion'] == false) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Inclure ici vos propres fichiers JavaScript pour l'interaction -->
 </body>
 
 </html>

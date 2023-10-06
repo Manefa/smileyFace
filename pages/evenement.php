@@ -13,7 +13,7 @@ if ($_SESSION['connexion'] == false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de l'événement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Inclure Chart.js -->
+ 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -74,7 +74,7 @@ if ($_SESSION['connexion'] == false) {
         //echo "0 results";
     }
 
-    // Fonction pour récupérer le nombre de votes pour chaque catégorie (aimer, neutre, détester)
+    
     function getVoteCounts($table, $idEv)
     {
         $sql = "SELECT 
@@ -109,7 +109,7 @@ if ($_SESSION['connexion'] == false) {
         return mysqli_fetch_assoc($result);
     }
 
-    // Récupération des votes pour la table employeesatisfaction
+    
     $employeeSatisfactionCounts = getVoteCounts('employeesatisfaction', $idEv);
     $studentSatisfactionCounts = getVoteCountsEt('studentsatisfaction', $idEv);
 
@@ -120,7 +120,7 @@ if ($_SESSION['connexion'] == false) {
 
     $fullname = ucfirst($firstname) . " " . ucfirst($lastname);
 
-    // Requête SQL pour récupérer les noms des départements liés à l'événement
+    
     $sqlDpt = "SELECT d.Name
     FROM liason l
     INNER JOIN departement d ON l.idDpt = d.id
@@ -132,10 +132,10 @@ if ($_SESSION['connexion'] == false) {
         die("Erreur de requête : " . mysqli_error($conn));
     }
 
-    // Créer un tableau pour stocker les noms des départements
+    
     $departements = array();
 
-    // Récupérer les noms des départements et les ajouter au tableau
+    
     while ($row = mysqli_fetch_assoc($resultDpt)) {
         $departements[] = $row['Name'];
     }
@@ -192,7 +192,7 @@ if ($_SESSION['connexion'] == false) {
             </div>
             <?php if (count($employeeSatisfactionCounts) > 0) { ?>
                 <div class="col-md-4">
-                    <!-- Graphique des statistiques -->
+                    
                     <canvas id="statsChart">
 
                     </canvas>
@@ -209,7 +209,7 @@ if ($_SESSION['connexion'] == false) {
             }
             ?>
             <div class="col-md-4">
-                <!-- Graphique des statistiques -->
+                
                 <canvas id="statshartSecond" aria-label="Hello ARIA World" role="img">
                     <p>Hello Fallback World</p>
                 </canvas>

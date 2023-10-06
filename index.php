@@ -48,7 +48,8 @@ if ($result->num_rows > 0) {
             'idEv' => $row['idEv'],
             'nom' => $row['nameEv'],
             'date' => $row['dateEv'],
-            'location' => $row['locationEv']
+            'location' => $row['locationEv'],
+            'time' => $row['timeEv']
         ];
 
         // Determinez si l'événement est à venir ou passé en fonction de la date
@@ -154,7 +155,6 @@ $conn->close();
                             </div>
                         </a>
                     </div>
-
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -178,19 +178,21 @@ $conn->close();
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                             <div class="mb-5 d-flex">
-                                <p class="card-text">Informatique</p>
+                                <p class="card-text"><?= date("d M Y",strtotime($evenement['date'])) ?></p>
                                 <p class="card-text ms-1 me-1">|</p>
-                                <p class="card-text"><?= $evenement['location'] ?></p>
+                                <p class="card-text"><?= $evenement['time'] ?></p>
+                                <p class="card-text ms-1 me-1">|</p>
+                                <p class="card-text"><?=  $evenement['location'] ?></p>
                             </div>
                             <div class="col-md-12 mt-5 d-flex justify-content-end">
                                 <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">
                                     <button type="button" class="btn btn-warning">
-                                        <img src="assets/Edit 3.svg" alt="Modifier">
+                                        <i style="color: white" class="bi bi-pencil-square"></i>
                                     </button>
                                 </a>
                                 <a href="php/supprimer.php?id=<?= $evenement['idEv']; ?>">
                                     <button type="button" class="btn btn-danger ms-2">
-                                        <img src="assets/Delete 3.svg" alt="Supprimer">
+                                        <i style="color: white" class="bi bi-trash"></i>
                                     </button>
                                 </a>
                             </div>

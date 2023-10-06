@@ -47,7 +47,7 @@ if (mysqli_query($conn, $sql)) {
     echo '<script>
           setTimeout(function(){
               window.location.href = "../pages/evaluation.php?eventId=' . $eventId . '&profil=' . $profil . '";
-          }, 2000); // Redirection après 3 secondes (3000 millisecondes)
+          }, 3000); // Redirection après 3 secondes (3000 millisecondes)
       </script>';
 
     //header("Location: ../pages/evaluation.php?eventId=$eventId&profil=$profil");
@@ -64,19 +64,34 @@ mysqli_close($conn); ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/confetti.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-5">
-                <img src="../assets/Feedback-cuate.svg" class="img-fluid" alt="" srcset="">
-            </div>
+    <div class="container">
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
 
-            <h1 class="text-center">Merci d'avoir voter</h1>
+        <div class="container-fluid">
+
+            <div class="row d-flex justify-content-center align-items-center vh-100">
+                <div class="col-md-5 ">
+                    <img src="../assets/Feedback-cuate.svg" class="img-fluid" alt="" srcset="">
+                    <h1 class="text-center fw-bold mt-3">Merci d'avoir voter</h1>
+                </div>
+            </div>
         </div>
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
