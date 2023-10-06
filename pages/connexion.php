@@ -1,8 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['connexion'] == false) {
-    header("Location: connexion.php");
-}
+
 
 
 $champsErreur = $invalide = "";

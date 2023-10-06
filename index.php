@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if ($_SESSION['connexion'] == false) {
     header("Location: pages/connexion.php");
 }
