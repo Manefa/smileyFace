@@ -23,7 +23,8 @@ if ($_SESSION['connexion'] == false) {
     <?php
 
 
-    $servername = "localhost";
+    require("../php/localserver.php");
+/*     $servername = "localhost";
     $username = "root";
     $password = "root";
     $db = "smileface";
@@ -32,7 +33,7 @@ if ($_SESSION['connexion'] == false) {
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    }
+    } */
 
     $idUser = $_SESSION['idUser'];
     $pinCode = "";
@@ -211,7 +212,7 @@ if ($_SESSION['connexion'] == false) {
 
             if ($erreur == false) {
 
-                $servername = "localhost";
+                /* $servername = "localhost";
                 $username = "root";
                 $password = "root";
                 $db = "smileface";
@@ -220,7 +221,7 @@ if ($_SESSION['connexion'] == false) {
 
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-                }
+                } */
 
                 $conn->query('SET NAMES utf8');
 

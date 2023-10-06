@@ -5,6 +5,8 @@ if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
+require("../php/localserver.php");
+
 $champsErreur = "";
 $pinErr = "";
 $firstname = $lastname = $email = $password = "";
@@ -31,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $motdepasse = sha1($motdepasse, false);
 
-        $servername = "localhost";
+       /*  $servername = "localhost";
         $usernameDB = "root";
         $passwordDB = "root";
         $dbname = "smileface";
@@ -39,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
         if ($conn->connect_error) {
             die("Connexion failed: " . $conn->connect_error);
-        }
+        } */
         $conn->query('SET NAMES utf8');
         $sql = "INSERT INTO `user` (`idUser`, `image`, `lastname`, `firstname`, `poste`, `email`, `password`, `pin`) VALUES (NULL, '$image', ' $nom', '$prenom', '$poste', '$email', '$motdepasse', '$pin')";
         echo $sql; // Debug
@@ -74,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-            $servername = "localhost";
+            /* $servername = "localhost";
             $username = "root";
             $password = "root";
             $db = "smileface";
@@ -83,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
-            }
+            } */
 
             $idUser = $_SESSION['idUser'];
             $firstname = "";

@@ -4,6 +4,8 @@ if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
+require("../php/localserver.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -174,7 +176,7 @@ if ($_SESSION['connexion'] == false) {
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
         $timeEv = $time . ":" . $minute . " " . $period;
-        $servername = "localhost";
+        /* $servername = "localhost";
         $username = "root";
         $password = "root";
         $db = "smileface";
@@ -183,7 +185,7 @@ if ($_SESSION['connexion'] == false) {
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
-        }
+        } */
 
         $conn->query('SET NAMES utf8');
 

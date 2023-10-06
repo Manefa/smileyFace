@@ -4,6 +4,7 @@ if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
+require("../php/localserver.php");
 if (isset($_GET['profil'])) {
     $idProfil = $_GET['profil'];
     //var_dump($idProfil);

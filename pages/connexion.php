@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require("../php/localserver.php");
+
 
 
 $champsErreur = $invalide = "";
@@ -18,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $password = sha1($password, false);
 
-    $servername = "localhost";
+    /* $servername = "localhost";
     $usernameDB = "root";
     $passwordDB = "root";
     $dbname = "smileface";
@@ -26,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
     if ($conn->connect_error) {
         die("Connexion failed: " . $conn->connect_error);
-    }
+    } */
     $conn->query('SET NAMES utf8');
     $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
     //$sql = "SELECT * FROM user";

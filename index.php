@@ -87,7 +87,7 @@ $conn->close();
             </div>
 
             <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
-                <a href="pages/user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
+                <a href="pages/otpcopy.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
                     <div class=" w-100" style="border-radius: 8px; min-height: 10px;  background-color:#082D74;">
                         <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>
                     </div>
@@ -131,7 +131,9 @@ $conn->close();
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                                     <div class="mb-5 d-flex">
-                                        <p class="card-text">Informatique</p>
+                                        <p class="card-text"><?= date("d M Y", strtotime($evenement['date'])) ?></p>
+                                        <p class="card-text ms-1 me-1">|</p>
+                                        <p class="card-text"><?= $evenement['time'] ?></p>
                                         <p class="card-text ms-1 me-1">|</p>
                                         <p class="card-text"><?= $evenement['location'] ?></p>
                                     </div>
@@ -179,11 +181,11 @@ $conn->close();
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                             <div class="mb-5 d-flex">
-                                <p class="card-text"><?= date("d M Y",strtotime($evenement['date'])) ?></p>
+                                <p class="card-text"><?= date("d M Y", strtotime($evenement['date'])) ?></p>
                                 <p class="card-text ms-1 me-1">|</p>
                                 <p class="card-text"><?= $evenement['time'] ?></p>
                                 <p class="card-text ms-1 me-1">|</p>
-                                <p class="card-text"><?=  $evenement['location'] ?></p>
+                                <p class="card-text"><?= $evenement['location'] ?></p>
                             </div>
                             <div class="col-md-12 mt-5 d-flex justify-content-end">
                                 <a href="pages/modifier.php?id=<?= $evenement['idEv']; ?>">

@@ -2,7 +2,9 @@
 session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
-} ?>
+} 
+
+require("../php/localserver.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +25,7 @@ if ($_SESSION['connexion'] == false) {
         <?php
 
         $idUser = $_GET["id"];
-        $servername = "localhost";
+        /* $servername = "localhost";
         $username = "root";
         $password = "root";
         $db = "smileface";
@@ -32,7 +34,7 @@ if ($_SESSION['connexion'] == false) {
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
-        }
+        } */
 
 
         $firstname = "";

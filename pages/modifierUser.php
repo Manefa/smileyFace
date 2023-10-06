@@ -3,7 +3,7 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
-
+require("../php/localserver.php");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,7 +35,7 @@ if ($_SESSION['connexion'] == false) {
             $oldPin = "";
 
 
-            $servername  =  "localhost";
+            /* $servername  =  "localhost";
             $username  =  "root";
             $password  =  "root";
             $dbname  =  "smileface";
@@ -45,7 +45,7 @@ if ($_SESSION['connexion'] == false) {
             //  Check  connection
             if ($conn->connect_error) {
                 die("Connection  failed:  "  .  $conn->connect_error);
-            }
+            } */
 
             $sql  =  "SELECT * FROM `user` WHERE `idUser` = $id";
             $result  =  $conn->query($sql);
@@ -69,7 +69,7 @@ if ($_SESSION['connexion'] == false) {
         ?>
         <?php
 
-        $servername = "localhost";
+       /*  $servername = "localhost";
         $username = "root";
         $password = "root";
         $db = "smileface";
@@ -79,7 +79,7 @@ if ($_SESSION['connexion'] == false) {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-
+ */
 
         $idUser = $_SESSION['idUser'];
         $firstname = "";
@@ -121,25 +121,25 @@ if ($_SESSION['connexion'] == false) {
                 $email = test_input($_POST['email']);
                 $pin = test_input($_POST['pin']);
 
-                $servername = "localhost";
+                /* $servername = "localhost";
                 $usernameDB = "root";
                 $passwordDB = "root";
                 $dbname = "smileface";
 
-                $conn2 = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
-                if ($conn2->connect_error) {
-                    die("Connexion failed: " . $conn2->connect_error);
-                }
-                $conn2->query('SET NAMES utf8');
+                $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
+                if ($conn->connect_error) {
+                    die("Connexion failed: " . $conn->connect_error);
+                } */
+                $conn->query('SET NAMES utf8');
                 $sql = "UPDATE `user` SET `image` = '$image', `lastname` = '$nom', `firstname` = '$prenom', `poste` = '$poste', `email` = '$email', `pin` = '$pin' WHERE `user`.`idUser` = $idPost";
                 echo $sql; // Debug
 
                 if (mysqli_query($conn2, $sql)) {
                     header("Location: user.php");
                 } else {
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conn2);
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                 }
-                $conn2->close();
+                $conn->close();
             }
         }
 
