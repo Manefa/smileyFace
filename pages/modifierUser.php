@@ -69,7 +69,9 @@ require("../php/localserver.php");
         ?>
         <?php
 
-       /*  $servername = "localhost";
+        require("../php/localserver.php");
+
+        /*  $servername = "localhost";
         $username = "root";
         $password = "root";
         $db = "smileface";

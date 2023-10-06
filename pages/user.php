@@ -131,6 +131,8 @@ require("../php/localserver.php"); ?>
                     <div class="row">
                         <?php
 
+                        require("../php/localserver.php");
+
 
                         /* $servername = "localhost";
                             $username = "root";
@@ -142,7 +144,7 @@ require("../php/localserver.php"); ?>
                             if ($conn->connect_error) {
                                 die("Connection failed: " . $conn->connect_error);
                             }
- */
+                        */
 
 
                         $sqlUsers = "SELECT * FROM `user` WHERE `idUser` != $idUser";
