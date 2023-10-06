@@ -108,10 +108,10 @@ $conn->close();
         </div>
 
         <div class="row g-0">
-            <h1 class="ms-4 mt-5">Evenements à venir</h1>
+            <h1 class="ms-4 mt-5"><b><u>Evenements à venir</u></b></h1>
         </div>
 
-        <div class="row d-flex justify-content-start ms-1 me-4 mt-2 g-0">
+        <div class="row d-flex text-bg-success justify-content-start ms-1 me-4 mt-2 g-0">
             <?php if (empty($evenements_a_venir)) : ?>
 
                 <div class="col-md-12 text-center d-flex flex-column align-items-center justify-content-center">
@@ -127,7 +127,7 @@ $conn->close();
                 <?php foreach ($evenements_a_venir as $evenement) : ?>
                     <div class="col-md-4 ">
                         <a href="pages/evenement.php?idEv=<?php echo $evenement['idEv'] ?>" class="" style="text-decoration: none; color: black; ">
-                            <div class="card mx-2 my-2" style="width: 18rem;">
+                            <div class="card text-bg-info mx-2 my-2" style="width: 18rem;">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><?= $evenement['nom'] ?></h5>
                                     <div class="mb-5 d-flex">
@@ -161,10 +161,10 @@ $conn->close();
         </div>
 
         <div class="row g-0">
-            <h1 class="ms-4 mt-5">Evenements passés</h1>
+            <h1 class="ms-4 mt-5"><b><u>Evenements passés</u></b></h1>
         </div>
 
-        <div class="row d-flex justify-content-between ms-1 me-4 mt-2 g-0">
+        <div class="row text-bg-warning d-flex justify-content-between ms-1 me-4 mt-2 g-0">
             <?php if (empty($evenements_passes)) : ?>
                 <div class="col-md-12 text-center d-flex flex-column align-items-center justify-content-center">
                     <div class="col-md-4 ">
