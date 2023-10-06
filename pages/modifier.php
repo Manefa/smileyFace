@@ -47,7 +47,7 @@ if ($_SESSION['connexion'] == false) {
             die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
         }
 
-        var_dump($idEvGet);
+        //var_dump($idEvGet);
 
         // Requête SQL pour récupérer tous les départements lier a un evenement dans la table liason
         $sqlDpt = "SELECT * FROM `liason` WHERE `idEv` = '$idEvGet'";
@@ -137,7 +137,7 @@ if ($_SESSION['connexion'] == false) {
             $oldLocationEv = $row['locationEv'];
             $splitTime = explode(":", $row['timeEv'], 3);
 
-            var_dump($splitTime);
+            //var_dump($splitTime);
 
             $oldTime = trim($splitTime[0]);
             $oldMinute =  trim($splitTime[1]);
@@ -161,7 +161,7 @@ if ($_SESSION['connexion'] == false) {
     $erreur = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        echo "POST";
+        //echo "POST";
         if (empty($_POST['eventName']) || empty($_POST['location']) || empty($_POST['departments']) || empty($_POST['eventDate'])) {
             $champsErreur = "Veuillez remplir tous les champs";
             $erreur = true;
@@ -173,7 +173,6 @@ if ($_SESSION['connexion'] == false) {
         $locationEv = test_input($_POST["location"]);
         $time =  test_input($_POST["eventHour"]);
         $minute =  test_input($_POST["eventMinute"]);
-        $period =  test_input($_POST["eventAMPM"]);
         $timeEv = $time . ":" . $minute . " " . $period;
         $servername = "localhost";
         $username = "root";
@@ -190,7 +189,7 @@ if ($_SESSION['connexion'] == false) {
 
         date_default_timezone_set('America/New_York');
 
-        var_dump($idPost);
+        //var_dump($idPost);
 
         $sql = "UPDATE `event` SET `nameEv` = '$nameEv', `dateEv` = '$dateEv', `timeEv` = '$timeEv', `locationEv` = '$locationEv' WHERE `event`.`idEv` = '$idPost'";
 
@@ -227,8 +226,8 @@ if ($_SESSION['connexion'] == false) {
             $selectedDepartments = array();
         }
 
-        var_dump($selectedDepartments);
-        var_dump($existingDepartments);
+        //var_dump($selectedDepartments);
+        //var_dump($existingDepartments);
 
         if ($selectedDepartments != null && $existingDepartments != null) {
 
@@ -290,7 +289,7 @@ if ($_SESSION['connexion'] == false) {
 
                 }
             }*/
-                // Récupérer les ID des départements sélectionnés à partir de leurs noms
+                
                 $selectedDepartmentIDs = array();
 
                 foreach ($selectedDepartments as $selectedDepartment) {
@@ -304,7 +303,7 @@ if ($_SESSION['connexion'] == false) {
                     }
                 }
 
-                // Récupérer la liste des ID des départements liés à l'événement depuis la base de données
+                
                 $existingDepartmentIDs = array();
                 $sqlExistingDepartments = "SELECT idDpt FROM liason WHERE idEv = '$idPost'";
                 $resultExistingDepartments = $conn->query($sqlExistingDepartments);
@@ -315,9 +314,9 @@ if ($_SESSION['connexion'] == false) {
                     }
                 }
 
-                // Comparer les ID des départements sélectionnés avec les ID des départements existants en base de données
+                
                 foreach ($selectedDepartmentIDs as $selectedDepartmentID) {
-                    // Si le département sélectionné n'existe pas déjà, l'ajouter en base de données
+                    
                     if (!in_array($selectedDepartmentID, $existingDepartmentIDs)) {
                         $sqlInsertDept = "INSERT INTO liason (id, idEv, idDpt) VALUES (NULL, '$idPost', '$selectedDepartmentID')";
                         $conn->query($sqlInsertDept);
@@ -325,7 +324,7 @@ if ($_SESSION['connexion'] == false) {
                 }
 
                 foreach ($existingDepartmentIDs as $existingDepartmentID) {
-                    // Si le département existant n'est plus sélectionné, le supprimer de la base de données
+                    
                     if (!in_array($existingDepartmentID, $selectedDepartmentIDs)) {
                         $sqlDeleteDept = "DELETE FROM liason WHERE idEv = '$idPost' AND idDpt = '$existingDepartmentID'";
                         $conn->query($sqlDeleteDept);
@@ -336,7 +335,7 @@ if ($_SESSION['connexion'] == false) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            //header("Location: ../index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -346,15 +345,16 @@ if ($_SESSION['connexion'] == false) {
     }
 
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-        echo "Erreur ou 1ere fois";
+        //echo "Erreur ou 1ere fois";
 
     ?>
         <div class="container-fluid">
             <div class="row d-flex justify-content-between ">
-                <a href="home.php" class="col-md-4 mt-4 ms-4 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
-                    <img src="../assets/logo.svg" width="68" height="67" alt="logo">
+                <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
+                    <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold ">Cegep Tr</h1>
                 </a>
+
                 <div class="col-md-2 mt-4 me-4 d-flex justify-content-end">
                     <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
                         <div class="bg-secondary bg-opacity-50" style="border-radius: 8px;">
@@ -364,7 +364,7 @@ if ($_SESSION['connexion'] == false) {
                 </div>
             </div>
             <div class="row">
-                <h1 style="padding-left: 0px;" class="text-center mt-5">Modifier l'evenement xxxxx</h1>
+                <h1 style="padding-left: 0px;" class="text-center mt-5">Modifier l'evenement</h1>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -398,7 +398,7 @@ if ($_SESSION['connexion'] == false) {
                                                 <select class="form-control" id="categorySelect">
                                                     <option value="" disabled selected hidden>Sélectionnez une departement</option>
                                                     <?php
-                                                    // Générez les options de la liste déroulante en utilisant les données des "tuples"
+                                                    
                                                     foreach ($tuples as $nomColonne => $donnees) {
                                                         foreach ($donnees as $valeur) {
                                                             echo "<option value='$valeur'>$valeur</option>";
@@ -408,7 +408,7 @@ if ($_SESSION['connexion'] == false) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <!-- Affichage des departements sélectionnées -->
+                                            
                                             <div class="form-group">
                                                 <div class="selected-departements">
                                                     <?php
@@ -419,7 +419,7 @@ if ($_SESSION['connexion'] == false) {
                                                         }
                                                     }
                                                     ?>
-                                                    <!-- Les departements sélectionnées seront affichées ici -->
+                                                    
                                                 </div>
                                                 <input type="hidden" id="selectedDepartementsInput" name="selectedDepartements" value="">
                                             </div>
@@ -519,7 +519,7 @@ if ($_SESSION['connexion'] == false) {
     <script src="../js/validation.js"></script>
     <script>
         $(document).ready(function() {
-            // Tableau pour stocker les départements sélectionnés
+            
             let selectedDepartements = [];
             let preselectedDepartments = [];
 
@@ -532,7 +532,7 @@ if ($_SESSION['connexion'] == false) {
 
             selectedDepartements = selectedDepartements.concat(preselectedDepartments);
 
-            // fonction qui met a jour l'affichae des departements selectionnees
+            
             function updateSelectedDepartements() {
                 $(".selected-departements").empty();
                 selectedDepartements.forEach(function(category) {
@@ -547,7 +547,7 @@ if ($_SESSION['connexion'] == false) {
                     $(".selected-departements").append(categoryItem);
                 });
 
-                // Lorsqu'on clique sur l'icône de suppression
+                
                 $(".selected-departements .btn-danger").click(function() {
                     const categoryToRemove = $(this).data("category");
                     const index = selectedDepartements.indexOf(categoryToRemove);
@@ -562,26 +562,25 @@ if ($_SESSION['connexion'] == false) {
                 $("#selectedDepartementsInput").val(JSON.stringify(selectedDepartements));
             }
 
-            // Lorsqu'un département est sélectionné dans la liste déroulante
+            
             $("#categorySelect").change(function() {
                 const selectedCategory = $(this).val();
                 if (selectedCategory.trim() !== "") {
-                    // Vérifier si le département n'est pas déjà dans la liste
+                    
                     if (!selectedDepartements.includes(selectedCategory)) {
                         selectedDepartements.push(selectedCategory);
                         updateSelectedDepartements();
-                        $(this).val(""); // Réinitialise la liste déroulante
+                        $(this).val(""); 
                     } else {
                         alert("Ce département est déjà sélectionné.");
                     }
                 }
             });
 
-            // Préremplir la liste des départements sélectionnés (vous pouvez utiliser les données JSON générées en PHP)
-            //const preselectedDepartments = <?php echo $selectedDepartmentsJson; ?>;
+           <?php echo $selectedDepartmentsJson; ?>;
 
             preselectedDepartments.forEach(function(departement) {
-                // Créez un élément de département sélectionné et ajoutez-le à l'affichage des départements sélectionnés
+                
                 const categoryItem = `
                     <div style="background-color: #082D74; border: none; border-radius: 8px;" class="btn btn-success m-1">
                         ${departement}
@@ -590,7 +589,7 @@ if ($_SESSION['connexion'] == false) {
                         </button>
                     </div>
                 `;
-                selectedDepartements.push(departement); // Ajoutez-le également à la liste JavaScript
+                selectedDepartements.push(departement); 
                 $(".selected-departements").append(categoryItem);
             });
         });

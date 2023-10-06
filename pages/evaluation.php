@@ -6,12 +6,12 @@ if ($_SESSION['connexion'] == false) {
 
 if (isset($_GET['profil'])) {
     $idProfil = $_GET['profil'];
-    var_dump($idProfil);
+    //var_dump($idProfil);
 }
 
 if (isset($_GET['eventId'])) {
     $eventId = $_GET['eventId'];
-    var_dump($eventId);
+    //var_dump($eventId);
 }
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ if (isset($_GET['eventId'])) {
     <link rel="stylesheet" href="../css/title-css.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* Classe pour indiquer la sélection d'une image */
+        
         .selected-image {
             opacity: 0.8;
             border-radius: 50%;
@@ -40,7 +40,7 @@ if (isset($_GET['eventId'])) {
         .clickable {
             cursor: pointer;
             transition: opacity 0.3s ease-in-out;
-            /* Ajoutez une transition pour l'opacité */
+           
         }
     </style>
 
@@ -56,7 +56,7 @@ if (isset($_GET['eventId'])) {
 
 
             <div class="col-md-3 mt-4 ms-4 ">
-                <a href="home.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
+                <a href="otp.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
                     <img src="../assets/exit.svg" width="50" height="50" alt="sortir img">
                     <h1 class="ms-2 me-4 text-black">Sortir</h1>
                 </a>
@@ -65,15 +65,13 @@ if (isset($_GET['eventId'])) {
         </div>
 
 
-        <div class="row mt-5 d-flex align-items-center justify-content-center">
+        <div class="row d-flex mt-5 align-items-center justify-content-center">
             <div class="col-md-4 text-center">
                 <h1 class="fw-bold" id="textIntro">Avez vous apprecier l’evenement </h1>
             </div>
-
         </div>
 
         <div class="row mt-5 d-flex align-items-center justify-content-center">
-            <p id="messageMerci" style="display: none;">Merci d'avoir voté!</p>
 
             <div class="col-md-4 text-center d-flex justify-content-end">
                 <img class="img-fluid clickable" height="60%" width="60%" src="../assets/face_amazed.svg" alt="amazed" onclick="selectImage(this)">
@@ -107,22 +105,6 @@ if (isset($_GET['eventId'])) {
             } else if (imageType === "angry") {
                 vote = 3;
             }
-
-            // Désactiver les images et afficher le message de remerciement
-            document.querySelectorAll(".clickable").forEach(function(img) {
-                img.style.pointerEvents = "none"; // Désactiver les clics sur les images
-            });
-
-            document.getElementById("messageMerci").style.display = "block"; // Afficher le message de remerciement
-
-            // Après 5 secondes, réactiver les images
-            setTimeout(function() {
-                document.querySelectorAll(".clickable").forEach(function(img) {
-                    img.style.pointerEvents = "auto"; // Réactiver les clics sur les images
-                });
-
-                document.getElementById("messageMerci").style.display = "none"; // Cacher le message de remerciement
-            }, 250000); // 5000 millisecondes (5 secondes)
 
             // Envoyer les données de vote au serveur
             console.log(vote);

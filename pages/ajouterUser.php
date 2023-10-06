@@ -6,14 +6,18 @@ if ($_SESSION['connexion'] == false) {
 }
 
 $champsErreur = "";
+$pinErr = "";
 $firstname = $lastname = $email = $password = "";
 $erreur = false;
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "POST"; // Debug
+    //echo "POST"; // Debug
 
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email'])) {
+    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin']) || (count($_POST['pin'])  < 6)) {
+        if(isset($_POST['pin']) &&  count($_POST['pin'])  < 6){
+            $pinErr = "le pin doit avoir au minimun 6 chiffres";
+        }
         $champsErreur = "Veuillez remplir tout les champs";
         $erreur = true;
     } else {
@@ -41,14 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $sql; // Debug
 
         if (mysqli_query($conn, $sql)) {
-            echo '<div class="alert alert-primary" role="alert">
-              Compte créé avec succès.
-          </div>';
-            echo '<script>
-              setTimeout(function(){
-                  window.location.href = "user.php";
-              }, 3000); // Redirection après 3 secondes (3000 millisecondes)
-          </script>';
+            header("Location: user.php");
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -73,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid">
         <?php
         if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-            echo "Erreur ou 1ere fois"; // Debug
+            //echo "Erreur ou 1ere fois"; // Debug
 
 
 
@@ -117,12 +114,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         ?>
             <div class="row justify-content-between g-0">
-                <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+                <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                     <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-                </div>
+                </a>
 
-                <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
+                <div class="col-md-3 col-sm-4 mt-4 d-flex justify-content-end">
                     <a href="#" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
                         <div class=" w-100" style="border-radius: 8px; min-height: 10px; background-color:#082D74;">
                             <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>
@@ -131,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
             <div class="row text-center">
-                <h1 class="fw-bold">ajout des informations</h1>
+                <h1 class="fw-bold">Ajouter un utilisateurs</h1>
             </div>
 
             <div class="row">
@@ -140,62 +137,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="section-center">
                             <div class="container">
                                 <div class="row">
-                                    <div class="booking-form">
-                                        <form class="needs-validation" novalidate id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                    <div class="col-md-12 text-center fw-bold">
+                                        <span style="color: red;"><?php echo $champsErreur ?></span>
+                                    </div>
+                                    <div class="booking-form mt-3">
+                                        <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group">
-                                                <span class="form-label">Image</span>
-                                                <input class="form-control" name="image" type="text" placeholder="Entrer le lien de l'image" required>
+                                                <Label class="form-label">Image</Label>
+                                                <input class="form-control" name="image" type="text" placeholder="Entrer le lien de l'image">
                                                 <div class="invalid-feedback">
-                                                    Veuillez entrer l'image.
+                                                    Please choose a username.
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Nom</span>
-                                                <input class="form-control" name="nom" type="text" placeholder="Entrer le nom" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le nom.
-                                                </div>
+                                                <Label class="form-label" for="validationCustom01">Nom</Label>
+                                                <input class="form-control" name="nom" id="validationCustom01" type="text" placeholder="Entrer le nom">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Prenom</span>
-                                                <input class="form-control" name="prenom" type="text" placeholder="Entrer le prenom" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le prénom.
-                                                </div>
+                                                <Label class="form-label">Prenom</Label>
+                                                <input class="form-control" name="prenom" type="text" placeholder="Entrer le prenom">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Poste</span>
-                                                <input class="form-control" name="poste" type="text" placeholder="Entrer le poste" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le poste.
-                                                </div>
+                                                <Label class="form-label">Poste</Label>
+                                                <input class="form-control" name="poste" type="text" placeholder="Entrer le poste">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Email</span>
-                                                <input class="form-control" name="email" type="email" placeholder="Entrer l'email" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer l'email.
-                                                </div>
+                                                <Label class="form-label">Email</Label>
+                                                <input class="form-control" name="email" type="email" placeholder="Entrer l'email">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">Mot de passe</span>
-                                                <input class="form-control" name="motdepasse" type="password" placeholder="Entrer le mot de passe" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le mot de passe.
-                                                </div>
+                                                <Label class="form-label">Mot de passe</Label>
+                                                <input class="form-control" name="motdepasse" type="password" placeholder="Entrer le mot de passe">
                                             </div>
                                             <div class="form-group">
-                                                <span class="form-label">PIN</span>
-                                                <input class="form-control" name="pin" type="text" placeholder="Entrer le code PIN" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le code PIN.
-                                                </div>
+                                                <Label class="form-label">PIN</Label>
+                                                <input class="form-control" name="pin" type="text" placeholder="Entrer le code PIN">
                                             </div>
+                                            <span style="color: red;"><?php echo $pinErr ?></span>
+
                                             <div class="form-btn">
                                                 <button class="submit-btn" type="submit">Ajouter l'utilisateur</button>
                                             </div>
                                         </form>
+
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -217,8 +204,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 ?>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/validation.js"></script>
+
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+if ($_SESSION['connexion'] == false) {
+    header("Location: connexion.php");
+}
+
 
 $champsErreur = $invalide = "";
 $email = $password = "";
@@ -39,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $invalide = "Email ou mot de passe invalide.";
         $erreur = true;
-        var_dump($result);
+       //var_dump($result);
     }
     $conn->close();
 }
@@ -100,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <button class="submit-btn">Connexion</button>
                                     </div>
                                 </form>
-                                <!-- Alerte Bootstrap en cas d'échec de l'authentification -->
+                                
                                 <?php if ($erreur) : ?>
                                     <div class="alert alert-danger mt-3">
                                         Nom d'utilisateur ou mot de passe incorrect.

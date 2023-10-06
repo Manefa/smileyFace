@@ -13,7 +13,7 @@ if ($_SESSION['connexion'] == false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de l'événement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Inclure Chart.js -->
+ 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -35,6 +35,7 @@ if ($_SESSION['connexion'] == false) {
 
     $idUser = $_SESSION['idUser'];
     $idEv = $_GET['idEv'];
+    $idEvGoat = "";
     $firstname = "";
     $lastname = "";
     $pseudo = "";
@@ -50,6 +51,7 @@ if ($_SESSION['connexion'] == false) {
 
     if ($resultEvent->num_rows > 0) {
         while ($row = $resultEvent->fetch_assoc()) {
+            $idEvGoat = $row['idEv'];
             $nomEv = $row['nameEv'];
             $dateEv = $row['dateEv'];
             $locationEv = $row['locationEv'];
@@ -72,7 +74,7 @@ if ($_SESSION['connexion'] == false) {
         //echo "0 results";
     }
 
-    // Fonction pour récupérer le nombre de votes pour chaque catégorie (aimer, neutre, détester)
+    
     function getVoteCounts($table, $idEv)
     {
         $sql = "SELECT 
@@ -107,7 +109,7 @@ if ($_SESSION['connexion'] == false) {
         return mysqli_fetch_assoc($result);
     }
 
-    // Récupération des votes pour la table employeesatisfaction
+    
     $employeeSatisfactionCounts = getVoteCounts('employeesatisfaction', $idEv);
     $studentSatisfactionCounts = getVoteCountsEt('studentsatisfaction', $idEv);
 
@@ -118,7 +120,7 @@ if ($_SESSION['connexion'] == false) {
 
     $fullname = ucfirst($firstname) . " " . ucfirst($lastname);
 
-    // Requête SQL pour récupérer les noms des départements liés à l'événement
+    
     $sqlDpt = "SELECT d.Name
     FROM liason l
     INNER JOIN departement d ON l.idDpt = d.id
@@ -130,10 +132,10 @@ if ($_SESSION['connexion'] == false) {
         die("Erreur de requête : " . mysqli_error($conn));
     }
 
-    // Créer un tableau pour stocker les noms des départements
+    
     $departements = array();
 
-    // Récupérer les noms des départements et les ajouter au tableau
+    
     while ($row = mysqli_fetch_assoc($resultDpt)) {
         $departements[] = $row['Name'];
     }
@@ -145,10 +147,10 @@ if ($_SESSION['connexion'] == false) {
     <div class="container-fluid">
 
         <div class="row justify-content-between g-0">
-            <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+            <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                 <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                 <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-            </div>
+            </a>
 
             <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
                 <a href="#" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
@@ -165,15 +167,15 @@ if ($_SESSION['connexion'] == false) {
                 <p>Lieu de l'événement : <?php echo $locationEv ?></p>
                 <p>Employeur concerné : <?php echo $employeurEv ?></p>
                 <?php
-                
+
                 if (count($departements) > 0) {
-                    
+
                     $departementsListe = implode(', ', $departements);
 
-                    
+
                     echo "<p>Départements concernés : $departementsListe</p>";
                 } else {
-                    
+
                     echo "<p>Aucun département concerné.</p>";
                 }
                 ?>
@@ -183,20 +185,20 @@ if ($_SESSION['connexion'] == false) {
                 $date_evenement = strtotime($row['dateEv']);
                 $aujourd_hui = time();
                 if ($date_evenement < $aujourd_hui) {
-                    echo "<a href='#' class='btn btn-primary'>Lancer le vote</a>";
+                    echo "<a href='../pages/choisir.php?id=$idEvGoat' class='btn btn-primary'>Lancer le vote</a>";
                 }
                 ?>
 
             </div>
-            <?php if(count($employeeSatisfactionCounts) > 0){ ?>
-            <div class="col-md-4">
-                <!-- Graphique des statistiques -->
-                <canvas id="statsChart">
+            <?php if (count($employeeSatisfactionCounts) > 0) { ?>
+                <div class="col-md-4">
+                    
+                    <canvas id="statsChart">
 
-                </canvas>
+                    </canvas>
 
-            </div>
-            <?php }else{
+                </div>
+            <?php } else {
                 echo "
                 <div class='col-md-4'>
 
@@ -205,9 +207,9 @@ if ($_SESSION['connexion'] == false) {
             </div>
                 ";
             }
-                ?>
+            ?>
             <div class="col-md-4">
-                <!-- Graphique des statistiques -->
+                
                 <canvas id="statshartSecond" aria-label="Hello ARIA World" role="img">
                     <p>Hello Fallback World</p>
                 </canvas>

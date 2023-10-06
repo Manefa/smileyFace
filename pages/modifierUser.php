@@ -109,7 +109,7 @@ if ($_SESSION['connexion'] == false) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "POST"; // Debug
 
-            if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email'])) {
+            if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['pin'])) {
                 $champsErreur = "Veuillez remplir tout les champs";
                 $erreur = true;
             } else {
@@ -135,14 +135,7 @@ if ($_SESSION['connexion'] == false) {
                 echo $sql; // Debug
 
                 if (mysqli_query($conn2, $sql)) {
-                    echo '<div class="alert alert-primary" role="alert">
-                      Compte créé avec succès.
-                  </div>';
-                    /*echo '<script>
-                      setTimeout(function(){
-                          window.location.href = "user.php";
-                      }, 3000); // Redirection après 3 secondes (3000 millisecondes)
-                  </script>';*/
+                    header("Location: user.php");
                 } else {
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn2);
                 }
@@ -153,14 +146,15 @@ if ($_SESSION['connexion'] == false) {
         $conn->close();
 
         if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-            echo "Erreur ou 1ere fois";
+            //echo "Erreur ou 1ere fois";
 
         ?>
             <div class="row justify-content-between g-0">
-                <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+
+                <a href="../index.php" class="col-md-4 mt-4 ms-2 d-flex flex-row align-items-center" style="text-decoration: none; color:black;">
                     <img src="../assets/logo.svg" width="55" height="55" alt="logo">
                     <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-                </div>
+                </a>
 
                 <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
                     <a href="#" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
@@ -180,6 +174,9 @@ if ($_SESSION['connexion'] == false) {
                         <div class="section-center">
                             <div class="container">
                                 <div class="row">
+                                    <div class="col-md-12 text-center fw-bold">
+                                        <span style="color: red;"><?php echo $champsErreur ?></span>
+                                    </div>
                                     <div class="booking-form">
                                         <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="mb-3">

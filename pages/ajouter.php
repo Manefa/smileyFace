@@ -22,422 +22,495 @@ if ($_SESSION['connexion'] == false) {
 <body>
     <?php
 
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $db = "smileface";
+
+    $conn = new mysqli($servername, $username, $password, $db);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
     $idUser = $_SESSION['idUser'];
-    $nameEv = "";
-    $nameEvrr = "";
-    $dateEv = "";
-    $dateEvrr = "";
-    $departementEv = "";
-    $departementEvrr = "";
-    $locationEv = "";
-    $locationEvrr = "";
-    $employeurEv = "";
-    $employeurEvrr = "";
-    $descriptionEv = "";
-    $descriptionEvrr = "";
-    $time = "";
-    $timerr = "";
-    $minute =  "";
-    $minuterr =  "";
-    $tuples = array();
-
-    $erreur = false;
+    $pinCode = "";
 
 
-    // connexion a la base de donnees
-    $mysqli = new mysqli("localhost", "root", "root", "smileface");
-
-    // verification de la connexion
-    if ($mysqli->connect_error) {
-        die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
-    }
-
-    // requete pour recupererer tous les departements
-    $sql = "SELECT * FROM departement";
-    $result = $mysqli->query($sql);
-
-    // verifier si la requete a fonctionner
-    if ($result === false) {
-        die("Erreur lors de la récupération des départements : " . $mysqli->error);
-    }
-
-    // recuperation des departements
-
-    while ($row = $result->fetch_assoc()) {
-        $cle = $row['code'];
-
-        $tuple = array(
-            $cle => $row['Name']
-        );
-
-        $tuples[] = $tuple;
-    }
-
-    // recuperation des informations de l'utilisateurs
-
-    $sqlUser = "SELECT * FROM `user` WHERE `idUser` = $idUser";
-    $resultUser = $mysqli->query($sqlUser);
+    $sqlUser = "SELECT pin FROM `user` WHERE `idUser` = $idUser";
+    $resultUser = $conn->query($sqlUser);
 
     if ($resultUser->num_rows > 0) {
         while ($row = $resultUser->fetch_assoc()) {
-            $lastname = $row['lastname'];
-            $firstname = $row['firstname'];
-            $image = $row['image'];
-            $poste = $row['poste'];
+            $pinCode = $row['pin'];
         }
     } else {
         //echo "0 results";
     }
 
-    // troncage des noms
+    $conn->close();
 
-    $pseudo = strtoupper(substr($firstname, 0, 1)) . strtoupper(substr($lastname, 0, 1));
-
-    // fermeture de la connexion
-    $mysqli->close();
+    $pintest = "";
+    $firttime = true;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        // la on est dans l'envoie du formulaire
-
-        echo "POST";
-
-        // nom de l'evenement
-
-        if (empty($_POST['eventName'])) {
-            $nameEvrr = "Le nom de l'evenement est requis";
-            $erreur = true;
-        } else {
-            $nameEv = test_input($_POST["eventName"]);
-        }
-
-        // date de l'evenement 
-
-        if (empty($_POST['eventDate'])) {
-            $dateEvrr = "La date de l'evenement est requis";
-            $erreur = true;
-        } else {
-            $dateEv = test_input($_POST["eventDate"]);
-        }
-
-        // lieu de l'evenement 
-
-        if (empty($_POST['location'])) {
-            $locationEvrr = "Le lieu de l'evenement est requis";
-            $erreur = true;
-        } else {
-            $locationEv = test_input($_POST["location"]);
-        }
-
-        // heure de l'evenement 
-
-        if (empty($_POST['eventHour'])) {
-            $timerr = "L'heure de l'evenement est requis";
-            $erreur = true;
-        } else {
-            $time =  test_input($_POST["eventHour"]);
-        }
-
-        // minute de l'evenement 
-
-        if (empty($_POST['eventMinute'])) {
-            $minuterr = "Les minutes de l'evenement sont requise";
-            $erreur = true;
-        } else {
-            $minute =  test_input($_POST["eventMinute"]);
-        }
-
-        // employeur de l'evenement 
-
-        if (empty($_POST['employeur'])) {
-            $employeurEvrr = "L'employeur de l'evenement est requis";
-            $erreur = true;
-        } else {
-            $employeurEv =  test_input($_POST["employeur"]);
-        }
-
-
-        // description de l'evenement 
-
-        if (empty($_POST['description'])) {
-            $descriptionEvrr = "La description de l'evenement est requise";
-            $erreur = true;
-        } else {
-            $descriptionEv = test_input($_POST["description"]);
-        }
-
-        // troncage du temps
-        $timeEv = $time . ":" . $minute;
-
-        if ($erreur == false) {
-
-            $servername = "localhost";
-            $username = "root";
-            $password = "root";
-            $db = "smileface";
-
-            $conn = new mysqli($servername, $username, $password, $db);
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $conn->query('SET NAMES utf8');
-
-            date_default_timezone_set('America/New_York');
-
-            $sql = "INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `employeurEv`, `descriptionEv`, `idUser`) VALUES (NULL, '$nameEv', '$dateEv', '$timeEv', '$locationEv', '$employeurEv', '$descriptionEv', '$idUser')";
-
-            // Exécutez la requête
-            if ($conn->query($sql) === true) {
-                echo "evenement inserer avec success";
-            } else {
-                echo "Erreur lors de l'insertion du l'evenement : " . $conn->error;
-            }
-
-            $selectedDepartements = json_decode($_POST["selectedDepartements"], true);
-
-            if ($selectedDepartements  > 0) {
-                // Boucle pour inserer les departements lier a l'evenement qu'on viens de creer en base de donnees
-                foreach ($selectedDepartements as $category) {
-                    echo ($category);
-
-                    $idEv = 0;
-                    $idDpt = 0;
-
-                    $sql = "SELECT idEv FROM event ORDER BY idEv DESC LIMIT 1";
-
-                    $sqlIdDpt = "SELECT id FROM departement WHERE `Name` = '$category'";
-
-                    $result = $conn->query($sql);
-
-                    $resultIdDpt = $conn->query($sqlIdDpt);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-
-                            $idEv = $row['idEv'];
-                        }
-                    } else {
-                        //echo "0 results";
-                    }
-
-                    if ($resultIdDpt->num_rows > 0) {
-                        while ($row = $resultIdDpt->fetch_assoc()) {
-
-                            $idDpt = $row['id'];
-                        }
-                    } else {
-                        //echo "0 results";
-                    }
-
-                    // Requête SQL pour l'insertion
-                    $sqlInsertDept = "INSERT INTO liason (id, idEv, idDpt) VALUES (NULL, '$idEv', '$idDpt')";
-
-                    // Exécutez la requête
-                    if ($conn->query($sqlInsertDept) === true) {
-                        //echo "departement insérée avec succès.";
-
-                    } else {
-                        //echo "Erreur lors de l'insertion du departement : " . $conn->error;
-
-                    }
-                }
-            }
-
-            if (mysqli_query($conn, $sql)) {
-                echo '<script>
-        Toast.success("Événement ajouté avec succès!", {
-            duration: 2000,
-            showProgress: true,
-            toastLocation: "top"
-        });
-        setTimeout(function() {
-            window.location.href = "../index.php"; // Redirige vers la page d\'accueil après 2 secondes
-        }, 2000);
-    </script>';
-                header("Location: ../index.php");
-                exit();
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }
-
-            mysqli_close($conn);
-        }
+        $firttime = false;
+        $pintest = substr($_POST["pin"], 0, 6);
     }
 
-    if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
 
-        //echo "Erreur ou 1ere fois";
+    if ($pintest == $pinCode) {
+
+        $idUser = $_SESSION['idUser'];
+        $nameEv = "";
+        $nameEvrr = "";
+        $dateEv = "";
+        $dateEvrr = "";
+        $departementEv = "";
+        $departementEvrr = "";
+        $locationEv = "";
+        $locationEvrr = "";
+        $employeurEv = "";
+        $employeurEvrr = "";
+        $descriptionEv = "";
+        $descriptionEvrr = "";
+        $time = "";
+        $timerr = "";
+        $minute =  "";
+        $minuterr =  "";
+        $tuples = array();
+
+        $erreur = false;
+
+
+        // connexion a la base de donnees
+        $mysqli = new mysqli("localhost", "root", "root", "smileface");
+
+        // verification de la connexion
+        if ($mysqli->connect_error) {
+            die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
+        }
+
+        // requete pour recupererer tous les departements
+        $sql = "SELECT * FROM departement";
+        $result = $mysqli->query($sql);
+
+        // verifier si la requete a fonctionner
+        if ($result === false) {
+            die("Erreur lors de la récupération des départements : " . $mysqli->error);
+        }
+
+        // recuperation des departements
+
+        while ($row = $result->fetch_assoc()) {
+            $cle = $row['code'];
+
+            $tuple = array(
+                $cle => $row['Name']
+            );
+
+            $tuples[] = $tuple;
+        }
+
+        // recuperation des informations de l'utilisateurs
+
+        $sqlUser = "SELECT * FROM `user` WHERE `idUser` = $idUser";
+        $resultUser = $mysqli->query($sqlUser);
+
+        if ($resultUser->num_rows > 0) {
+            while ($row = $resultUser->fetch_assoc()) {
+                $lastname = $row['lastname'];
+                $firstname = $row['firstname'];
+                $image = $row['image'];
+                $poste = $row['poste'];
+            }
+        } else {
+            //echo "0 results";
+        }
+
+        // troncage des noms
+
+        $pseudo = strtoupper(substr($firstname, 0, 1)) . strtoupper(substr($lastname, 0, 1));
+
+        // fermeture de la connexion
+        $mysqli->close();
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            // la on est dans l'envoie du formulaire
+
+            //echo "POST";
+
+            // nom de l'evenement
+
+            if (empty($_POST['eventName'])) {
+                $nameEvrr = "Le nom de l'evenement est requis";
+                $erreur = true;
+            } else {
+                $nameEv = test_input($_POST["eventName"]);
+            }
+
+            // date de l'evenement 
+
+            if (empty($_POST['eventDate'])) {
+                $dateEvrr = "La date de l'evenement est requis";
+                $erreur = true;
+            } else {
+                $dateEv = test_input($_POST["eventDate"]);
+            }
+
+            // lieu de l'evenement 
+
+            if (empty($_POST['location'])) {
+                $locationEvrr = "Le lieu de l'evenement est requis";
+                $erreur = true;
+            } else {
+                $locationEv = test_input($_POST["location"]);
+            }
+
+            // heure de l'evenement 
+
+            if (empty($_POST['eventHour'])) {
+                $timerr = "L'heure de l'evenement est requis";
+                $erreur = true;
+            } else {
+                $time =  test_input($_POST["eventHour"]);
+            }
+
+            // minute de l'evenement 
+
+            if (empty($_POST['eventMinute'])) {
+                $minuterr = "Les minutes de l'evenement sont requise";
+                $erreur = true;
+            } else {
+                $minute =  test_input($_POST["eventMinute"]);
+            }
+
+            // employeur de l'evenement 
+
+            if (empty($_POST['employeur'])) {
+                $employeurEvrr = "L'employeur de l'evenement est requis";
+                $erreur = true;
+            } else {
+                $employeurEv =  test_input($_POST["employeur"]);
+            }
+
+
+            // description de l'evenement 
+
+            if (empty($_POST['description'])) {
+                $descriptionEvrr = "La description de l'evenement est requise";
+                $erreur = true;
+            } else {
+                $descriptionEv = test_input($_POST["description"]);
+            }
+
+            // troncage du temps
+            $timeEv = $time . ":" . $minute;
+
+            if ($erreur == false) {
+
+                $servername = "localhost";
+                $username = "root";
+                $password = "root";
+                $db = "smileface";
+
+                $conn = new mysqli($servername, $username, $password, $db);
+
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $conn->query('SET NAMES utf8');
+
+                date_default_timezone_set('America/New_York');
+
+                $sql = "INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `employeurEv`, `descriptionEv`, `idUser`) VALUES (NULL, '$nameEv', '$dateEv', '$timeEv', '$locationEv', '$employeurEv', '$descriptionEv', '$idUser')";
+
+                // Exécutez la requête
+                if ($conn->query($sql) === true) {
+                    echo "evenement inserer avec success";
+                    header("Location: ../index.php");
+                } else {
+                    echo "Erreur lors de l'insertion du l'evenement : " . $conn->error;
+                }
+
+                $selectedDepartements = json_decode($_POST["selectedDepartements"], true);
+
+                if ($selectedDepartements  > 0) {
+                    // Boucle pour inserer les departements lier a l'evenement qu'on viens de creer en base de donnees
+                    foreach ($selectedDepartements as $category) {
+                        echo ($category);
+
+                        $idEv = 0;
+                        $idDpt = 0;
+
+                        $sql = "SELECT idEv FROM event ORDER BY idEv DESC LIMIT 1";
+
+                        $sqlIdDpt = "SELECT id FROM departement WHERE `Name` = '$category'";
+
+                        $result = $conn->query($sql);
+
+                        $resultIdDpt = $conn->query($sqlIdDpt);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+
+                                $idEv = $row['idEv'];
+                            }
+                        } else {
+                            //echo "0 results";
+                        }
+
+                        if ($resultIdDpt->num_rows > 0) {
+                            while ($row = $resultIdDpt->fetch_assoc()) {
+
+                                $idDpt = $row['id'];
+                            }
+                        } else {
+                            //echo "0 results";
+                        }
+
+                        // Requête SQL pour l'insertion
+                        $sqlInsertDept = "INSERT INTO liason (id, idEv, idDpt) VALUES (NULL, '$idEv', '$idDpt')";
+
+                        // Exécutez la requête
+                        if ($conn->query($sqlInsertDept) === true) {
+                            //echo "departement insérée avec succès.";
+
+                        } else {
+                            //echo "Erreur lors de l'insertion du departement : " . $conn->error;
+
+                        }
+                    }
+                }
+
+                if (mysqli_query($conn, $sql)) {
+
+                    header("Location: ../index.php");
+                    exit();
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
+
+                mysqli_close($conn);
+            }
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
+
+            //echo "Erreur ou 1ere fois";
 
     ?>
-        <div class="container-fluid">
+            <div class="container-fluid">
 
-            <div class="row justify-content-between g-0">
+                <div class="row justify-content-between g-0">
 
-                <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
-                    <a href="../index.php" class="d-flex" style="text-decoration: none; color:black;">
-                        <img src="../assets/logo.svg" width="55" height="55" alt="logo">
-                        <h1 class="ms-4 fw-bold">Cegep 3R</h1>
-                    </a>
+                    <div class="col-md-4 col-sm-5 mt-4 ms-2 d-flex flex-row align-items-center">
+                        <a href="../index.php" class="d-flex" style="text-decoration: none; color:black;">
+                            <img src="../assets/logo.svg" width="55" height="55" alt="logo">
+                            <h1 class="ms-4 fw-bold">Cegep 3R</h1>
+                        </a>
 
 
+                    </div>
+
+
+                    <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
+                        <a href="user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
+                            <div class=" w-100" style="border-radius: 8px; min-height: 10px;  background-color:#082D74;">
+                                <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-
-
-                <div class="col-md-3 col-sm-4 mt-4 me-2 d-flex justify-content-end">
-                    <a href="user.php" class="d-flex flex-row align-items-center justify-content-end me-2 text-decoration-none">
-                        <div class=" w-100" style="border-radius: 8px; min-height: 10px;  background-color:#082D74;">
-                            <h5 class="text-light mx-3 my-3"><?php echo $pseudo ?> </h5>
-                        </div>
-                    </a>
+                <div class="row">
+                    <h1 style="padding-left: 0px;" class="text-center mt-5">Ajouter un evenement</h1>
                 </div>
-            </div>
-            <div class="row">
-                <h1 style="padding-left: 0px;" class="text-center mt-5">Ajouter un evenement</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="booking" class="section">
-                        <div class="section-center">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="booking-form">
-                                        <form class="needs-validation" novalidate id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                            <div class="form-group">
-                                                <span class="form-label">Nom</span>
-                                                <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le nom.
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="booking" class="section">
+                            <div class="section-center">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="booking-form">
+                                            <form id="categoryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                                <div class="form-group">
+                                                    <span class="form-label">Nom</span>
+                                                    <input class="form-control" name="eventName" value="<?php echo $nameEv; ?>" type="text" placeholder="Entrer le nom de l'evenement" required>
+                                                    <span style="color:red" ;><?php echo $nameEvrr; ?></span>
                                                 </div>
-                                                <span style="color:red" ;><?php echo $nameEvrr; ?></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="form-label">Lieu</span>
-                                                <input class="form-control" name="location" type="text" value="<?php echo $locationEv; ?>" placeholder="Entrer le lieu de l'evenement" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le lieu.
+                                                <div class="form-group">
+                                                    <span class="form-label">Lieu</span>
+                                                    <input class="form-control" name="location" type="text" value="<?php echo $locationEv; ?>" placeholder="Entrer le lieu de l'evenement">
+                                                    <span style="color:red" ;><?php echo $locationEvrr; ?></span>
                                                 </div>
-                                                <span style="color:red" ;><?php echo $locationEvrr; ?></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="form-label">Entreprise</span>
-                                                <input class="form-control" name="employeur" value="<?php echo $employeurEv; ?>" type="text" placeholder="Entrer le nom de l'entreprise" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer le nom de l'entreprise.
+                                                <div class="form-group">
+                                                    <span class="form-label">Entreprise</span>
+                                                    <input class="form-control" name="employeur" value="<?php echo $employeurEv; ?>" type="text" placeholder="Entrer le nom de l'entreprise">
+                                                    <input class="m-2 text-center form-control rounded" hidden type="text" name="pin" value="<?php echo $pinCode  ?>" maxlength="1" />
+                                                    <span style="color:red" ;><?php echo $employeurEvrr; ?></span>
                                                 </div>
-                                                <span style="color:red" ;><?php echo $employeurEvrr; ?></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="form-label">Description</span>
-                                                <input class="form-control" name="description" value="<?php echo $descriptionEv; ?>" type="text" placeholder="Entrer la description" required>
-                                                <div class="invalid-feedback">
-                                                    Veuillez entrer la description.
+                                                <div class="form-group">
+                                                    <span class="form-label">Description</span>
+                                                    <input class="form-control" name="description" value="<?php echo $descriptionEv; ?>" type="text" placeholder="Entrer la description">
+                                                    <span style="color:red" ;><?php echo $descriptionEvrr; ?></span>
                                                 </div>
-                                                <span style="color:red" ;><?php echo $descriptionEvrr; ?></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="form-label">Sélectionner le(s) département(s) concerné(s) :</span>
-                                                <select class="form-control" id="categorySelect">
-                                                    <option value="" disabled selected hidden>Sélectionnez une departement</option>
-                                                    <?php
-                                                    // Générez les options de la liste déroulante en utilisant les données des "tuples"
-                                                    foreach ($tuples as $nomColonne => $donnees) {
-                                                        foreach ($donnees as $valeur) {
-                                                            echo "<option value='$valeur'>$valeur</option>";
+                                                <div class="form-group">
+                                                    <span class="form-label">Sélectionner le(s) département(s) concerné(s) :</span>
+                                                    <select class="form-control" id="categorySelect">
+                                                        <option value="" disabled selected hidden>Sélectionnez une departement</option>
+                                                        <?php
+                                                        // Générez les options de la liste déroulante en utilisant les données des "tuples"
+                                                        foreach ($tuples as $nomColonne => $donnees) {
+                                                            foreach ($donnees as $valeur) {
+                                                                echo "<option value='$valeur'>$valeur</option>";
+                                                            }
+                                                            echo "</optgroup>";
                                                         }
-                                                        echo "</optgroup>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <!-- Affichage des departements sélectionnées -->
-                                            <div class="form-group">
-                                                <div class="selected-departements">
-                                                    <!-- Les departements sélectionnées seront affichées ici -->
+                                                        ?>
+                                                    </select>
                                                 </div>
-                                                <input type="hidden" id="selectedDepartementsInput" name="selectedDepartements" value="">
-                                            </div>
-                                            <div class="row d-flex justify-content-between">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                        <span class="form-label">Date</span>
-                                                        <input class="form-control" value="<?php echo $dateEv; ?>" name="eventDate" type="date" required>
-                                                        <div class="invalid-feedback">
-                                                            Veuillez entrer la date.
-                                                        </div>
-                                                        <span style="color:red" ;><?php echo $dateEvrr; ?></span>
+                                                <!-- Affichage des departements sélectionnées -->
+                                                <div class="form-group">
+                                                    <div class="selected-departements">
+                                                        <!-- Les departements sélectionnées seront affichées ici -->
                                                     </div>
+                                                    <input type="hidden" id="selectedDepartementsInput" name="selectedDepartements" value="">
                                                 </div>
-                                                <div class="col-sm-7">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <span class="form-label">Heure</span>
-                                                                <select class="form-control" name="eventHour">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                    <option>4</option>
-                                                                    <option>5</option>
-                                                                    <option>6</option>
-                                                                    <option>7</option>
-                                                                    <option>8</option>
-                                                                    <option>9</option>
-                                                                    <option>10</option>
-                                                                    <option>11</option>
-                                                                    <option selected>12</option>
-                                                                    <option>13</option>
-                                                                    <option>14</option>
-                                                                    <option>15</option>
-                                                                    <option>16</option>
-                                                                    <option>17</option>
-                                                                    <option>18</option>
-                                                                    <option>19</option>
-                                                                    <option>20</option>
-                                                                    <option>21</option>
-                                                                    <option>22</option>
-                                                                    <option>23</option>
-                                                                </select>
-                                                            </div>
+                                                <div class="row d-flex justify-content-between">
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group">
+                                                            <span class="form-label">Date</span>
+                                                            <input class="form-control" value="<?php echo $dateEv; ?>" name="eventDate" type="date" required>
+                                                            <span style="color:red" ;><?php echo $dateEvrr; ?></span>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <span class="form-label">Minute</span>
-                                                                <select class="form-control" name="eventMinute">
-                                                                    <option selected>00</option>
-                                                                    <option>05</option>
-                                                                    <option>10</option>
-                                                                    <option>15</option>
-                                                                    <option>20</option>
-                                                                    <option>25</option>
-                                                                    <option>30</option>
-                                                                    <option>35</option>
-                                                                    <option>40</option>
-                                                                    <option>45</option>
-                                                                    <option>50</option>
-                                                                    <option>55</option>
-                                                                </select>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Heure</span>
+                                                                    <select class="form-control" name="eventHour">
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                        <option>6</option>
+                                                                        <option>7</option>
+                                                                        <option>8</option>
+                                                                        <option>9</option>
+                                                                        <option>10</option>
+                                                                        <option>11</option>
+                                                                        <option selected>12</option>
+                                                                        <option>13</option>
+                                                                        <option>14</option>
+                                                                        <option>15</option>
+                                                                        <option>16</option>
+                                                                        <option>17</option>
+                                                                        <option>18</option>
+                                                                        <option>19</option>
+                                                                        <option>20</option>
+                                                                        <option>21</option>
+                                                                        <option>22</option>
+                                                                        <option>23</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Minute</span>
+                                                                    <select class="form-control" name="eventMinute">
+                                                                        <option selected>00</option>
+                                                                        <option>05</option>
+                                                                        <option>10</option>
+                                                                        <option>15</option>
+                                                                        <option>20</option>
+                                                                        <option>25</option>
+                                                                        <option>30</option>
+                                                                        <option>35</option>
+                                                                        <option>40</option>
+                                                                        <option>45</option>
+                                                                        <option>50</option>
+                                                                        <option>55</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-btn">
-                                                <button class="submit-btn" type="submit">Ajouter</button>
-                                            </div>
-                                        </form>
+                                                <div class="form-btn">
+                                                    <button class="submit-btn" type="submit">Ajouter</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-    <?php
+        <?php
 
+        }
+
+
+        ?>
+
+    <?php
+    } else {
+
+    ?>
+
+        <div class="container-fluid">
+
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="row d-flex justify-content-center align-items-center vh-100">
+
+                    <div class="col-md-4 text-center">
+                        <img src="../assets/Security On-cuate.svg" alt="" srcset="">
+                        <h1 class="fw-bold" id="textIntro">Verifier votre identite</h1>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="container d-flex justify-content-center align-items-center h-100">
+                            <div class="position-relative">
+                                <div class="card p-2 text-center">
+                                    <h5>Svp entrer votre pin a 6 chiffres <br> pour verifier votre compte</h5>
+                                    <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+                                        <input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+                                        <input class="m-2 text-center form-control rounded" id="otpStatus" hidden type="text" name="pin" maxlength="1" />
+                                    </div>
+                                    <div class="mt-4">
+                                        <button class="btn btn-warning px-4 validate text-light fw-bold" style="  color: #ffffff;background-color: #082d74;font-weight: 700;height: 50px;border: none;width: 50%;border-radius: 8px;text-transform: uppercase;" type="submit">Verifier</button>
+
+
+                                    </div>
+                                    <?php
+
+                                    if ($firttime == false) {
+                                    ?> <span style="color: red;">Mauvais code reesayer !</span>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+    <?php
     }
 
     function test_input($data)
@@ -450,13 +523,13 @@ if ($_SESSION['connexion'] == false) {
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-        <script src="../js/sh_toaster.js"></script>
+    <script src="../js/sh_toaster.js"></script>
     <script>
         $(document).ready(function() {
-            // Tableau pour stocker les departements sélectionnées
+            
             let selectedDepartements = [];
 
-            // Fonction pour mettre à jour l'affichage des departements sélectionnées
+            
             function updateSelectedDepartements() {
                 $(".selected-departements").empty();
                 selectedDepartements.forEach(function(category) {
@@ -471,7 +544,7 @@ if ($_SESSION['connexion'] == false) {
                     $(".selected-departements").append(categoryItem);
                 });
 
-                // Lorsqu'on clique sur l'icône de suppression
+                
                 $(".selected-departements .btn-danger").click(function() {
                     const categoryToRemove = $(this).data("category");
                     const index = selectedDepartements.indexOf(categoryToRemove);
@@ -486,20 +559,62 @@ if ($_SESSION['connexion'] == false) {
                 $("#selectedDepartementsInput").val(JSON.stringify(selectedDepartements));
             }
 
-            // Lorsqu'une departement est sélectionnée dans la liste déroulante
+            
             $("#categorySelect").change(function() {
                 const selectedCategory = $(this).val();
                 if (selectedCategory.trim() !== "") {
-                    // Vérifier si la departement n'est pas déjà dans la liste
+                    
                     if (!selectedDepartements.includes(selectedCategory)) {
                         selectedDepartements.push(selectedCategory);
                         updateSelectedDepartements();
-                        $(this).val(""); // Réinitialise la liste déroulante
+                        $(this).val(""); 
                     } else {
                         alert("Cette departement est déjà sélectionnée.");
                     }
                 }
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            function OTPInput() {
+                const inputs = document.querySelectorAll('#otp > *[id]');
+                const otpStatusInput = document.getElementById('otpStatus');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].addEventListener('keydown', function(event) {
+                        if (event.key === "Backspace") {
+                            inputs[i].value = '';
+                            if (i !== 0) inputs[i - 1].focus();
+                        } else {
+                            if (i === inputs.length - 1 && inputs[i].value !== '') {
+                                return true;
+                            } else if (event.keyCode > 47 && event.keyCode < 58) {
+                                inputs[i].value = event.key;
+                                if (i !== inputs.length - 1) inputs[i + 1].focus();
+                                event.preventDefault();
+                            } else if (event.keyCode > 64 && event.keyCode < 91) {
+                                inputs[i].value = String.fromCharCode(event.keyCode);
+                                if (i !== inputs.length - 1) inputs[i + 1].focus();
+                                event.preventDefault();
+                            }
+                        }
+
+
+                        const otpValue = Array.from(inputs).map(input => input.value).join('');
+
+                        otpStatusInput.value = otpValue;
+                    });
+
+                }
+
+
+
+            }
+            OTPInput();
+
+
         });
     </script>
 
