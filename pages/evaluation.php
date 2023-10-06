@@ -56,7 +56,7 @@ if (isset($_GET['eventId'])) {
 
 
             <div class="col-md-3 mt-4 ms-4 ">
-                <a href="../index.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
+                <a href="otp.php" class="d-flex flex-row align-items-center justify-content-end " style="text-decoration: none;">
                     <img src="../assets/exit.svg" width="50" height="50" alt="sortir img">
                     <h1 class="ms-2 me-4 text-black">Sortir</h1>
                 </a>
