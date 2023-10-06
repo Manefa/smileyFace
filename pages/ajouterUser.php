@@ -16,10 +16,8 @@ $erreur = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //echo "POST"; // Debug
 
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin']) || (count($_POST['pin'])  < 6)) {
-        if(isset($_POST['pin']) &&  count($_POST['pin'])  < 6){
-            $pinErr = "le pin doit avoir au minimun 6 chiffres";
-        }
+    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['poste']) || empty($_POST['email']) || empty($_POST['image']) || empty($_POST['motdepasse']) || empty($_POST['pin'])) {
+
         $champsErreur = "Veuillez remplir tout les champs";
         $erreur = true;
     } else {
@@ -33,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $motdepasse = sha1($motdepasse, false);
 
-       /*  $servername = "localhost";
+        /*  $servername = "localhost";
         $usernameDB = "root";
         $passwordDB = "root";
         $dbname = "smileface";

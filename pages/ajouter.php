@@ -4,6 +4,8 @@ if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
+require("../php/localserver.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -23,8 +25,9 @@ if ($_SESSION['connexion'] == false) {
     <?php
 
 
-    require("../php/localserver.php");
-/*     $servername = "localhost";
+
+
+    /*     $servername = "localhost";
     $username = "root";
     $password = "root";
     $db = "smileface";
@@ -211,6 +214,8 @@ if ($_SESSION['connexion'] == false) {
             $timeEv = $time . ":" . $minute;
 
             if ($erreur == false) {
+
+                require("../php/localserver.php");
 
                 /* $servername = "localhost";
                 $username = "root";
@@ -527,10 +532,10 @@ if ($_SESSION['connexion'] == false) {
     <script src="../js/sh_toaster.js"></script>
     <script>
         $(document).ready(function() {
-            
+
             let selectedDepartements = [];
 
-            
+
             function updateSelectedDepartements() {
                 $(".selected-departements").empty();
                 selectedDepartements.forEach(function(category) {
@@ -545,7 +550,7 @@ if ($_SESSION['connexion'] == false) {
                     $(".selected-departements").append(categoryItem);
                 });
 
-                
+
                 $(".selected-departements .btn-danger").click(function() {
                     const categoryToRemove = $(this).data("category");
                     const index = selectedDepartements.indexOf(categoryToRemove);
@@ -560,15 +565,15 @@ if ($_SESSION['connexion'] == false) {
                 $("#selectedDepartementsInput").val(JSON.stringify(selectedDepartements));
             }
 
-            
+
             $("#categorySelect").change(function() {
                 const selectedCategory = $(this).val();
                 if (selectedCategory.trim() !== "") {
-                    
+
                     if (!selectedDepartements.includes(selectedCategory)) {
                         selectedDepartements.push(selectedCategory);
                         updateSelectedDepartements();
-                        $(this).val(""); 
+                        $(this).val("");
                     } else {
                         alert("Cette departement est déjà sélectionnée.");
                     }

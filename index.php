@@ -4,9 +4,11 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: pages/connexion.php");
 }
+
+require("php/localserver.php");
 // ... (votre code PHP de session_start() et de connexion à la base de données ici) ...
 
-$servername = "localhost";
+/* $servername = "localhost";
 $username = "root";
 $password = "root";
 $db = "smileface";
@@ -15,7 +17,7 @@ $conn = new mysqli($servername, $username, $password, $db);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
+} */
 
 $idUser = $_SESSION['idUser'];
 $firstname = "";

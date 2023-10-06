@@ -5,6 +5,8 @@ if ($_SESSION['connexion'] == false) {
     header("Location: ../pages/connexion.php");
 }
 
+require("localserver.php");
+
 
 //Page de processus des votes (transparent)
 
@@ -24,12 +26,12 @@ if (isset($_GET['vote'])) {
 //var_dump($eventId);
 //var_dump($vote);
 
-$servername = "localhost";
+/* $servername = "localhost";
 $username = "root";
 $password = "root";
 $db = "smileface";
 
-$conn = new mysqli($servername, $username, $password, $db);
+$conn = new mysqli($servername, $username, $password, $db); */
 
 
 if ($conn->connect_error) {

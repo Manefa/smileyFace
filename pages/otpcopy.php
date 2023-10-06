@@ -23,14 +23,16 @@ require("../php/localserver.php");
     $username = "root";
     $password = "root";
     $db = "smileface";
-    $pintest = "";
-    $firttime = true;
+    
 
     $conn = new mysqli($servername, $username, $password, $db);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } */
+
+    $pintest = "";
+    $firttime = true;
 
     $idUser = $_SESSION['idUser'];
     $pinCode = "";

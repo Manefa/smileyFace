@@ -3,6 +3,8 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: ../pages/connexion.php");
 }
+
+require("localserver.php");
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ if ($_SESSION['connexion'] == false) {
     } else {
         echo "Erreur";
     }
-    $servername = "localhost";
+    /* $servername = "localhost";
     $username = "root";
     $password = "root";
     $db = "smileface";
@@ -36,7 +38,7 @@ if ($_SESSION['connexion'] == false) {
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    }
+    } */
     echo "<b>Connected successfully</b>";
     $conn->query('SET NAMES utf8');
     $sql = "DELETE FROM event WHERE idEv=$id";
@@ -44,10 +46,10 @@ if ($_SESSION['connexion'] == false) {
     if ($conn->query($sql) == TRUE) {
         echo "Record deleted successfully";
         header("Location: ../index.php");
-    }else{
+    } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
-    
+
     $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

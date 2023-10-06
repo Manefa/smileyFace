@@ -3,6 +3,8 @@ session_start();
 if ($_SESSION['connexion'] == false) {
     header("Location: ../pages/connexion.php");
 }
+
+require("localserver.php");
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +30,7 @@ if ($_SESSION['connexion'] == false) {
         echo "Erreur : ID d'utilisateur non spécifié.";
     }
 
-    $servername = "localhost";
+    /* $servername = "localhost";
     $username = "root";
     $password = "root";
     $db = "smileface";
@@ -37,7 +39,7 @@ if ($_SESSION['connexion'] == false) {
 
     if ($conn->connect_error) {
         die("Échec de la connexion : " . $conn->connect_error);
-    }
+    } */
 
     $conn->query('SET NAMES utf8');
 

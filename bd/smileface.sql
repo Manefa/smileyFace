@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 05 Octobre 2023 à 02:53
+-- Généré le :  Ven 06 Octobre 2023 à 02:28
 -- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Version de PHP :  7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,7 +38,42 @@ CREATE TABLE `departement` (
 
 INSERT INTO `departement` (`id`, `code`, `Name`) VALUES
 (1, '420.BO', 'Techniques de l informatique'),
-(2, '241.A0', 'Techniques de genie mecanique');
+(2, '241.A0', 'Techniques de genie mecanique'),
+(3, '570.EO', 'Techniques de design d\'intérieur'),
+(4, '393.BO', 'Techniques de la documentation'),
+(5, '111.AO', 'Techniques d\'hygiène dentaire'),
+(6, '120.AO', 'Techniques de diététique'),
+(7, '180.AO', 'Techniques de soins infirmiers'),
+(8, '180.BO', 'Techniques de soins infirmiers destiné aux infirmières auxiliaires'),
+(9, '388.AO', 'Techniques de travail social'),
+(10, '322.AI', 'Techniques d\'éducation à l\'enfance'),
+(11, '310.AO', 'Techniques policières'),
+(12, '241.AO', 'Techniques de génie mécanique'),
+(13, '221.AO', 'Technologie de l\'architecture'),
+(14, '221.CO', 'Technologie de la mécanique du bâtiment (Génie du bâtiment)'),
+(15, '241.DO', 'Technologie de la mécanique industrielle (maintenance)'),
+(16, '221.BO', 'Technologie du génie civil'),
+(17, '243.DO', 'Technologie du génie électrique - Automatisation et contrôle'),
+(18, '243.GO', 'Technologie du génie électrique : Électronique programmable'),
+(19, '235.BO', 'Technologie du génie industriel'),
+(20, '270.AO', 'Technologie du génie métallurgique'),
+(21, '410.AV', 'DEC-Bac en logistique'),
+(22, '410.DU', 'DEC-Bac en marketing'),
+(23, '410.BU', 'DEC-Bac en sciences comptables'),
+(24, '410.DO', 'Gestion de commerces'),
+(25, '410.AI', 'Gestion des opérations et de la chaine logistique'),
+(26, '410.BO', 'Techniques de comptabilité et de gestion'),
+(27, '510.AO', 'Arts visuels'),
+(28, '500.AK', 'Arts, lettres et communication - Théâtre et créations médias'),
+(29, '501.AO', 'Musique'),
+(30, '500.AI', 'Arts, lettres et communication - Langues'),
+(31, '500.AH', 'Arts, lettres et communication - Littérature, arts et cinéma'),
+(32, '700.BO', 'Histoire et civilisation'),
+(33, '200.BI', 'Sciences de la nature'),
+(34, '300.MO', 'Sciences humaines'),
+(35, '200.CI', 'Sciences informatiques et mathématiques'),
+(36, '700.AO', 'Sciences, lettres et arts'),
+(37, '300.MI', 'Sciences humaines avec préalables en mathématiques');
 
 -- --------------------------------------------------------
 
@@ -83,7 +118,13 @@ INSERT INTO `employeesatisfaction` (`idEm`, `satisfactionlevelEm`, `idEv`) VALUE
 (47, 2, 50),
 (48, 1, 50),
 (49, 2, 50),
-(50, 3, 50);
+(50, 3, 50),
+(51, 2, 54),
+(52, 2, 54),
+(53, 3, 54),
+(54, 3, 54),
+(55, 1, 54),
+(56, 1, 54);
 
 -- --------------------------------------------------------
 
@@ -108,8 +149,11 @@ CREATE TABLE `event` (
 
 INSERT INTO `event` (`idEv`, `nameEv`, `dateEv`, `timeEv`, `locationEv`, `employeurEv`, `descriptionEv`, `idUser`) VALUES
 (50, 'Danse', '2023-10-20', '17:50 ', 'SA2090', 'fds', 'das', 2),
-(51, 'das', '2023-10-27', '12:00', 'das', 'das', 'das', 2),
-(52, 'das', '2023-10-20', '17:40', 'das', 'das', 'das', 2);
+(53, 'fds', '2023-10-20', '18:50 ', 'fds', 'fds', 'fds', 2),
+(54, 'fds', '2023-10-13', '13:45', 'fsd', 'fds', 'fsd', 2),
+(55, 'fsd', '2023-10-06', '13:40', 'fsd', 'fsd', 'fsd', 2),
+(56, 'wwwww', '2023-10-14', '18:00', 'wwwww', 'w', 'w', 2),
+(57, 'soiree integration de la technique informatique', '2023-10-13', '12:00', 'trois-riviere', 'age', 'blah blah', 6);
 
 -- --------------------------------------------------------
 
@@ -129,8 +173,13 @@ CREATE TABLE `liason` (
 
 INSERT INTO `liason` (`id`, `idEv`, `idDpt`) VALUES
 (36, 50, 2),
-(37, 51, 1),
-(38, 52, 2);
+(39, 53, 1),
+(40, 53, 2),
+(41, 54, 1),
+(42, 54, 2),
+(43, 55, 1),
+(44, 56, 2),
+(45, 57, 2);
 
 -- --------------------------------------------------------
 
@@ -185,7 +234,62 @@ INSERT INTO `studentsatisfaction` (`idEt`, `satisfactionlevelEt`, `idEv`) VALUES
 (90, 1, 50),
 (91, 1, 50),
 (92, 2, 50),
-(93, 2, 50);
+(93, 2, 50),
+(94, 2, 53),
+(95, 2, 53),
+(96, 3, 53),
+(97, 3, 53),
+(98, 1, 53),
+(99, 1, 53),
+(100, 3, 53),
+(101, 3, 53),
+(102, 1, 53),
+(103, 2, 53),
+(104, 3, 53),
+(105, 1, 53),
+(106, 3, 53),
+(107, 2, 53),
+(108, 1, 54),
+(109, 1, 54),
+(110, 2, 54),
+(111, 2, 54),
+(112, 3, 54),
+(113, 3, 54),
+(114, 1, 55),
+(115, 1, 55),
+(116, 2, 55),
+(117, 2, 55),
+(118, 3, 55),
+(119, 3, 55),
+(120, 2, 53),
+(121, 2, 53),
+(122, 1, 53),
+(123, 1, 53),
+(124, 3, 53),
+(125, 3, 53),
+(126, 3, 53),
+(127, 3, 53),
+(128, 3, 53),
+(129, 3, 53),
+(130, 3, 53),
+(131, 3, 53),
+(132, 2, 55),
+(133, 2, 55),
+(134, 3, 55),
+(135, 3, 55),
+(136, 1, 55),
+(137, 1, 55),
+(138, 1, 55),
+(139, 1, 55),
+(140, 1, 55),
+(141, 1, 55),
+(142, 1, 55),
+(143, 3, 55),
+(144, 1, 55),
+(145, 1, 55),
+(146, 1, 50),
+(147, 1, 50),
+(148, 3, 50);
 
 -- --------------------------------------------------------
 
@@ -209,8 +313,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `image`, `lastname`, `firstname`, `poste`, `email`, `password`, `pin`) VALUES
-(2, 'https://pnganime.com/web/images/l/luffy-gear-5-colored.png', 'LUFFY', 'fds', 'fds', 'fsd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', 1234),
-(6, 'https://pnganime.com/web/images/l/luffy-gear-5-colored.png', 'aaaaaaaaaaaaaa', 'fds', 'fds', 'fsd@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1234);
+(2, 'https://pnganime.com/web/images/l/luffy-gear-5-colored.png', 'LUFFY', 'fds', 'fds', 'fsd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', 123466),
+(6, 'https://pnganime.com/web/images/l/luffy-gear-5-colored.png', 'aaaaaaaaaaaaaa', 'fds', 'fds', 'fsd@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 123466);
 
 --
 -- Index pour les tables exportées
@@ -265,27 +369,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `departement`
 --
 ALTER TABLE `departement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pour la table `employeesatisfaction`
 --
 ALTER TABLE `employeesatisfaction`
-  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idEm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `idEv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT pour la table `liason`
 --
 ALTER TABLE `liason`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT pour la table `studentsatisfaction`
 --
 ALTER TABLE `studentsatisfaction`
-  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `idEt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
