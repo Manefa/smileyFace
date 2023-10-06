@@ -4,6 +4,8 @@ if ($_SESSION['connexion'] == false) {
     header("Location: connexion.php");
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +21,7 @@ if ($_SESSION['connexion'] == false) {
 
 <body>
     <?php
-    $servername = "localhost";
+    /* $servername = "localhost";
     $username = "root";
     $password = "root";
     $db = "smileface";
@@ -30,7 +32,9 @@ if ($_SESSION['connexion'] == false) {
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    }
+    } */
+
+    require("../php/localserver.php");
 
     $idUser = $_SESSION['idUser'];
     $pinCode = "";

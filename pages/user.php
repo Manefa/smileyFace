@@ -109,7 +109,6 @@ require("../php/localserver.php"); ?>
                             <p class="card-text"><?php echo $poste ?></p>
                             <a href="../pages/modifierUser.php?id=<?php echo $idUser ?>" class="btn btn-warning mt-2">Modifier mon profil</a>
                             <a href="../pages/ajouterUser.php" class="btn btn-info mt-2">Ajouter un utilisateur</a>
-                            <a href="#" class="btn btn-primary mt-2">Ajouter un événement</a>
 
                         </div>
                     </div>

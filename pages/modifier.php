@@ -41,19 +41,19 @@ require("../php/localserver.php");
         $idDptLierEv = array();
         $nomsDepartementLier = array();
 
-        // Connexion à la base de données
+        /* // Connexion à la base de données
         $mysqli = new mysqli("localhost", "root", "root", "smileface");
 
         // Vérifier la connexion
-        if ($mysqli->connect_error) {
-            die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
+        if ($conn->connect_error) {
+            die("Échec de la connexion à la base de données : " . $conn->connect_error);
         }
-
+ */
         //var_dump($idEvGet);
 
         // Requête SQL pour récupérer tous les départements lier a un evenement dans la table liason
         $sqlDpt = "SELECT * FROM `liason` WHERE `idEv` = '$idEvGet'";
-        $resultDpt = $mysqli->query($sqlDpt);
+        $resultDpt = $conn->query($sqlDpt);
 
         while ($row = $resultDpt->fetch_assoc()) {
             $idDptLierEv[] = $row['idDpt'];
@@ -62,11 +62,11 @@ require("../php/localserver.php");
         foreach ($idDptLierEv as $dptId) {
             // Requête SQL pour récupérer le nom de l'événement en fonction de l'ID
             $sqlNomDpt = "SELECT Name FROM `departement` WHERE `id` = $dptId";
-            $resultNomDpt = $mysqli->query($sqlNomDpt);
+            $resultNomDpt = $conn->query($sqlNomDpt);
 
             // Vérifier si la requête a réussi
             if ($resultNomDpt === false) {
-                die("Erreur lors de la récupération du nom du departement : " . $mysqli->error);
+                die("Erreur lors de la récupération du nom du departement : " . $conn->error);
             }
 
             // recuperation du nom du departement
@@ -94,28 +94,27 @@ require("../php/localserver.php");
         // Convertir les données des départements sélectionnés en JSON
         $selectedDepartmentsJson = json_encode($nomsDepartementLier);
 
-
         // Requête SQL pour récupérer tous les départements
         $sql = "SELECT * FROM departement";
-        $result = $mysqli->query($sql);
+        $result = $conn->query($sql);
 
         // Requête SQL pour récupérer tous les départements
 
         $sqlEvent = "SELECT * FROM `event` WHERE `idEv` = $idEvGet";
-        $resultEvent = $mysqli->query($sqlEvent);
+        $resultEvent = $conn->query($sqlEvent);
 
         // Vérifier si la requête a réussi
         if ($result === false) {
-            die("Erreur lors de la récupération des départements : " . $mysqli->error);
+            die("Erreur lors de la récupération des départements : " . $conn->error);
         }
 
         // Vérifier si la requête a réussi
         if ($resultEvent === false) {
-            die("Erreur lors de la récupération de l'evenement : " . $mysqli->error);
+            die("Erreur lors de la récupération de l'evenement : " . $conn->error);
         }
 
         if ($resultDpt === false) {
-            die("Erreur lors de la récupération des partements lier a l'evenement : " . $mysqli->error);
+            die("Erreur lors de la récupération des partements lier a l'evenement : " . $conn->error);
         }
 
         // recuperation des ionformations de tous les departements dans un tuples
@@ -146,7 +145,7 @@ require("../php/localserver.php");
         }
 
         // Fermez la connexion à la base de données
-        $mysqli->close();
+  
     }
 
 
@@ -555,6 +554,7 @@ require("../php/localserver.php");
 
             
             $("#categorySelect").change(function() {
+                console.log("eee");
                 const selectedCategory = $(this).val();
                 if (selectedCategory.trim() !== "") {
                     
@@ -568,7 +568,7 @@ require("../php/localserver.php");
                 }
             });
 
-           <?php echo $selectedDepartmentsJson; ?>;
+           /*<?php //echo $selectedDepartmentsJson; ?>;*/
 
             preselectedDepartments.forEach(function(departement) {
                 

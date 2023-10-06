@@ -25,6 +25,7 @@ require("../php/localserver.php");
     <?php
 
 
+require("../php/localserver.php");
 
 
     /*     $servername = "localhost";
@@ -87,22 +88,20 @@ require("../php/localserver.php");
 
         $erreur = false;
 
-
-        // connexion a la base de donnees
-        $mysqli = new mysqli("localhost", "root", "root", "smileface");
+        require("../php/localserver.php");
 
         // verification de la connexion
-        if ($mysqli->connect_error) {
-            die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
+        if ($conn->connect_error) {
+            die("Échec de la connexion à la base de données : " . $conn->connect_error);
         }
 
         // requete pour recupererer tous les departements
         $sql = "SELECT * FROM departement";
-        $result = $mysqli->query($sql);
+        $result = $conn->query($sql);
 
         // verifier si la requete a fonctionner
         if ($result === false) {
-            die("Erreur lors de la récupération des départements : " . $mysqli->error);
+            die("Erreur lors de la récupération des départements : " . $conn->error);
         }
 
         // recuperation des departements
@@ -120,7 +119,7 @@ require("../php/localserver.php");
         // recuperation des informations de l'utilisateurs
 
         $sqlUser = "SELECT * FROM `user` WHERE `idUser` = $idUser";
-        $resultUser = $mysqli->query($sqlUser);
+        $resultUser = $conn->query($sqlUser);
 
         if ($resultUser->num_rows > 0) {
             while ($row = $resultUser->fetch_assoc()) {
@@ -138,7 +137,7 @@ require("../php/localserver.php");
         $pseudo = strtoupper(substr($firstname, 0, 1)) . strtoupper(substr($lastname, 0, 1));
 
         // fermeture de la connexion
-        $mysqli->close();
+        $conn->close();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -575,7 +574,7 @@ require("../php/localserver.php");
                         updateSelectedDepartements();
                         $(this).val("");
                     } else {
-                        alert("Cette departement est déjà sélectionnée.");
+                        alert("Ce departement est déjà sélectionnée.");
                     }
                 }
             });
